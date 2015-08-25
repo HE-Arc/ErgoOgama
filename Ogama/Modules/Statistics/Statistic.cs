@@ -233,7 +233,9 @@ namespace Ogama.Modules.Statistics
           {
             aoiGroup = "nowhere";
           }
-
+          //Console.WriteLine("name " + aoiName);
+          //Console.WriteLine("category " + aoiGroup);
+       
           string[] hittedAOI = { aoiName, aoiGroup };
           hittedAOIs.Add(hittedAOI);
         }
