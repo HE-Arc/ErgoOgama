@@ -1224,6 +1224,209 @@ namespace Ogama.Modules.Statistics
       this.btnMouseAddCustomVariable.Enabled = enable;
     }
 
+    ///// <summary>
+    ///// Iterates selected trials and calculates the transition table.
+    ///// </summary>
+    ///// <param name="worker">
+    ///// The <see cref="BackgroundWorker"/>
+    ///// </param>
+    ///// <param name="e">
+    ///// A <see cref="DoWorkEventArgs"/> with the event data.
+    ///// </param>
+    //private void FillTransitionsWithData(BackgroundWorker worker, DoWorkEventArgs e)
+    //{
+    //    DataTable aoiTable = Document.ActiveDocument.DocDataSet.AOIs;
+    //    var trialsAOIs = new DataView(aoiTable);
+    //    DataTable subjectsTable = Document.ActiveDocument.DocDataSet.SubjectsAdapter.GetData();
+    //    var trialAOIs = new VGElementCollection();
+    //    List<string> checkedSubjects = GetCheckedSubjects(this.trvTransitionsSubjects);
+
+    //    if (this.rdbTransitionUseAOIGroups.Checked)
+    //    {
+    //        int aoiGroupCount = this.aoiGroups.Count;
+    //        Array transitionMatrix = Array.CreateInstance(typeof(int), aoiGroupCount + 1, aoiGroupCount + 1);
+    //        var groupIndexAssignment = new Dictionary<string, int>();
+    //        groupIndexAssignment.Add("nowhere", 0);
+    //        for (int i = 0; i < aoiGroupCount; i++)
+    //        {
+    //            string aoiGroupEntry = this.aoiGroups[i];
+    //            groupIndexAssignment.Add(aoiGroupEntry, i + 1);
+    //        }
+
+    //        // Get selected trials
+    //        var trialIDs = new List<int>();
+
+    //        foreach (TreeNode categoryNode in this.trvTrialsAOI.Nodes)
+    //        {
+    //            foreach (TreeNode trialNode in categoryNode.Nodes)
+    //            {
+    //                if (trialNode.Checked)
+    //                {
+    //                    trialIDs.Add(Convert.ToInt32(trialNode.Name));
+    //                }
+    //            }
+    //        }
+
+    //        // Iterate selected subjects
+    //        foreach (DataRow subjectRow in subjectsTable.Rows)
+    //        {
+    //            string subjectName = subjectRow["SubjectName"].ToString();
+
+    //            if (checkedSubjects.Contains(subjectName))
+    //            {
+    //                DataView fixations = null;
+    //                if (this.btnEye.Checked)
+    //                {
+    //                    fixations =
+    //                      new DataView(Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetDataBySubject(subjectName));
+    //                }
+    //                else if (this.btnMouse.Checked)
+    //                {
+    //                    fixations =
+    //                      new DataView(Document.ActiveDocument.DocDataSet.MouseFixationsAdapter.GetDataBySubject(subjectName));
+    //                }
+
+    //                string foregoingHittedAOIGroup = string.Empty;
+    //                int foregoingTrialID = -1;
+
+    //                foreach (DataRowView fixationRow in fixations)
+    //                {
+    //                    var trialID = (int)fixationRow["TrialID"];
+    //                    if (!trialIDs.Contains(trialID))
+    //                    {
+    //                        continue;
+    //                    }
+
+    //                    if (trialID != foregoingTrialID)
+    //                    {
+    //                        trialsAOIs.RowFilter = "TrialID=" + trialID.ToString();
+    //                        foregoingTrialID = trialID;
+
+    //                        trialAOIs.Clear();
+    //                        foreach (DataRowView row in trialsAOIs)
+    //                        {
+    //                            string strPtList = row["ShapePts"].ToString();
+    //                            string aoiType = row["ShapeType"].ToString();
+    //                            string aoiName = row["ShapeName"].ToString();
+    //                            string shapeGroup = row["ShapeGroup"].ToString();
+    //                            VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);
+
+    //                            trialAOIs.Add(aoi);
+    //                        }
+    //                    }
+
+    //                    string hittedAOIName = string.Empty;
+    //                    string hittedAOIGroup = string.Empty;
+    //                    List<string[]> hittedAOIs = Statistic.FixationHitsAOI(trialAOIs, fixationRow);
+    //                    if (hittedAOIs.Count > 0)
+    //                    {
+    //                        // Take only first hitted AOI
+    //                        hittedAOIName = hittedAOIs[0][0];
+    //                        hittedAOIGroup = hittedAOIs[0][1];
+    //                    }
+
+    //                    if (foregoingHittedAOIGroup != string.Empty)
+    //                    {
+    //                        if (hittedAOIGroup == string.Empty)
+    //                        {
+    //                            hittedAOIGroup = "nowhere";
+    //                        }
+
+    //                        int indexOfHittedGroup = groupIndexAssignment[hittedAOIGroup];
+    //                        int indexOfForegoingGroup = groupIndexAssignment[foregoingHittedAOIGroup];
+    //                        var oldEntry = (int)transitionMatrix.GetValue(indexOfForegoingGroup, indexOfHittedGroup);
+    //                        int newEntry = oldEntry + 1;
+    //                        transitionMatrix.SetValue(newEntry, indexOfForegoingGroup, indexOfHittedGroup);
+    //                    }
+
+    //                    foregoingHittedAOIGroup = hittedAOIGroup;
+    //                }
+    //            }
+    //        }
+
+    //        // Write transitionMatrix to dgv
+    //        for (int i = transitionMatrix.GetLowerBound(0); i <= transitionMatrix.GetUpperBound(0); i++)
+    //        {
+    //            // Get a datagridview via asynchronous call.
+    //            DataGridViewRow newRow = this.GetTransitionsDataGridViewRow();
+    //            if (i > 0)
+    //            {
+    //                newRow.Cells[0].Value = this.aoiGroups[i - 1];
+    //            }
+    //            else
+    //            {
+    //                newRow.Cells[0].Value = "nowhere";
+    //            }
+
+    //            for (int j = transitionMatrix.GetLowerBound(1); j <= transitionMatrix.GetUpperBound(1); j++)
+    //            {
+    //                newRow.Cells[j + 1].Value = transitionMatrix.GetValue(i, j);
+    //            }
+    //        }
+    //    }
+    //    else if (this.rdbTransitionsUseTrial.Checked)
+    //    {
+    //        trialAOIs.Clear();
+    //        trialsAOIs.RowFilter = "TrialID=" + e.Argument;
+    //        foreach (DataRowView row in trialsAOIs)
+    //        {
+    //            string strPtList = row["ShapePts"].ToString();
+    //            string aoiType = row["ShapeType"].ToString();
+    //            string aoiName = row["ShapeName"].ToString();
+    //            string shapeGroup = row["ShapeGroup"].ToString();
+
+    //            VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);
+    //            trialAOIs.Add(aoi);
+    //        }
+
+    //        var gazeFixations =
+    //          new DataView(Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetDataByTrialID((int)e.Argument));
+    //        var mouseFixations =
+    //          new DataView(Document.ActiveDocument.DocDataSet.MouseFixationsAdapter.GetDataByTrialID((int)e.Argument));
+
+    //        string filterString = string.Empty;
+    //        foreach (string subject in checkedSubjects)
+    //        {
+    //            filterString += "(SubjectName='" + subject + "') OR ";
+    //        }
+
+    //        filterString = filterString.Substring(0, filterString.Length - 4);
+
+    //        gazeFixations.RowFilter = filterString;
+    //        mouseFixations.RowFilter = filterString;
+
+    //        Array transitionMatrix = null;
+    //        if (this.btnEye.Checked)
+    //        {
+    //            transitionMatrix = Statistic.CreateTransitionMatrixForSingleAOIs(gazeFixations, trialAOIs);
+    //        }
+    //        else if (this.btnMouse.Checked)
+    //        {
+    //            transitionMatrix = Statistic.CreateTransitionMatrixForSingleAOIs(mouseFixations, trialAOIs);
+    //        }
+
+    //        // Write transitionMatrix to dgv
+    //        for (int i = transitionMatrix.GetLowerBound(0); i <= transitionMatrix.GetUpperBound(0); i++)
+    //        {
+    //            // Get a datagridview via asynchronous call.
+    //            DataGridViewRow newRow = this.GetTransitionsDataGridViewRow();
+    //            if (i > 0)
+    //            {
+    //                newRow.Cells[0].Value = trialAOIs[i - 1].Name;
+    //            }
+    //            else
+    //            {
+    //                newRow.Cells[0].Value = "nowhere";
+    //            }
+
+    //            for (int j = transitionMatrix.GetLowerBound(1); j <= transitionMatrix.GetUpperBound(1); j++)
+    //            {
+    //                newRow.Cells[j + 1].Value = transitionMatrix.GetValue(i, j);
+    //            }
+    //        }
+    //    }
+    //}
+
     /// <summary>
     /// Iterates selected trials and calculates the transition table.
     /// </summary>
@@ -1310,6 +1513,7 @@ namespace Ogama.Modules.Statistics
                   string aoiName = row["ShapeName"].ToString();
                   string shapeGroup = row["ShapeGroup"].ToString();
                   VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);
+                  
                   trialAOIs.Add(aoi);
                 }
               }
@@ -1824,12 +2028,14 @@ namespace Ogama.Modules.Statistics
       if (!this.bgwCalculateTransitions.IsBusy)
       {
         // Clear Existing Rows and Columns
+        
         this.dgvTransitions.Rows.Clear();
         this.dgvTransitions.Columns.Clear();
         this.dgvTransitions.Columns.Add("AOIGroup", "AOI Group");
         this.dgvTransitions.Columns.Add("nowhere", "nowhere");
         if (this.rdbTransitionUseAOIGroups.Checked)
         {
+          
           foreach (string aoiGroup in this.aoiGroups)
           {
             this.dgvTransitions.Columns.Add(aoiGroup, aoiGroup);

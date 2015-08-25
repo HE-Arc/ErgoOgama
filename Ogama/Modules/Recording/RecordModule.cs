@@ -2932,5 +2932,10 @@ namespace Ogama.Modules.Recording
     }
 
     #endregion
+
+    private void txbGazetrackerIPStatus_TextChanged(object sender, EventArgs e)
+    {
+
+    }
   }
 }

@@ -168,7 +168,7 @@ namespace Ogama.Modules.Common.Tools
     /* DATA ON NEW FIXATION                     */
 
     /// <summary>
-    /// Time in ms the fixation has startet
+    /// Time in ms the fixation has started
     /// </summary>
     private long newFixStartTime;
 
