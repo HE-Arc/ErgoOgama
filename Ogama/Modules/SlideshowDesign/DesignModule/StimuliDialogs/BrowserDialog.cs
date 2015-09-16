@@ -160,6 +160,9 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
       return filename;
     }
 
+
+
+    //HE-Arc
     /// <summary>
     /// Reformats the url into a filename with max length of 100.
     /// </summary>
@@ -167,39 +170,106 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
     /// <returns>A <see cref="String"/> with the converted url</returns>
     public static string FilenameFromTitle(string url)
     {
-      // first trim the raw string
-      var safe = url.Trim();
+        // first trim the raw string
+        var safe = url.Trim();
 
-      safe = safe.Replace("http://", string.Empty);
+        safe = safe.Replace("http://", string.Empty);
 
-      // replace spaces with hyphens
-      safe = safe.Replace(" ", "-").ToLower();
+        // replace spaces with hyphens
+        safe = safe.Replace(" ", "-").ToLower();        
 
-      // replace any 'double spaces' with singles
-      if (safe.IndexOf("--", StringComparison.Ordinal) > -1)
-      {
-        while (safe.IndexOf("--", StringComparison.Ordinal) > -1)
+        // replace any 'double spaces' with singles
+        if (safe.IndexOf("--", StringComparison.Ordinal) > -1)
         {
-          safe = safe.Replace("--", "-");
+            while (safe.IndexOf("--", StringComparison.Ordinal) > -1)
+            {
+                safe = safe.Replace("--", "-");
+            }
         }
-      }
+        //for the swisse creative center site only www.swisscreativecenter.ch/
+        //replace url=scc-network.ch with swisscreativecenter.ch
+        string toBeReplace = "scc-network.ch";
+        string sccSite="swisscreativecenter.ch";
 
-      // trim out illegal characters
-      safe = Regex.Replace(safe, "[^a-z0-9\\-]", string.Empty);
+        if (safe.Contains(toBeReplace))
+        {
+            Console.Out.WriteLine("original "+safe);
+            string newsafe=safe.Replace(toBeReplace, sccSite);
+            safe = newsafe;
+            Console.Out.WriteLine("modif " + safe);
+        }     
+        
+        //delete anchors from a site name
+        if(safe.Contains("#"))
+        {
+            Console.Out.WriteLine("original anchor" + safe);
+            int diezeIndex= safe.IndexOf("#", StringComparison.Ordinal);
+            safe = safe.Remove(diezeIndex);
+            Console.Out.WriteLine("modif anchor " + safe);
+        }
 
-      // trim the length
-      if (safe.Length > 100)
-      {
-        safe = safe.Substring(0, 100);
-      }
+        // trim out illegal characters
+        safe = Regex.Replace(safe, "[^a-z0-9\\-]", string.Empty);
 
-      // clean the beginning and end of the filename
-      char[] replace = { '-', '.' };
-      safe = safe.TrimStart(replace);
-      safe = safe.TrimEnd(replace);
+        // trim the length
+        if (safe.Length > 100)
+        {
+            safe = safe.Substring(0, 100);
+        }
 
-      return safe;
+        // clean the beginning and end of the filename
+        char[] replace = { '-', '.' };
+        safe = safe.TrimStart(replace);
+        safe = safe.TrimEnd(replace);
+
+        Console.Out.WriteLine("return="+safe);
+        return safe;
     }
+
+
+
+
+    //ORIGINAL METHODE
+    ///// <summary>
+    ///// Reformats the url into a filename with max length of 100.
+    ///// </summary>
+    ///// <param name="url">The url to be converted</param>
+    ///// <returns>A <see cref="String"/> with the converted url</returns>
+    //public static string FilenameFromTitle(string url)
+    //{
+    //  // first trim the raw string
+    //  var safe = url.Trim();
+
+    //  safe = safe.Replace("http://", string.Empty);
+
+    //  // replace spaces with hyphens
+    //  safe = safe.Replace(" ", "-").ToLower();
+
+    //  // replace any 'double spaces' with singles
+    //  if (safe.IndexOf("--", StringComparison.Ordinal) > -1)
+    //  {
+    //    while (safe.IndexOf("--", StringComparison.Ordinal) > -1)
+    //    {
+    //      safe = safe.Replace("--", "-");
+    //    }
+    //  }
+
+    //  // trim out illegal characters
+    //  safe = Regex.Replace(safe, "[^a-z0-9\\-]", string.Empty);
+
+    //  // trim the length
+    //  if (safe.Length > 100)
+    //  {
+    //    safe = safe.Substring(0, 100);
+    //  }
+
+    //  // clean the beginning and end of the filename
+    //  char[] replace = { '-', '.' };
+    //  safe = safe.TrimStart(replace);
+    //  safe = safe.TrimEnd(replace);
+
+    //  return safe;
+    //}
 
     #endregion //PUBLICMETHODS
 

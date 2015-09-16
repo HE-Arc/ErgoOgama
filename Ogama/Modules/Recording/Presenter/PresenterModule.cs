@@ -2249,7 +2249,9 @@ namespace Ogama.Modules.Recording.Presenter
 
           // Make screenshot of newly navigated web page in 
           // separate thread, if it is not already there.
-          var screenshotFilename = BrowserDialog.GetFilenameFromUrl(e.Url);
+
+           
+            var screenshotFilename = BrowserDialog.GetFilenameFromUrl(e.Url);
 
           // WebsiteScreenshot.Instance.ScreenshotFilename = screenshotFilename;
           if (!this.currentBrowserTreeNode.UrlToID.ContainsKey(screenshotFilename))

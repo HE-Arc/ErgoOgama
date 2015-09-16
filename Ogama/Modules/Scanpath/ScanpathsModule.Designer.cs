@@ -438,7 +438,7 @@ namespace Ogama.Modules.Scanpath
             this.btnHelp});
             this.tosTrialSelection.Location = global::Ogama.Properties.Settings.Default.SCAStimuliToolbarLocation;
             this.tosTrialSelection.Name = "tosTrialSelection";
-            this.tosTrialSelection.Size = new System.Drawing.Size(425, 25);
+            this.tosTrialSelection.Size = new System.Drawing.Size(347, 25);
             this.tosTrialSelection.TabIndex = 0;
             // 
             // cbbTrial
@@ -565,7 +565,7 @@ namespace Ogama.Modules.Scanpath
             this.nudGazeFixDiameterDiv});
             this.tosGazeDisplay.Location = global::Ogama.Properties.Settings.Default.SCAGazeToolbarLocation;
             this.tosGazeDisplay.Name = "tosGazeDisplay";
-            this.tosGazeDisplay.Size = new System.Drawing.Size(368, 26);
+            this.tosGazeDisplay.Size = new System.Drawing.Size(399, 26);
             this.tosGazeDisplay.TabIndex = 4;
             // 
             // toolStripButton3

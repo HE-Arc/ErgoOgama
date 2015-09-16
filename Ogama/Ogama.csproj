@@ -1875,7 +1875,6 @@
     </Content>
     <None Include="Resources\SMILogo.gif" />
     <None Include="Resources\OgamaV3.ico" />
-    <None Include="Resources\StartUpSplash.png" />
     <None Include="Resources\ITUBanner.png" />
     <None Include="Resources\Globe32.png" />
     <None Include="Resources\ASLBanner.gif" />
@@ -1936,6 +1935,7 @@
     <Content Include="Resources\SmartEyeLogo.png" />
     <Content Include="Resources\SQLite32.png" />
     <Content Include="Resources\SQLServer32.png" />
+    <None Include="Resources\StartUpSplash.png" />
     <Content Include="SaliencyCalculation\cygblas.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

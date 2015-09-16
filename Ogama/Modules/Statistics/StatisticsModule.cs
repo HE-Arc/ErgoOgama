@@ -1499,7 +1499,7 @@ namespace Ogama.Modules.Statistics
                 foreach (DataRowView fixationRow in fixations)
                 {
                     var trialID = (int)fixationRow["TrialID"];
-                    //Console.WriteLine("trail id " + trialID);
+                    Console.WriteLine("trail id " + trialID);
                     //Meeee
                     var fixationStartTime=Convert.ToInt32(fixationRow["StartTime"]);   
                     if (!trialIDs.Contains(trialID))
@@ -1510,7 +1510,6 @@ namespace Ogama.Modules.Statistics
                     {
                         trialsAOIs.RowFilter = "TrialID=" + trialID.ToString();
                         foregoingTrialID = trialID;
-
                         trialAOIs.Clear();
                         foreach (DataRowView row in trialsAOIs)
                         {
@@ -1522,17 +1521,20 @@ namespace Ogama.Modules.Statistics
                             trialAOIs.Add(aoi);
                         }
                     }                
-                    List<string[]> hittedAOIs = Statistic.FixationHitsAOI(trialAOIs, fixationRow);               
+                    List<string[]> hittedAOIs = Statistic.FixationHitsAOI(trialAOIs, fixationRow);              
                     //Meee
                     foreach(string[] hittedAOIParTrail in hittedAOIs)
                     {
+                        Console.WriteLine("path aoi test " + hittedAOIParTrail[0]);
+                        Console.WriteLine("path actegory aoi test " + hittedAOIParTrail[1]);      
                         listAllHittedAoisParUser.Add(hittedAOIParTrail);
                         pathAoi += hittedAOIParTrail[0] + "->";
                         pathCategoryAoi += hittedAOIParTrail[1] + "->";
+
                     }                  
                  }
                  Console.WriteLine("path aoi " + pathAoi);
-                 Console.WriteLine("path actegory aoi " + pathCategoryAoi);                    
+                 Console.WriteLine("path category aoi " + pathCategoryAoi);                    
                  resultPath.Add(new string[]{ pathAoi , pathCategoryAoi});                
               }               
         }       
@@ -1540,12 +1542,15 @@ namespace Ogama.Modules.Statistics
         {
             DataGridViewRow newRow = this.GetTransitionsDataGridViewRow();
             newRow.Cells[0].Value = checkedSubjects[i];
-            if (subjectsCheckedCount==1)
-                for (int j = 0; j < subjectsCheckedCount+1; j++ )
-                    newRow.Cells[j + 1].Value = resultPath[i][j];
-            else
-                for (int j = 0; j < subjectsCheckedCount; j++)
-                    newRow.Cells[j + 1].Value = resultPath[i][j];
+            //if (subjectsCheckedCount==1)
+            //    for (int j = 0; j < 2+1; j++ )
+            //        newRow.Cells[j + 1].Value = resultPath[i][j];
+            //else
+            //    for (int j = 0; j < 2; j++)
+            //        newRow.Cells[j + 1].Value = resultPath[i][j];
+
+            for(int k=0; k<2; k++)
+                newRow.Cells[k + 1].Value = resultPath[i][k];
         }
 
       }
@@ -2013,7 +2018,7 @@ namespace Ogama.Modules.Statistics
         
         this.dgvTransitions.Rows.Clear();
         this.dgvTransitions.Columns.Clear();
-        this.dgvTransitions.Columns.Add("Subjects", "AOI");
+        this.dgvTransitions.Columns.Add("Subjects", "Subjects");
         //this.dgvTransitions.Columns.Add("nowhere", "nowhere");
         if (this.rdbTransitionUseAOIGroups.Checked)
         {
@@ -2025,8 +2030,8 @@ namespace Ogama.Modules.Statistics
             //    string aoiName = aoiRow["ShapeName"].ToString();
             //    this.dgvTransitions.Columns.Add(aoiName, aoiName);
             //}
-            this.dgvTransitions.Columns.Add("User fixations path/AOI", "User fixation path/AOI");
-            this.dgvTransitions.Columns.Add("User fixation path/AOI Category", "User fixation path/AOI Category");
+            this.dgvTransitions.Columns.Add("User fixations path", "User fixation path(AOI sequence)");
+            this.dgvTransitions.Columns.Add("User fixation path/AOI Category", "User fixation path(AOI Category sequence)");
 
         }
         else if (this.rdbTransitionsUseTrial.Checked)

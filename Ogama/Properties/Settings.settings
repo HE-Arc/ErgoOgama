@@ -81,7 +81,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="GazeFixationsPenColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Yellow</Value>
+      <Value Profile="(Default)">OrangeRed</Value>
     </Setting>
     <Setting Name="GazeFixationsPenStyle" Type="System.Drawing.Drawing2D.DashStyle" Scope="User">
       <Value Profile="(Default)">Solid</Value>

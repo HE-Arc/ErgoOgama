@@ -1,0 +1,1219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DmoBase</name>
+    </assembly>
+    <members>
+        <member name="T:DmoBase.IMediaObjectImpl">
+            <summary>
+            This abstract class can be used to implement a DMO in .NET.
+            </summary>
+            <remarks>
+            <para>Before attempting to use this class, read the MSDN docs on DMOs!  In 
+            particular read about IMediaObject, IMediaParamInfo, IMediaParams, 
+            and the DMO Wrapper Filter (if you are using DirectShow graphs).</para>
+            <para>When you read the MSDN docs about creating a DMO, they refer to a template that
+            you can use to make things easier.  That template served as the inspiration for this 
+            class.  To create a DMO, you can just create a class that implements this abstract class, 
+            write code for the abstract methods, and you should be good to go.</para>
+            <para>Here is a more detailed description of the steps you need to take.  Note that you can
+            look at the sample code for examples of these steps.</para>
+            <para>1) Other than ripping out the rather lame logging, you shouldn't need to change
+            any code in IMediaObjectImpl.cs.  It is the initial entry point for all the
+            IMediaObject interfaces.  It performs parameter checking, makes sure the call
+            is appropriate for the current state, etc.  As needed it will make calls to the
+            abstract and virtual methods of the class.</para>
+            <para>2) Create a class which implements the abstract IMediaObjectImpl class:</para>
+            <code>
+                [ComVisible(true), Guid("7EF28FD7-E88F-45bb-9CDD-8A62956F2D75"),
+                ClassInterface(ClassInterfaceType.None)]
+                public class DmoFlip : IMediaObjectImpl
+            </code>
+            <para>3) Generate your own guid so the samples won't interfere with your code:
+            If you are running Dev Studio, go to Tools/Create Guid, choose "Registry 
+            Format", click "Copy", then paste into your code.</para>
+            <para>4) Create the constructor for your class.  It must not take any parameters:</para>
+            <code>
+               public DmoFlip() : base(InputPinCount, OutputPinCount, ParamCount, TimeFormatFlags.Reference)
+            </code>
+            <para>If you are planning to use this DMO with the DirectShow DMO Wrapper Filter, note 
+            that (up to and including DX v9.0) InputPinCount must be 1, and OutputPinCount must 
+            be &gt; 0.  The ParamCount is the number of parameters your DMO supports, and can be zero.  
+            In general, you should use TimeFormatFlags.Reference for the last paramter.</para>
+            <para>5) Register the parameters your DMO supports using <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/>.  
+            This must be done in the constructor (unless you have no parameters).  Doing this allows you to support 
+            IMediaParamInfo and IMediaParams.  You will also need to use <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/> 
+            to find out what parameter value you should use at any given point during the stream.  
+            See the docs for these two methods for details.</para>
+            <para>6) Create the COM register/unregister methods:</para>
+            <code>
+                [ComRegisterFunctionAttribute]
+                static private void DoRegister(Type t)
+                [ComUnregisterFunctionAttribute]
+                static private void UnregisterFunction(Type t)
+            </code>
+            <para>These tell the OS about your DMO.  If you are distributing your code, you 
+            will need to make sure they get called during installation (read about RegAsm 
+            in the .NET docs).  At a minimum, you will need to call DMORegister to register
+            your DMO.  See the sample for how this is done.</para>
+            <para><b>WARNING:</b> If you use the "Register for COM Interop" compiler switch, the
+            compiler will attempt to register DirectShowLib.dll as well as your DMO.
+            Since DirectShowLib has no registration to perform, this generates an error.
+            That is why the sample uses pre/post build events to perform the registration.  You
+            may need to adjust this command for your particular installation.</para>
+            <para>7) Do everything else.  There are 7 abstract methods for which you must 
+            write code.  These methods are listed in the IMediaObjectImpl Methods page in 
+            the <b>Protected Instance Methods</b> section. These methods will contain the information 
+            specific to your DMO, and describe what type of data you are willing to process, and 
+            perform the actual processing.  Note that since the abstract class has verified the 
+            parameters, you do not need to re-check them in your implementation.  See the 
+            descriptions for each method and the sample for details about what each of these 
+            methods must do.</para>
+            <para>You may also need to override some of the 11 virtual methods if their default
+            implementation doesn't match your specific needs.  See the documentation for each of 
+            these specific methods for details.</para>
+            <hr></hr>
+            <para>If you aren't already knowledgeable about COM and writing multi-threaded apps, 
+            this is probably a good time to do a little research.  You may have multiple 
+            instances of your DMO running in the same process, in multiple processes, 
+            called on different threads, etc.</para>
+            <para>As a simple example of the things you should be thinking of, the logging in 
+            (debug builds of) IMediaObjectImpl.cs opens the file as non-sharable.
+            However, if two applications try to instantiate your DMO, the second will fail, 
+            solely due to not being able to open the log file.  Probably not the desired 
+            behavior (told you the logging was lame).</para>
+            </remarks>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.ALLPARAMS">
+            <summary>
+            Used in IMediaParams to specify that an envelope change should
+            be applied to all parameters.
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.SOK">
+            <summary>
+            COM return code indicating success
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.SFALSE">
+            <summary>
+            COM return code indicating partial success
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.ENOTIMPL">
+            <summary>
+            COM return code indicating method not supported
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.EPOINTER">
+            <summary>
+            COM return code indicating invalid pointer provided
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.EINVALIDARG">
+            <summary>
+            COM return code indicating invalid argument specified
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.EUNEXPECTED">
+            <summary>
+            COM return code indicating a method called at an unexpected time
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.instanceCount">
+            <summary>
+            Keeps a count of the number of instances of this class have
+            been instantiated.  Only used by logging.
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.inputInfo">
+            <summary>
+            Status info about the input pins
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.outputInfo">
+            <summary>
+            Status info about the output pins
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.typesSet">
+            <summary>
+            Have the types been set for all the input/output pins
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.flushed">
+            <summary>
+            All buffers are empty
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.resourcesAllocated">
+            <summary>
+            Has AllocateStreamingResources been successfully been called
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.numInputs">
+            <summary>
+            Count of the input pins
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.numOutputs">
+            <summary>
+            Count of the output pins
+            </summary>
+        </member>
+        <member name="F:DmoBase.IMediaObjectImpl.paramsClass">
+            <summary>
+            Struct to support IMediaParamInfo and IMediaParams
+            </summary>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.#ctor(System.Int32,System.Int32,System.Int32,DmoBase.TimeFormatFlags)">
+            <summary>
+            Initializes a new instance of the IMediaObjectImpl class.
+            </summary>
+            <param name="inputs">Number of input streams</param>
+            <param name="outputs">Number of output streams</param>
+            <param name="numberOfParameters">Number of parameters</param>
+            <param name="timeFormats">What time formats the parameters support</param>
+            <remarks>
+            This constructor will be called from the constructor of the class that implements 
+            IMediaObjectImpl. See <see cref="T:DmoBase.IMediaObjectImpl"/> for a step by step description 
+            of the process.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.Finalize">
+            <summary>
+            Finalizes an instance of the IMediaObjectImpl class
+            </summary>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetStreamCount(System.Int32@,System.Int32@)">
+            <summary>
+            COM entry point for IMediaObject.GetStreamCount
+            </summary>
+            <param name="pulNumberOfInputStreams">Out. Number of input streams.</param>
+            <param name="pulNumberOfOutputStreams">Out. Number of output streams.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputStreamInfo(System.Int32,DirectShowLib.DMO.DMOInputStreamInfo@)">
+            <summary>
+            COM entry point for IMediaObject.GetInputStreamInfo
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="pflags">A <see cref="T:DirectShowLib.DMO.DMOInputStreamInfo"/>
+            with the stream flags.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetOutputStreamInfo(System.Int32,DirectShowLib.DMO.DMOOutputStreamInfo@)">
+            <summary>
+            COM entry point for IMediaObject.GetOutputStreamInfo
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="pflags">A <see cref="T:DirectShowLib.DMO.DMOInputStreamInfo"/>
+            with the stream flags.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputType(System.Int32,System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            COM entry point for IMediaObject.GetInputType
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="typeIndex">The index of the type</param>
+            <param name="pmt">A <see cref="T:DirectShowLib.AMMediaType"/> value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetOutputType(System.Int32,System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            COM entry point for IMediaObject.GetOutputType
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="typeIndex">The index of the type</param>
+            <param name="pmt">A <see cref="T:DirectShowLib.AMMediaType"/> value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputCurrentType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            COM entry point for IMediaObject.GetInputCurrentType
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="pmt">A <see cref="T:DirectShowLib.AMMediaType"/> value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetOutputCurrentType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            COM entry point for IMediaObject.GetOutputCurrentType
+            </summary>
+            <param name="streamIndex">The index of the stream.</param>
+            <param name="pmt">A <see cref="T:DirectShowLib.AMMediaType"/> value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputSizeInfo(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            COM entry point for IMediaObject.GetInputSizeInfo
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="pulSize">Out. Pointer to a variable that receives the minimum size of an input buffer for this stream, in bytes.</param>
+            <param name="pcbMaxLookahead">Out. Pointer to a variable
+            that receives the maximum amount of data that the DMO 
+            will hold for lookahead, in bytes. If the DMO does not 
+            perform lookahead on the stream, the value is zero.</param>
+            <param name="pulAlignment">Out. Pointer to a variable 
+            that receives the required buffer alignment, in bytes. 
+            If the input stream has no alignment requirement, the value is 1.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetOutputSizeInfo(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            COM entry point for IMediaObject.GetOutputSizeInfo
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="pulSize">Out. Pointer to a variable that receives the minimum size of an input buffer for this stream, in bytes.</param>
+            <param name="pulAlignment">Out. Pointer to a variable 
+            that receives the required buffer alignment, in bytes. 
+            If the input stream has no alignment requirement, the value is 1.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.SetInputType(System.Int32,DirectShowLib.AMMediaType,DirectShowLib.DMO.DMOSetType)">
+            <summary>
+            COM entry point for IMediaObject.SetInputType
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="pmt">Pointer to a <see cref="T:DirectShowLib.AMMediaType"/> structure that 
+            specifies the media type.</param>
+            <param name="flags">Bitwise combination of zero or more flags 
+            from the DMO_SET_TYPE_FLAGS enumeration.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.SetOutputType(System.Int32,DirectShowLib.AMMediaType,DirectShowLib.DMO.DMOSetType)">
+            <summary>
+            COM entry point for IMediaObject.SetOutputType
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="pmt">Pointer to a <see cref="T:DirectShowLib.AMMediaType"/> structure that 
+            specifies the media type.</param>
+            <param name="flags">Bitwise combination of zero or more flags 
+            from the DMO_SET_TYPE_FLAGS enumeration.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputStatus(System.Int32,DirectShowLib.DMO.DMOInputStatusFlags@)">
+            <summary>
+            COM entry point for IMediaObject.GetInputStatus
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="pdwStatus">Out. Pointer to a variable that 
+            receives either zero or DMO_INPUT_STATUSF_ACCEPT_DATA.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetInputMaxLatency(System.Int32,System.Int64@)">
+            <summary>
+            COM entry point for IMediaObject.GetInputMaxLatency
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="platency">Out. Pointer to a variable that receives the maximum latency</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.SetInputMaxLatency(System.Int32,System.Int64)">
+            <summary>
+            COM entry point for IMediaObject.SetInputMaxLatency
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="latency">Pointer to a variable that receives the maximum latency</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.Discontinuity(System.Int32)">
+            <summary>
+            COM entry point for IMediaObject.Discontinuity
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.Flush">
+            <summary>
+            COM entry point for IMediaObject.Flush
+            </summary>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.AllocateStreamingResources">
+            <summary>
+            COM entry point for IMediaObject.AllocateStreamingResources
+            </summary>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.FreeStreamingResources">
+            <summary>
+            COM entry point for IMediaObject.FreeStreamingResources
+            </summary>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.ProcessInput(System.Int32,DirectShowLib.DMO.IMediaBuffer,DirectShowLib.DMO.DMOInputDataBuffer,System.Int64,System.Int64)">
+            <summary>
+            COM entry point for IMediaObject.ProcessInput
+            </summary>
+            <param name="streamIndex">Zero-based index of an input stream on the DMO.</param>
+            <param name="bufferVal">Pointer to the buffer's IMediaBuffer interface.</param>
+            <param name="flags">Bitwise combination of zero or 
+            more flags from the DMO_INPUT_DATA_BUFFER_FLAGS enumeration.</param>
+            <param name="timestamp">Time stamp that 
+            specifies the start time of the data in the buffer. 
+            If the buffer has a valid time stamp, set the DMO_INPUT_DATA_BUFFERF_TIME 
+            flag in the flags parameter. Otherwise, the DMO ignores this value.</param>
+            <param name="timelength">Reference time specifying the duration 
+            of the data in the buffer. If this value is valid, set 
+            the DMO_INPUT_DATA_BUFFERF_TIMELENGTH flag in the flags
+            parameter. Otherwise, the DMO ignores this value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.ProcessOutput(DirectShowLib.DMO.DMOProcessOutput,System.Int32,DirectShowLib.DMO.DMOOutputDataBuffer[],System.Int32@)">
+            <summary>
+            COM entry point for IMediaObject.ProcessOutput
+            </summary>
+            <param name="flags">Bitwise combination of zero
+            or more flags from the DMO_PROCESS_OUTPUT_FLAGS enumeration.</param>
+            <param name="outputBufferCount">Number of output buffers.</param>
+            <param name="outputBuffers">Pointer to an array of DMO_OUTPUT_DATA_BUFFER 
+            structures containing the output buffers. 
+            Specify the size of the array in the cOutputBufferCount parameter.</param>
+            <param name="pdwStatus">Out. Pointer to a variable that
+            receives a reserved value (zero). The application should ignore this value.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.Lock(System.Boolean)">
+            <summary>
+            COM entry point for IMediaObject.Lock
+            </summary>
+            <param name="lockValue">Value that specifies whether to acquire 
+            or release the lock. If the value is non-zero, 
+            a lock is acquired. If the value is zero, the lock is released.</param>
+            <returns>A HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  It will call the
+            abstract and virtual methods to perform its work.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetParamCount(System.Int32@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetParamCount
+            </summary>
+            <param name="pdwParams">[out] Pointer to a variable that receives the number of parameters.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetSupportedTimeFormat(System.Int32,System.Guid@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetSupportedTimeFormat
+            </summary>
+            <param name="formatIndex">[in] Index of the time format to retrieve.</param>
+            <param name="pguidTimeFormat">[out] Pointer to a variable that 
+            receives a time format GUID</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetParamInfo(System.Int32,DirectShowLib.DMO.ParamInfo@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetParamInfo
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter.</param>
+            <param name="info">[out] Pointer to an <see cref="T:DirectShowLib.DMO.ParamInfo"/> structure
+            that is filled with the parameter information.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetCurrentTimeFormat(System.Guid@,System.Int32@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetCurrentTimeFormat
+            </summary>
+            <param name="pguidTimeFormat">[out] Pointer to a variable that receives a time format GUID.</param>
+            <param name="timeData">[out] Pointer to a variable that receives 
+            an MP_TIMEDATA value specifying the unit of measure for the new format.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetParamText(System.Int32,System.IntPtr@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetParamText
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter.</param>
+            <param name="ppwchText">[out] Address of a variable that 
+            receives a pointer to a series of Unicode™ strings.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetNumTimeFormats(System.Int32@)">
+            <summary>
+            COM entry point for IMediaParamInfo.GetNumTimeFormats
+            </summary>
+            <param name="pdwNumTimeFormats">[out] Pointer to a variable that 
+            receives the number of supported time formats.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.SetTimeFormat(System.Guid,System.Int32)">
+            <summary>
+            COM entry point for IMediaParams.SetTimeFormat
+            </summary>
+            <param name="guidTimeFormat">[in] Time format GUID that specifies the time format.</param>
+            <param name="timedata">[in] Value of type MP_TIMEDATA that 
+            specifies the unit of measure for the new format.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.SetParam(System.Int32,DirectShowLib.DMO.MPData)">
+            <summary>
+            COM entry point for IMediaParams.SetParam
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter, 
+            or DWORD_ALLPARAMS to apply the value to every parameter.</param>
+            <param name="value">[in] New value of the parameter.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.AddEnvelope(System.Int32,System.Int32,DirectShowLib.DMO.MPEnvelopeSegment[])">
+            <summary>
+            COM entry point for IMediaParams.AddEnvelope
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter, 
+            or DWORD_ALLPARAMS to apply the value to every parameter.</param>
+            <param name="segments">[in] Number of segments in the envelope.</param>
+            <param name="envelopeSegments">[in] Pointer to an array 
+            of <see cref="T:DirectShowLib.DMO.MPEnvelopeSegment"/> structures that define the 
+            envelope segments. The size of the array is given in the cPoints parameter.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.GetParam(System.Int32,DirectShowLib.DMO.MPData@)">
+            <summary>
+            COM entry point for IMediaParams.GetParam
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter, 
+            or DWORD_ALLPARAMS to apply the value to every parameter.</param>
+            <param name="dataValue">[out] Pointer to a variable of type
+            MPData that receives the parameter value.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.FlushEnvelope(System.Int32,System.Int64,System.Int64)">
+            <summary>
+            COM entry point for IMediaParams.FlushEnvelope
+            </summary>
+            <param name="paramIndex">[in] Zero-based index of the parameter,
+            or DWORD_ALLPARAMS to flush envelope data from every parameter.</param>
+            <param name="refTimeStart">[in] Start time of the envelope data to flush.</param>
+            <param name="refTimeEnd">[in] End time of the envelope data to flush.</param>
+            <returns>Returns an HRESULT value.</returns>
+            <remarks>
+            There should be no need to modify or override this method.  See 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)"/> and <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/>
+            for details about how this works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.MoCloneMediaType(DirectShowLib.AMMediaType)">
+            <summary>
+            Make a clone of a media type
+            </summary>
+            <param name="pmt1">The AMMediaType to clone</param>
+            <returns>Returns the clone</returns>
+            <remarks>
+            Note that like all AMMediaTypes, the clone must be released
+            with DsUtils.FreeAMMediaType when it is no longer needed.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.TypesMatch(DirectShowLib.AMMediaType,DirectShowLib.AMMediaType)">
+            <summary>
+            Check to see if two Media Types are exactly the same
+            </summary>
+            <param name="pmt1">First Media type to compare</param>
+            <param name="pmt2">Second Media type to compare</param>
+            <returns>true if types are identical, else false</returns>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalCheckInputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            (Abstract) Determine whether the input stream supports a specific media type
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="pmt">The media type to check</param>
+            <returns>S_OK if the specified stream supports the specified media type, 
+            else DMOResults.E_InvalidType</returns>
+            <remarks>
+            This method is called by the abstract class.  The implementor should check the
+            properties of the AMMediaType to ensure that if a sample of the specified type
+            is sent, it will be able to process it.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalCheckOutputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            (Abstract) Determine whether the output stream supports a specific media type
+            </summary>
+            <param name="outputStreamIndex">Output stream number</param>
+            <param name="pmt">The media type to check</param>
+            <returns>S_OK if the specified stream supports the specified media type, 
+            else DMOResults.E_InvalidType</returns>
+            <remarks>
+            This method is called by the abstract class.  The implementor should check the
+            properties of the AMMediaType to ensure that if requested, it can produce an
+            output sample of the specified type.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetOutputSizeInfo(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            (Abstract) Determine the requirements for the output stream
+            </summary>
+            <param name="outputStreamIndex">Output stream number</param>
+            <param name="pcbSize">The minimum size of an output buffer for this stream, in bytes</param>
+            <param name="pcbAlignment">The required buffer alignment, in bytes. If the output stream 
+            has no alignment requirement, the value is 1.</param>
+            <returns>S_OK to indicate successful operation.</returns>
+            <remarks>
+            This method is called by the abstract class.  You should never return zero for the alignment.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalFlush">
+            <summary>
+            (Abstract) Called to flush all pending processing
+            </summary>
+            <returns>S_OK to indicate successful operation</returns>
+            <remarks>
+            This method is called by the abstract class.  In response, the implementor should discard
+            any pending input buffers.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalProcessInput(System.Int32,DirectShowLib.DMO.IMediaBuffer,DirectShowLib.DMO.DMOInputDataBuffer,System.Int64,System.Int64)">
+            <summary>
+            (Abstract) Accept input buffers to be processed
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="bufferVal">Input buffer to process</param>
+            <param name="flags">Processing flags</param>
+            <param name="timestamp">Timestamp of sample(s)</param>
+            <param name="timelength">Length of sample(s)</param>
+            <returns>S_OK if the operation completes successfully, S_FALSE if there
+            is no input to process.</returns>
+            <remarks>
+            This method is called by the abstract class.  It passes the actual data to be process to the 
+            implementor.  Commonly, the implementor stores these values, waiting for the call to 
+            InternalProcessOutput (which contains the buffers into which the results are to be stored), at
+            which point they are released.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalProcessOutput(DirectShowLib.DMO.DMOProcessOutput,System.Int32,DirectShowLib.DMO.DMOOutputDataBuffer[],System.Int32@)">
+            <summary>
+            (Abstract) Process the input buffers from a previous call to InternalProcessInput into the provided output buffers
+            </summary>
+            <param name="flags">Flags controlling the operation</param>
+            <param name="outputBufferCount">The number of buffers provided (one per output stream)</param>
+            <param name="outputBuffers">The output buffer into which the data is processed</param>
+            <param name="pdwStatus">Zero output</param>
+            <returns>S_FALSE if there is no output, S_OK for successful operation.</returns>
+            <remarks>
+            This method is called by the abstract class.  It passes the output buffers to the implementor.
+            Typically, this is when the actual work is done, processing the input buffers into the output
+            buffers.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalAcceptingInput(System.Int32)">
+            <summary>
+            (Abstract) Report whether more input buffers can be accepted
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <returns>S_OK if the implementor is ready to accept an input buffer, else S_FALSE</returns>
+            <remarks>
+            This method is called by the abstract class.  If the implementor has room for another input buffer, it
+            should return S_OK.  It is perfectly acceptable for a DMO to only accept one input buffer at a time, and
+            to return S_FALSE until InternalProcessOutput has been called to process the buffer.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetCurrentTime">
+            <summary>
+            (Virtual) Returns the current time in the media stream
+            </summary>
+            <returns>The current time in the media stream</returns>
+            <remarks>
+            Typically, this function should be overridden to return the most recent timestamp
+            from the last call to InternalProcessInput.  It is used to support IMediaParams.GetParam.
+            The default implementation assumes the stream has no time stamps or that the stream is 
+            stopped.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalAllocateStreamingResources">
+            <summary>
+            (Virtual) Allows stream resources to be allocated
+            </summary>
+            <returns>S_OK for successful operation</returns>
+            <remarks>
+            Allows the implementor to allocate any resources necessary for performing the processing.  
+            The default implementation assumes we don't need to allocate any addition resources to 
+            perform the processing.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalFreeStreamingResources">
+            <summary>
+            (Virtual) Allows stream resources to be released
+            </summary>
+            <returns>S_OK for successful operation</returns>
+            <remarks>
+            Allows the implementor to release any resources used for performing the processing.  
+            The default implementation assumes we don't need to release any addition resources.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetInputStreamInfo(System.Int32,DirectShowLib.DMO.DMOInputStreamInfo@)">
+            <summary>
+            (Virtual) Controls information about how input buffers are formatted
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="pflags">Flags specifying how input buffers need to be formatted</param>
+            <returns>S_OK for successful completion</returns>
+            <remarks>
+            Allows the implementor to specify flags controlling the format of input buffers.  The default
+            implementation return FixedSampleSize | SingleSamplePerBuffer | WholeSamples
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetOutputStreamInfo(System.Int32,DirectShowLib.DMO.DMOOutputStreamInfo@)">
+            <summary>
+            (Virtual) Controls information about how output buffers are formatted
+            </summary>
+            <param name="outputStreamIndex">Output stream number</param>
+            <param name="pflags">Flags specifying how output buffers need to be formatted</param>
+            <returns>S_OK for successful completion</returns>
+            <remarks>
+            Allows the implementor to specify flags controlling the format of output buffers.  The default
+            implementation returns WholeSamples | SingleSamplePerBuffer | FixedSampleSize
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetInputType(System.Int32,System.Int32,DirectShowLib.AMMediaType@)">
+            <summary>
+            (Virtual) Retrieves a preferred media type for a specified input stream
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="typeIndex">Index into the array of supported media types</param>
+            <param name="pmt">The media type</param>
+            <returns>DMOResults.E_NoMoreItems if out of range or S_OK for successful completion</returns>
+            <remarks>
+            If the implementor supports returning a collection of supported media types, it should override
+            this method.  The default implementation assumes we don't enumerate our supported types.  The
+            app calling this DMO should just try setting something and see if it works.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetOutputType(System.Int32,System.Int32,DirectShowLib.AMMediaType@)">
+            <summary>
+            (Virtual) Retrieves a preferred media type for a specified output stream
+            </summary>
+            <param name="outputStreamIndex">Output stream number</param>
+            <param name="typeIndex">Index into the array of supported media types</param>
+            <param name="pmt">The media type</param>
+            <returns>DMOResults.E_NoMoreItems if out of range or S_OK for successful completion</returns>
+            <remarks>
+            If the implementor supports returning a collection of supported media types, it should override
+            this method.  The default implementation assumes our output type is the same as our input type.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetInputSizeInfo(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            (Virtual) Retrieves the buffer requirements for a specified input stream
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="pcbSize">Minimum size of an input buffer for this stream, in bytes</param>
+            <param name="pcbMaxLookahead">Maximum amount of data that the DMO will hold for lookahead, in bytes</param>
+            <param name="pcbAlignment">the required buffer alignment, in bytes. If the input stream has no alignment requirement, the value is 1.</param>
+            <returns>S_OK for successful operation</returns>
+            <remarks>
+            The implementator could override this method to specify different values.  The default 
+            implementation reports that we can accept any alignment, hold no lookahead buffers, and the
+            input buffer must be at least 1 byte long.  
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalGetInputMaxLatency(System.Int32,System.Int64@)">
+            <summary>
+            (Virtual) Retrieves the maximum latency on a specified input stream
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="prtMaxLatency">Latency value</param>
+            <returns>S_OK for successful completion</returns>
+            <remarks>
+            The latency is the difference between a time stamp on the input stream and the corresponding time 
+            stamp on the output stream. The maximum latency is the largest possible difference in the time stamps.
+            The default implementation returns E_NOTIMPL indicating the DMO doesn't support reporting latency.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalSetInputMaxLatency(System.Int32,System.Int64)">
+            <summary>
+            (Virtual) Set the maximum latency on a specified input stream
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <param name="maxLatency">Maximum latency</param>
+            <returns>S_OK for successful operation</returns>
+            <remarks>
+            The default implementation returns E_NOTIMPL indicating the DMO doesn't support reporting latency.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InternalDiscontinuity(System.Int32)">
+            <summary>
+            (Virtual) Called to notify of a stream discontinuity
+            </summary>
+            <param name="inputStreamIndex">Input stream number</param>
+            <returns>S_OK for successful operation</returns>
+            <remarks>
+            The default implementation assumes no special processing is required for discontinuities.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.ParamDefine(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)">
+            <summary>
+            Create a definition for a parameter that is accessible thru IMediaParamInfo
+            and IMediaParams.
+            </summary>
+            <param name="paramNum">Zero based parameter number to set the definition for</param>
+            <param name="p">Populated ParamInfo struct</param>
+            <param name="text">Format string (described in MSDN under IMediaParamInfo::GetParamText)</param>
+            <remarks>
+            This method should be called from the constructor of the class that implements IMediaObjectImpl.  It
+            defines a single parameter that can be set on the DMO.  You must call it once for each of the
+            parameters defined in the call to the IMediaObjectImpl constructor.  This allows for automatic
+            support of the IMediaParamInfo and IMediaParams methods.  See the 
+            <see cref="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)"/> for additional details.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.ParamCalcValueForTime(System.Int32,System.Int64)">
+            <summary>
+            Given a parameter number and a time, return the parameter value at that time.
+            </summary>
+            <param name="paramNumber">Zero based parameter number</param>
+            <param name="timestamp">Time value</param>
+            <returns>Calculated value for the specified time</returns>
+            <remarks>
+            Parameters for DMO can be set in one of two ways.  IMediaParams.SetParam can
+            be used to set a parameter to a specific value.  It is useful for setting values
+            that aren't intended to change over time.  There is also IMediaParams.AddEnvelope.  This
+            method can be use for things that change over time.  For example, consider a parameter
+            for adjusting the audio volume.  You might want to be able to have the volume go from 0%
+            to 150% over the first x seconds.  
+            <para>You can easily support both by using this method.
+            As you prepare to process buffers, take the timestamp that applies to that buffer, and 
+            call this method to get the desired value for that parameter at that that time.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InputTypeSet(System.Int32)">
+            <summary>
+            Check whether the media type is set for the specified input stream
+            </summary>
+            <param name="inputStreamIndex">Zero based stream number to check</param>
+            <returns>true if the stream type is set</returns>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.OutputTypeSet(System.Int32)">
+            <summary>
+            Check whether the media type is set for the specified output stream
+            </summary>
+            <param name="outputStreamIndex">Zero based stream number to check</param>
+            <returns>true if the stream type is set</returns>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.InputType(System.Int32)">
+            <summary>
+            Get the AMMediaType for the specified Input stream
+            </summary>
+            <param name="inputStreamIndex">The stream to get the media type for</param>
+            <returns>The media type for the stream, or null if not set</returns>
+            <remarks>
+            The abstract class will call <see cref="M:DmoBase.IMediaObjectImpl.InternalCheckInputType(System.Int32,DirectShowLib.AMMediaType)"/> to see
+            whether a given media type is supported.  To see what media type was actually set, the
+            derived class can call this method.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.OutputType(System.Int32)">
+            <summary>
+            Get the AMMediaType for the specified Output stream
+            </summary>
+            <param name="outputStreamIndex">The stream to get the media type for</param>
+            <returns>The media type for the stream, or null if not set</returns>
+            <remarks>
+            The abstract class will call <see cref="M:DmoBase.IMediaObjectImpl.InternalCheckOutputType(System.Int32,DirectShowLib.AMMediaType)"/> to see
+            whether a given media type is supported.  To see what media type was actually set, the
+            derived class can call this method.
+            </remarks>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.CompareMemory(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            Compare two blocks of memory to see if they are identical
+            </summary>
+            <param name="destination">Pointer to first block</param>
+            <param name="source">Pointer to second block</param>
+            <param name="length">Number of bytes to compare</param>
+            <returns>The number of bytes that compare as equal. If all bytes compare as equal, the input Length is returned.</returns>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.CheckAllTypesSet">
+            <summary>
+            Set m_fTypesSet by making sure types are set for all input and non-optional output streams.
+            </summary>
+            <returns>true if all types are set</returns>
+        </member>
+        <member name="M:DmoBase.IMediaObjectImpl.CatFail(System.Exception)">
+            <summary>
+            Handle thrown exceptions in a consistent way.
+            </summary>
+            <param name="e">The exception that was thrown</param>
+            <returns>HRESULT to return to COM</returns>
+        </member>
+        <member name="T:DmoBase.MPEnvelopes">
+            <summary>
+            The idea of envelopes (as I understand them) is to allow a parameter value
+            to be applied to a range within the stream.  Generally speaking, there is a
+            start time and stop time, a parameter start value and a parameter end value.  
+            So, you could say "The volume should go from 0% to 100% over the first 4 
+            seconds."  There is also a Curve parameter that controls how quickly the 
+            parameter value should change: Linear, Square, Sine, Jump, etc.
+            <para>
+            Also note, the docs for IMediaParams::FlushEnvelope make no sense to me.
+            Instead of trying to make sense of the crazyness they have written, I
+            have done something simpler.  If you flush a range, that range gets set
+            back to the NeutralVal for the parameter.
+            </para>
+            <para>
+            The assumption (based on comments in IMediaParams::SetTimeFormat) is that
+            the times specified to the envelope are the same format as will be specified
+            to ProcessInput.  If you are changing the format, call flush.
+            </para>
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.MaxTime">
+            <summary>
+            Max time value
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.SOk">
+            <summary>
+            COM return code indicating success
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.EINVALIDARG">
+            <summary>
+            COM return code indicating invalid argument specified
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.envelope">
+            <summary>
+            An <see cref="T:System.Collections.ArrayList"/> with the envelope
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.defaultValue">
+            <summary>
+            An <see cref="T:DirectShowLib.DMO.MPData"/> with the default value
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.validCaps">
+            <summary>
+            The valid capabilities
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.dataType">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.MPType"/> of the envelope.
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.minValue">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.MPData"/> with the minimal value for the envelope.
+            </summary>
+        </member>
+        <member name="F:DmoBase.MPEnvelopes.maxValue">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.MPData"/> with the maximal value for the envelope.
+            </summary>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.#ctor(DirectShowLib.DMO.MPData,DirectShowLib.DMO.MPCaps,DirectShowLib.DMO.MPType,DirectShowLib.DMO.MPData,DirectShowLib.DMO.MPData)">
+            <summary>
+            Initializes a new instance of the MPEnvelopes class.
+            </summary>
+            <param name="newDefaultValue">An <see cref="T:DirectShowLib.DMO.MPData"/> with the default value</param>
+            <param name="newValidCaps">The valid capabilities</param>
+            <param name="newMPType">The <see cref="T:DirectShowLib.DMO.MPType"/> of the envelope.</param>
+            <param name="newMinValue">The <see cref="T:DirectShowLib.DMO.MPData"/> with the minimal value for the envelope.</param>
+            <param name="newMaxValue">The <see cref="T:DirectShowLib.DMO.MPData"/> with the maximal value for the envelope.</param>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.AddSegment(DirectShowLib.DMO.MPEnvelopeSegment)">
+            <summary>
+            Add a segment to the envelope.  If this segment overlaps other segments,
+            the other segments are deleted or shortened, and this segment is inserted
+            </summary>
+            <param name="newSegment">The segment to add</param>
+            <returns>The HRESULT of the method.</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.FindEnvelopeForTime(System.Int64)">
+            <summary>
+            Returns the Envelope the applies to a specific time.  Since there is a
+            default segment that covers all possible times, this will always return 
+            a value.
+            </summary>
+            <param name="rt">Time to check</param>
+            <returns>The envelope at that segment</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.CalcValueForTime(System.Int64)">
+            <summary>
+            Calculate the parameter value at a specified time
+            <para></para>
+            While there are routines written for all the curve types, I'm not enough
+            of a math whiz to feel comfortable that I got it right.  I stole the code
+            from elsewhere and converted it to c#, so there's a chance I messed up.
+            </summary>
+            <param name="rt">Time at which to calculate</param>
+            <returns>MPData value for that time based in the specified Curve</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.ValidateEnvelopeSegment(DirectShowLib.DMO.MPEnvelopeSegment)">
+            <summary>
+            Make sure the envelope parameters are valid
+            </summary>
+            <param name="m">Envelope segment to check</param>
+            <returns>E_INVALIDARG if parameters are incorrect, else S_OK</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.CountBits(System.Int32)">
+            <summary>
+            Count how many bits are set in an flag
+            </summary>
+            <param name="i">bitmap to check</param>
+            <returns>Count of the number of bits set</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.DeleteRest(System.Int32,System.Int64)">
+            <summary>
+            Utility function called from AddEnvelope.  When adding an envelope segment,
+            it could happen that the new segment overlaps multiple existing segments.  
+            This routine walks starting at the specified segment.  It either deletes
+            the segment or adjusts it until it reaches the ending time of the new
+            segment.
+            </summary>
+            <param name="z">Starting segment</param>
+            <param name="end">Ending segment</param>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.CheckRange(DirectShowLib.DMO.MPData)">
+            <summary>
+            See if the specified parameter value falls within the allowable range
+            </summary>
+            <param name="m">Value to check</param>
+            <returns>true if the parameter value is valid</returns>
+        </member>
+        <member name="M:DmoBase.MPEnvelopes.UpdateSegment(System.Int32,DirectShowLib.DMO.MPEnvelopeSegment@)">
+            <summary>
+            Updates the given <see cref="T:DirectShowLib.DMO.MPEnvelopeSegment"/>
+            with the new value
+            </summary>
+            <param name="y">The new value</param>
+            <param name="m">Ref. The <see cref="T:DirectShowLib.DMO.MPEnvelopeSegment"/>
+            to be updated.</param>
+        </member>
+        <member name="T:DmoBase.ParamClass">
+            <summary>
+            This class holds all the information about the parameters
+            for this DMO.  Using this class allows IMediaObjectImpl to
+            automatically implement IMediaParamInfo and IMediaParams.  If
+            your DMO has no parameters, you do not need to create an instance
+            of this class.
+            </summary>
+        </member>
+        <member name="M:DmoBase.ParamClass.#ctor(System.Int32,DmoBase.TimeFormatFlags)">
+            <summary>
+            Initializes a new instance of the ParamClass class.
+            </summary>
+            <param name="paramNumber">Number of params</param>
+            <param name="timeFormats">A <see cref="T:DmoBase.TimeFormatFlags"/> flags.</param>
+        </member>
+        <member name="M:DmoBase.ParamClass.DefineParam(System.Int32,DirectShowLib.DMO.ParamInfo,System.String)">
+            <summary>
+            Defines a new param.
+            </summary>
+            <param name="paramNum">The zero based index of the param to set.</param>
+            <param name="paramInfo">The <see cref="T:DirectShowLib.DMO.ParamInfo"/> for this parameter</param>
+            <param name="text">The descriptive string.</param>
+        </member>
+        <member name="P:DmoBase.ParamClass.Parms">
+            <summary>
+            Gets or sets the param returned to IMediaParamInfo::GetParamInfo
+            </summary>
+        </member>
+        <member name="P:DmoBase.ParamClass.TimeFormats">
+            <summary>
+            Gets or sets the list of TimeFormats returned to IMediaParamInfo::GetSupportedTimeFormat
+            </summary>
+        </member>
+        <member name="P:DmoBase.ParamClass.CurrentTimeFormat">
+            <summary>
+            Gets or sets the index into TimeFormats indicating the currently active format
+            </summary>
+        </member>
+        <member name="P:DmoBase.ParamClass.TimeData">
+            <summary>
+            Gets or sets the TimeData for the current format (see IMediaParams::SetTimeFormat)
+            </summary>
+        </member>
+        <member name="P:DmoBase.ParamClass.ParamText">
+            <summary>
+            Gets or sets the string text returned from IMediaParamInfo::GetParamText
+            </summary>
+        </member>
+        <member name="P:DmoBase.ParamClass.Envelopes">
+            <summary>
+            Gets or sets the envelopes holding the parameter info.  Note that even if parameter
+            info isn't sent with IMediaParams::AddEnvelope (ie thru IMediaParams::SetParam),
+            this implementation still creates and uses envelopes.  It just makes envelopes
+            that span the entire media length.
+            </summary>
+        </member>
+        <member name="T:DmoBase.PinDef">
+            <summary>
+            Info regarding a (input or output) pin
+            </summary>
+        </member>
+        <member name="F:DmoBase.PinDef.TypeSet">
+            <summary>
+            Is pin type set ?
+            </summary>
+        </member>
+        <member name="F:DmoBase.PinDef.Incomplete">
+            <summary>
+            Is pin incomplete ?
+            </summary>
+        </member>
+        <member name="F:DmoBase.PinDef.CurrentMediaType">
+            <summary>
+            The <see cref="T:DirectShowLib.AMMediaType"/> of the pin
+            </summary>
+        </member>
+        <member name="T:DmoBase.TimeFormatFlags">
+            <summary>
+            Used by the IMediaObjectImpl constructor to specify which timeformats are supported
+            </summary>
+        </member>
+        <member name="F:DmoBase.TimeFormatFlags.None">
+            <summary>
+            Used only when the DMO has no parameters
+            </summary>
+        </member>
+        <member name="F:DmoBase.TimeFormatFlags.Reference">
+            <summary>
+            Reference time, in 100-nanosecond units.  All DMOs should support this format.
+            </summary>
+        </member>
+        <member name="F:DmoBase.TimeFormatFlags.Music">
+            <summary>
+            Music time, in parts per quarter note.
+            </summary>
+        </member>
+        <member name="F:DmoBase.TimeFormatFlags.Samples">
+            <summary>
+            Samples per second.
+            </summary>
+        </member>
+    </members>
+</doc>

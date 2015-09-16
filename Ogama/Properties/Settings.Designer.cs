@@ -337,7 +337,7 @@ namespace Ogama.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        [global::System.Configuration.DefaultSettingValueAttribute("OrangeRed")]
         public global::System.Drawing.Color GazeFixationsPenColor {
             get {
                 return ((global::System.Drawing.Color)(this["GazeFixationsPenColor"]));

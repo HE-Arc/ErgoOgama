@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DmoOverlay</name>
+    </assembly>
+    <members>
+        <member name="T:DmoOverlay.DmoOverlay">
+            <summary>
+            This COM-Visible class is a DMO (digital media object)
+            that can be inserted into a direct show filter graph.
+            Its purpose is to render a mouse and gaze cursor over
+            the video stream at the positions given in the parameters.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.NumParams">
+            <summary>
+            Number of parameters of this DMO
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.DMOName">
+            <summary>
+            The name of this DMO to be saved into the registry
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.InputPinCount">
+            <summary>
+            The input pin count of this DMO.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.OutputPinCount">
+            <summary>
+            The output pin count of this DMO.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.MaxTime">
+            <summary>
+            A value for the maximum time.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.RGBA">
+            <summary>
+            Index of alpha component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.RGBR">
+            <summary>
+            Index of red component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.RGBG">
+            <summary>
+            Index of green component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.RGBB">
+            <summary>
+            Index of blue component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.DMOCat">
+            <summary>
+            The category of this DMO. That is a <see cref="F:DirectShowLib.DMO.DMOCategory.VideoEffect"/>
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.streamWidth">
+            <summary>
+            The width of the video stream
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.streamHeight">
+            <summary>
+            The height of the video stream
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.streamStride">
+            <summary>
+            The stride of the video stream
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.streamBBP">
+            <summary>
+            The bits per pixel of the video stream
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.bufferTimeStamp">
+            <summary>
+            The time stamp of the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.bufferTimeLength">
+            <summary>
+            The time length of the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.buffer">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.IMediaBuffer"/> for the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.bufferPointer">
+            <summary>
+            The pointer to the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.bufferByteCount">
+            <summary>
+            The byte count of the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.bufferFlags">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.DMOOutputDataBufferFlags"/> of the current processed video buffer
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.mouseCursorSize">
+            <summary>
+            The <see cref="T:System.Drawing.Size"/> of the mouse cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.mouseCursorData">
+            <summary>
+            The <see cref="T:System.Drawing.Imaging.BitmapData"/> of the mouse cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.gazeCursorSize">
+            <summary>
+            The <see cref="T:System.Drawing.Size"/> of the gaze cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.gazeCursorData">
+            <summary>
+            The <see cref="T:System.Drawing.Imaging.BitmapData"/> of the gaze cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.gazeCursorArgbValues">
+            <summary>
+            An array of <see cref="T:System.Byte"/> that contain the argb bytes of
+            the gaze cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="F:DmoOverlay.DmoOverlay.mouseCursorArgbValues">
+            <summary>
+            An array of <see cref="T:System.Byte"/> that contain the argb bytes of
+            the mouse cursor overlay bitmap.
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.#ctor">
+            <summary>
+            Initializes a new instance of the DmoOverlay class.  
+            The parameters to the base class
+            describe the number of input and output streams, which
+            DirectShow calls Pins, followed by the number of parameters
+            this class supports (can be zero), and the timeformat of those
+            parameters (should include ParamClass.TimeFormatFlags.Reference
+            if NumParameters > 0).
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalCheckInputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            Given a specific AMMediaType, we are asked if we support it
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <param name="pmt">The AMMediaType to check</param>
+            <returns>S_OK if it is supported, DMOResults.E_InvalidType if not</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalCheckOutputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            Given a specific AMMediaType, we are asked if we support it
+            </summary>
+            <param name="outputStreamIndex">Stream number</param>
+            <param name="pmt">The AMMediaType to check</param>
+            <returns>S_OK if it is supported, DMOResults.E_InvalidType if not</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalGetInputType(System.Int32,System.Int32,DirectShowLib.AMMediaType@)">
+            <summary>
+            Get the list of supported types.  Note this it is NOT required that any types be returned here.
+            If no types are returned, connectors just try media types (InternalCheckInputType) until we
+            accept one.
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <param name="typeIndex">Index into the array of media types we support</param>
+            <param name="pmt">Out the <see cref="T:DirectShowLib.AMMediaType"/>.</param>
+            <returns>DMOResults.E_NoMoreItems if out of range, else S_OK</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalGetOutputSizeInfo(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            What size (and alignment) do we require of our output buffer?
+            </summary>
+            <param name="outputStreamIndex">Stream number</param>
+            <param name="pcbSize">returns the buffer size needed</param>
+            <param name="pcbAlignment">Returns the alignment needed (don't use zero!)</param>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalFlush">
+            <summary>
+            Flush releases all input buffers without processing them
+            </summary>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalAllocateStreamingResources">
+            <summary>
+            Our chance to allocate any storage we may need
+            </summary>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalProcessInput(System.Int32,DirectShowLib.DMO.IMediaBuffer,DirectShowLib.DMO.DMOInputDataBuffer,System.Int64,System.Int64)">
+            <summary>
+            Accept the input buffers to be processed.  You'll want to read
+            the MSDN docs on this one.  One point worth noting is that DMO
+            doesn't require that one complete block be passed at a time.
+            Picture a case where raw data is being read from a file, and your
+            DMO is the first to process it.  The chunk of data you receive
+            might represent one image, 5 images, half an image, etc.  Likewise,
+            your input could contain both video and audio that you are splitting
+            into two output streams.
+            That helps explain some of the parameters you see here and in
+            InternalProcessOutput.
+            Note that while DMO doesn't insist on it, for this sample, we
+            specifically request that only complete buffers be provided.
+            </summary>
+            <param name="inputStreamIndex">Stream Index</param>
+            <param name="mediaBuffer">Interface that holds the input data</param>
+            <param name="flags">Flags to control input processing</param>
+            <param name="timestamp">Timestamp of the sample</param>
+            <param name="timelength">Duration of the sample</param>
+            <returns>S_FALSE if there is no output, S_OK otherwise</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalProcessOutput(DirectShowLib.DMO.DMOProcessOutput,System.Int32,DirectShowLib.DMO.DMOOutputDataBuffer[],System.Int32@)">
+            <summary>
+            Given output buffers, process the input buffers into the output buffers.
+            </summary>
+            <param name="flags">A <see cref="T:DirectShowLib.DMO.DMOProcessOutput"/> Flags</param>
+            <param name="outputBufferCount">Number of buffers (will be one per output stream)</param>
+            <param name="outputBufferPointers">The buffers</param>
+            <param name="pdwStatus">Reserved: 0</param>
+            <returns>S_FALSE if there is no output, S_OK otherwise</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalAcceptingInput(System.Int32)">
+            <summary>
+            Are we able to accept more input at this time?
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <returns>S_OK if we can, else S_FALSE</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.InternalGetCurrentTime">
+            <summary>
+            This method returns the current buffers time stamp.
+            </summary>
+            <returns>A <see cref="T:System.Int64"/> with the current buffers time stamp.</returns>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            The CopyMemory function copies a block of memory from one location to another. 
+            </summary>
+            <param name="destination">Pointer to the starting address of the copied block's destination.</param>
+            <param name="source">Pointer to the starting address of the block of memory to copy.</param>
+            <param name="length">Size of the block of memory to copy, in bytes.</param>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.DoRegister(System.Type)">
+            <summary>
+            Register the DMO in the registry.  Called by regasm.
+            </summary>
+            <param name="t">The <see cref="T:System.Type"/> to register.</param>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.UnregisterFunction(System.Type)">
+            <summary>
+            Removes the DMO from the registry.
+            </summary>
+            <param name="t">The <see cref="T:System.Type"/> to unregister</param>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.ReleaseInputBuffs">
+            <summary>
+            Release all info for the most recent input buffer
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.DoOverlay(System.IntPtr,System.Int32,System.IntPtr,System.Int32,System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Perform the requested overlay.
+            This method is the core of this class.
+            It copies the input buffer to the output buffer and then overlays
+            the gaze and mouse cursor at the given positions.
+            </summary>
+            <param name="outputDataPointer">Pointer to the output buffer</param>
+            <param name="inputByteCount">Size of input buffer</param>
+            <param name="inputDataPointer">Pointer to input buffer</param>
+            <param name="bytesPerPixel">Bytes (not bits) per pixel</param>
+            <param name="gazePosition">A <see cref="T:System.Drawing.Point"/> with the gaze position in
+            video pixel coordinates.</param>
+            <param name="mousePosition">A <see cref="T:System.Drawing.Point"/> with the mouse position in
+            video pixel coordinates.</param>
+        </member>
+        <member name="M:DmoOverlay.DmoOverlay.DoCursorOverlay(System.IntPtr,System.IntPtr,System.Int32,System.Drawing.Point,System.Drawing.Size,System.Int32,System.Byte[],System.Boolean)">
+            <summary>
+            Perform the requested overlay for the given cursor.
+            </summary>
+            <param name="outputDataPointer">Pointer to the output buffer</param>
+            <param name="inputDataPointer">Pointer to input buffer</param>
+            <param name="bytesPerPixel">Bytes (not bits) per pixel</param>
+            <param name="cursorPosition">A <see cref="T:System.Drawing.Point"/> with the cursor position in
+            video pixel coordinates.</param>
+            <param name="cursorSize">A <see cref="T:System.Drawing.Size"/> with the size of the cursor.</param>
+            <param name="cursorStride">The cursors bitmap stride.</param>
+            <param name="cursorData">The byte array with the cursors data.</param>
+            <param name="center">True if cursor should be centered at cursor position.</param>
+        </member>
+        <member name="T:DmoOverlay.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:DmoOverlay.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:DmoOverlay.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:DmoOverlay.RegisterDll">
+            <summary>
+            This class customizes the installation of the overlay DMO
+            by registering the COM assemply during commit und unregistering it 
+            during uninstall custom actions.
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.#ctor">
+            <summary>
+            Initializes a new instance of the RegisterDll class.
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.Commit(System.Collections.IDictionary)">
+            <summary>
+            Completes the install transaction of the DMO
+            by calling regasm /codebase DmoOverlay.dll
+            </summary>
+            <param name="savedState">An <see cref="T:System.Collections.IDictionary"/> that contains
+            the state of the computer after all the installers 
+            in the collection have run. </param>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.Install(System.Collections.IDictionary)">
+            <summary>
+            Performs the installation of the DMO.
+            </summary>
+            <param name="stateSaver">An <see cref="T:System.Collections.IDictionary"/> used to save 
+            information needed to perform a commit, rollback, or uninstall operation.</param>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            Removes an installation of the DMO by calling regasm /u.
+            </summary>
+            <param name="savedState">An <see cref="T:System.Collections.IDictionary"/> that contains the state 
+            of the computer after the installation was complete.</param>
+        </member>
+        <member name="F:DmoOverlay.RegisterDll.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DmoOverlay.RegisterDll.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

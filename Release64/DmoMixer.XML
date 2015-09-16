@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DmoMixer</name>
+    </assembly>
+    <members>
+        <member name="T:DmoMixer.VideoStream">
+            <summary>
+            Encapsulates the properties of a video stream.
+            </summary>
+        </member>
+        <member name="M:DmoMixer.VideoStream.#ctor">
+            <summary>
+            Initializes a new instance of the VideoStream class.
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.StreamWidth">
+            <summary>
+            Gets or sets the width of the video stream
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.StreamHeight">
+            <summary>
+            Gets or sets the height of the video stream
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.StreamStride">
+            <summary>
+            Gets or sets the stride of the video stream
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.StreamBBP">
+            <summary>
+            Gets or sets the bits per pixel of the video stream
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.BufferTimeStamp">
+            <summary>
+            Gets or sets the time stamp of the current processed video buffer
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.BufferTimeLength">
+            <summary>
+            Gets or sets the time length of the current processed video buffer
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.Buffer">
+            <summary>
+            Gets or sets the <see cref="T:DirectShowLib.DMO.IMediaBuffer"/> for the current processed video buffer
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.BufferPointer">
+            <summary>
+            Gets or sets the pointer to the current processed video buffer
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.BufferByteCount">
+            <summary>
+            Gets or sets the byte count of the current processed video buffer
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.Position">
+            <summary>
+            Gets or sets the position of the video stream in relation to
+            the output stream size (0-1f)
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.Alpha">
+            <summary>
+            Gets or sets the alpha value of the video stream.
+            </summary>
+        </member>
+        <member name="P:DmoMixer.VideoStream.FlipY">
+            <summary>
+            Gets or sets a value indicating whether to flip the video stream vertically
+            </summary>
+        </member>
+        <member name="T:DmoMixer.DmoMixer">
+            <summary>
+            This COM-Visible class is a DMO (digital media object)
+            that can be inserted into a direct show filter graph.
+            Its purpose is to mix two video streams into one output stream
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.NumParams">
+            <summary>
+            Number of parameters of this DMO
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.DMOName">
+            <summary>
+            The name of this DMO to be saved into the registry
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.InputPinCount">
+            <summary>
+            The input pin count of this DMO.
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.OutputPinCount">
+            <summary>
+            The output pin count of this DMO.
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.MaxTime">
+            <summary>
+            A value for the maximum time.
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.RGBA">
+            <summary>
+            Index of alpha component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.RGBR">
+            <summary>
+            Index of red component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.RGBG">
+            <summary>
+            Index of green component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.RGBB">
+            <summary>
+            Index of blue component of a byte pointer
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.DMOCat">
+            <summary>
+            The category of this DMO. That is a <see cref="F:DirectShowLib.DMO.DMOCategory.VideoEffect"/>
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.inputStreams">
+            <summary>
+            The array of incoming <see cref="T:DmoMixer.VideoStream"/>s.
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.outputStream">
+            <summary>
+            The output <see cref="T:DmoMixer.VideoStream"/>
+            </summary>
+        </member>
+        <member name="F:DmoMixer.DmoMixer.bufferFlags">
+            <summary>
+            The <see cref="T:DirectShowLib.DMO.DMOOutputDataBufferFlags"/> of the current processed video buffer
+            </summary>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.#ctor">
+            <summary>
+            Initializes a new instance of the DmoMixer class.  
+            The parameters to the base class
+            describe the number of input and output streams, which
+            DirectShow calls Pins, followed by the number of parameters
+            this class supports (can be zero), and the timeformat of those
+            parameters (should include ParamClass.TimeFormatFlags.Reference
+            if NumParameters > 0).
+            </summary>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalCheckInputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            Given a specific AMMediaType, we are asked if we support it
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <param name="pmt">The AMMediaType to check</param>
+            <returns>S_OK if it is supported, DMOResults.E_InvalidType if not</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalCheckOutputType(System.Int32,DirectShowLib.AMMediaType)">
+            <summary>
+            Given a specific AMMediaType, we are asked if we support it
+            </summary>
+            <param name="outputStreamIndex">Stream number</param>
+            <param name="pmt">The AMMediaType to check</param>
+            <returns>S_OK if it is supported, DMOResults.E_InvalidType if not</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalGetInputType(System.Int32,System.Int32,DirectShowLib.AMMediaType@)">
+            <summary>
+            Get the list of supported types.  Note this it is NOT required that any types be returned here.
+            If no types are returned, connectors just try media types (InternalCheckInputType) until we
+            accept one.
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <param name="typeIndex">Index into the array of media types we support</param>
+            <param name="pmt">Out the <see cref="T:DirectShowLib.AMMediaType"/>.</param>
+            <returns>DMOResults.E_NoMoreItems if out of range, else S_OK</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalGetOutputSizeInfo(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            What size (and alignment) do we require of our output buffer?
+            </summary>
+            <param name="outputStreamIndex">Stream number</param>
+            <param name="pcbSize">returns the buffer size needed</param>
+            <param name="pcbAlignment">Returns the alignment needed (don't use zero!)</param>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalFlush">
+            <summary>
+            Flush releases all input buffers without processing them
+            </summary>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalAllocateStreamingResources">
+            <summary>
+            Our chance to allocate any storage we may need
+            </summary>
+            <returns>Returns always S_OK</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalProcessInput(System.Int32,DirectShowLib.DMO.IMediaBuffer,DirectShowLib.DMO.DMOInputDataBuffer,System.Int64,System.Int64)">
+            <summary>
+            Accept the input buffers to be processed.  You'll want to read
+            the MSDN docs on this one.  One point worth noting is that DMO
+            doesn't require that one complete block be passed at a time.
+            Picture a case where raw data is being read from a file, and your
+            DMO is the first to process it.  The chunk of data you receive
+            might represent one image, 5 images, half an image, etc.  Likewise,
+            your input could contain both video and audio that you are splitting
+            into two output streams.
+            That helps explain some of the parameters you see here and in
+            InternalProcessOutput.
+            Note that while DMO doesn't insist on it, for this sample, we
+            specifically request that only complete buffers be provided.
+            </summary>
+            <param name="inputStreamIndex">Stream Index</param>
+            <param name="mediaBuffer">Interface that holds the input data</param>
+            <param name="flags">Flags to control input processing</param>
+            <param name="timestamp">Timestamp of the sample</param>
+            <param name="timelength">Duration of the sample</param>
+            <returns>S_FALSE if there is no output, S_OK otherwise</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalProcessOutput(DirectShowLib.DMO.DMOProcessOutput,System.Int32,DirectShowLib.DMO.DMOOutputDataBuffer[],System.Int32@)">
+            <summary>
+            Given output buffers, process the input buffers into the output buffers.
+            </summary>
+            <param name="flags">A <see cref="T:DirectShowLib.DMO.DMOProcessOutput"/> Flags</param>
+            <param name="outputBufferCount">Number of buffers (will be one per output stream)</param>
+            <param name="outputBufferPointers">The buffers</param>
+            <param name="pdwStatus">Reserved: 0</param>
+            <returns>S_FALSE if there is no output, S_OK otherwise</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalAcceptingInput(System.Int32)">
+            <summary>
+            Are we able to accept more input at this time?
+            </summary>
+            <param name="inputStreamIndex">Stream number</param>
+            <returns>S_OK if we can, else S_FALSE</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.InternalGetCurrentTime">
+            <summary>
+            This method returns the current buffers time stamp.
+            </summary>
+            <returns>A <see cref="T:System.Int64"/> with the current buffers time stamp.</returns>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
+            <summary>
+            The CopyMemory function copies a block of memory from one location to another. 
+            </summary>
+            <param name="destination">Pointer to the starting address of the copied block's destination.</param>
+            <param name="source">Pointer to the starting address of the block of memory to copy.</param>
+            <param name="length">Size of the block of memory to copy, in bytes.</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.DoRegister(System.Type)">
+            <summary>
+            Register the DMO in the registry.  Called by regasm.
+            </summary>
+            <param name="t">The <see cref="T:System.Type"/> to register.</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.UnregisterFunction(System.Type)">
+            <summary>
+            Removes the DMO from the registry.
+            </summary>
+            <param name="t">The <see cref="T:System.Type"/> to unregister</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.ReleaseAllInputBuffers">
+            <summary>
+            Release all info for all input buffers
+            </summary>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.ReleaseInputBuffs(System.Int32)">
+            <summary>
+            Release all info for the given input buffer
+            </summary>
+            <param name="inputStreamIndex">Index of the input stream to be released.</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.DoOverlay(System.IntPtr,System.Int32,DmoMixer.VideoStream[],System.Int32)">
+            <summary>
+            This method fills the output buffer with the video background and
+            calls the overlay method for each stream.
+            </summary>
+            <param name="outputDataPointer">Pointer to the output data stream</param>
+            <param name="outputByteCount">number of bytes in the output stream</param>
+            <param name="videoStreams">The array of <see cref="T:DmoMixer.VideoStream"/>s of the input pins.</param>
+            <param name="backgroundColor">An AARRGGBB int with the background color.</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.OverlayVideoStream(System.IntPtr,DmoMixer.VideoStream)">
+            <summary>
+            Core method to overlay the given video stream with its
+            properties on the output stream (given by the pointer).
+            </summary>
+            <param name="outputDataPointer">Pointer to the output data stream</param>
+            <param name="videoStream">The <see cref="T:DmoMixer.VideoStream"/> to overlay on the output.</param>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.ResizeBicubic(DmoMixer.VideoStream,System.Drawing.Size)">
+            <summary>
+            Resize the incoming videostream to the new stream size.
+            </summary>
+            <param name="sourceStream">Source video stream.</param>
+            <param name="newStreamSize">New stream size.</param>
+            <returns>The resized and newly allocated <see cref="T:DmoMixer.VideoStream"/>.</returns>
+            <remarks>The stream pointer has to be released after use with a call
+            to ReleaseHGlobal(IntPtr).</remarks>
+        </member>
+        <member name="M:DmoMixer.DmoMixer.BiCubicKernel(System.Double)">
+            <summary>
+            Bicubic kernel. From AForge.
+            </summary>
+            <param name="x">X value of the bicubic kernel.</param>
+            <returns>Bicubic cooefficient.</returns>
+        </member>
+        <member name="T:DmoMixer.RegisterDll">
+            <summary>
+            This class customizes the installation of the overlay DMO
+            by registering the COM assemply during commit und unregistering it 
+            during uninstall custom actions.
+            </summary>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.#ctor">
+            <summary>
+            Initializes a new instance of the RegisterDll class.
+            </summary>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.Commit(System.Collections.IDictionary)">
+            <summary>
+            Completes the install transaction of the DMO
+            by calling regasm /codebase DmoOverlay.dll
+            </summary>
+            <param name="savedState">An <see cref="T:System.Collections.IDictionary"/> that contains
+            the state of the computer after all the installers 
+            in the collection have run. </param>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.Install(System.Collections.IDictionary)">
+            <summary>
+            Performs the installation of the DMO.
+            </summary>
+            <param name="stateSaver">An <see cref="T:System.Collections.IDictionary"/> used to save 
+            information needed to perform a commit, rollback, or uninstall operation.</param>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            Removes an installation of the DMO by calling regasm /u.
+            </summary>
+            <param name="savedState">An <see cref="T:System.Collections.IDictionary"/> that contains the state 
+            of the computer after the installation was complete.</param>
+        </member>
+        <member name="F:DmoMixer.RegisterDll.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DmoMixer.RegisterDll.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>
