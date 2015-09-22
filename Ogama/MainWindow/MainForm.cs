@@ -84,14 +84,14 @@ namespace Ogama.MainWindow
 
       //try
       //{
-      //  TobiiTracker.StaticInitialize();
+      //    TobiiTracker.StaticInitialize();
       //}
       //catch (Exception ex)
       //{
-      //  ExceptionMethods.ProcessErrorMessage(
-      //    "The tobii SDK could not be initialized, the tobii record interface will not be"
-      //    + "available. Please install apple bonjour, if this is a module load error."
-      //    + ex.Message);
+      //    ExceptionMethods.ProcessErrorMessage(
+      //      "The tobii SDK could not be initialized, the tobii record interface will not be"
+      //      + "available. Please install apple bonjour, if this is a module load error."
+      //      + ex.Message);
       //}
     }
 

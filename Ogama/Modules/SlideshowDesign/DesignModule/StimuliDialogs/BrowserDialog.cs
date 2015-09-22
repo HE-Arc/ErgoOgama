@@ -196,13 +196,13 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
             Console.Out.WriteLine("original "+safe);
             string newsafe=safe.Replace(toBeReplace, sccSite);
             safe = newsafe;
-            Console.Out.WriteLine("modif " + safe);
+            //Console.Out.WriteLine("modif " + safe);
         }     
         
         //delete anchors from a site name
         if(safe.Contains("#"))
         {
-            Console.Out.WriteLine("original anchor" + safe);
+            //Console.Out.WriteLine("original anchor" + safe);
             int diezeIndex= safe.IndexOf("#", StringComparison.Ordinal);
             safe = safe.Remove(diezeIndex);
             Console.Out.WriteLine("modif anchor " + safe);
@@ -222,7 +222,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
         safe = safe.TrimStart(replace);
         safe = safe.TrimEnd(replace);
 
-        Console.Out.WriteLine("return="+safe);
+        //Console.Out.WriteLine("return="+safe);
         return safe;
     }
 

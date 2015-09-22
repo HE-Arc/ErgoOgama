@@ -1441,11 +1441,13 @@ namespace Ogama.Modules.Statistics
       // aoi table 
       DataTable aoiTable = Document.ActiveDocument.DocDataSet.AOIs;
       var trialsAOIs = new DataView(aoiTable);
+
       //subject table 
       DataTable subjectsTable = Document.ActiveDocument.DocDataSet.SubjectsAdapter.GetData();
       var trialAOIs = new VGElementCollection();
 
-      List<string> checkedSubjects = GetCheckedSubjects(this.trvTransitionsSubjects); 
+      List<string> checkedSubjects = GetCheckedSubjects(this.trvTransitionsSubjects);
+      List<string> checkedSubjectsIdOrdonateList = new List<string>();  //to have a peer between each subject ordered by id and checked list ordered alphabetically
 
       if (this.rdbTransitionUseAOIGroups.Checked)
       {
@@ -1454,6 +1456,7 @@ namespace Ogama.Modules.Statistics
         string pathCategoryAoi=string.Empty;
         List<string[]> listAllHittedAoisParUser = new List<string[]>();
         int aoiGroupCount = this.aoiGroups.Count;
+
         // number of row and columns
         int aoiCount = aoiTable.Rows.Count;
         int subjectsCheckedCount= checkedSubjects.Count;
@@ -1478,11 +1481,12 @@ namespace Ogama.Modules.Statistics
         foreach (DataRow subjectRow in subjectsTable.Rows)
         {            
             string subjectName = subjectRow["SubjectName"].ToString(); 
-                                  
+            listAllHittedAoisParUser.Clear();                      
             if (checkedSubjects.Contains(subjectName))
             {
-                Console.WriteLine("subject name" + subjectName);   
-                listAllHittedAoisParUser = new List<string[]>();            
+
+                //Console.WriteLine("subject name" + subjectName);
+                checkedSubjectsIdOrdonateList.Add(subjectName);
                 pathAoi = string.Empty;
                 pathCategoryAoi = string.Empty;               
                 DataView fixations = null;
@@ -1499,7 +1503,7 @@ namespace Ogama.Modules.Statistics
                 foreach (DataRowView fixationRow in fixations)
                 {
                     var trialID = (int)fixationRow["TrialID"];
-                    Console.WriteLine("trail id " + trialID);
+                    //Console.WriteLine("trail id " + trialID);
                     //Meeee
                     var fixationStartTime=Convert.ToInt32(fixationRow["StartTime"]);   
                     if (!trialIDs.Contains(trialID))
@@ -1525,29 +1529,23 @@ namespace Ogama.Modules.Statistics
                     //Meee
                     foreach(string[] hittedAOIParTrail in hittedAOIs)
                     {
-                        Console.WriteLine("path aoi test " + hittedAOIParTrail[0]);
-                        Console.WriteLine("path actegory aoi test " + hittedAOIParTrail[1]);      
+                        //Console.WriteLine("path aoi test " + hittedAOIParTrail[0]);
+                        //Console.WriteLine("path actegory aoi test " + hittedAOIParTrail[1]);      
                         listAllHittedAoisParUser.Add(hittedAOIParTrail);
                         pathAoi += hittedAOIParTrail[0] + "->";
                         pathCategoryAoi += hittedAOIParTrail[1] + "->";
 
                     }                  
                  }
-                 Console.WriteLine("path aoi " + pathAoi);
-                 Console.WriteLine("path category aoi " + pathCategoryAoi);                    
+                 //Console.WriteLine("path aoi " + pathAoi);
+                 //Console.WriteLine("path category aoi " + pathCategoryAoi);                    
                  resultPath.Add(new string[]{ pathAoi , pathCategoryAoi});                
               }               
         }       
         for (int i=0; i<subjectsCheckedCount; i++)
         {
             DataGridViewRow newRow = this.GetTransitionsDataGridViewRow();
-            newRow.Cells[0].Value = checkedSubjects[i];
-            //if (subjectsCheckedCount==1)
-            //    for (int j = 0; j < 2+1; j++ )
-            //        newRow.Cells[j + 1].Value = resultPath[i][j];
-            //else
-            //    for (int j = 0; j < 2; j++)
-            //        newRow.Cells[j + 1].Value = resultPath[i][j];
+            newRow.Cells[0].Value = checkedSubjectsIdOrdonateList[i];  
 
             for(int k=0; k<2; k++)
                 newRow.Cells[k + 1].Value = resultPath[i][k];

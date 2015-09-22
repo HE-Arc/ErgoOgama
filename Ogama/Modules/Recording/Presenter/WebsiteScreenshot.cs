@@ -196,6 +196,7 @@ namespace Ogama.Modules.Recording.Presenter
 
           // get the viewobject of the WebBrowser to draw to bitmap
           var ivo = localBrowser.Document.DomDocument as IViewObject;
+          //var ivo = localBrowser.ActiveXInstance as IViewObject;  
 
           using (Graphics g = Graphics.FromImage(bitmap))
           {
