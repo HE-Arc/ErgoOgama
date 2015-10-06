@@ -1910,6 +1910,8 @@
     <None Include="Resources\Haytham64Foto.png" />
     <None Include="Resources\HaythamLogo.png" />
     <None Include="Resources\HaythamBanner.jpg" />
+    <Content Include="Resources\EyeTribeClibOk.jpg" />
+    <None Include="Resources\EyeTribeClibOk1.jpg" />
     <Content Include="Resources\MirametrixLogo.png" />
     <Content Include="Resources\GazepointLogo.png" />
     <None Include="Resources\Warning21.png" />

@@ -45,7 +45,7 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
   ///   It encapsulates a http://www.theEyeTribe.com eyetracker.
   ///   It is tested with the TheEyeTribe device.
   /// </summary>
-  public class TheEyeTribeTracker : TrackerWithStatusControls, IGazeListener, IConnectionStateListener
+  public class TheEyeTribeTracker : TrackerWithStatusControls, IGazeListener, IConnectionStateListener 
   {
     #region Fields
 
@@ -588,7 +588,6 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
         this.theEyeTribeSettings = new TheEyeTribeSetting();
         this.SerializeSettings(this.theEyeTribeSettings, this.SettingsFile);
       }
-
       base.Initialize();
     }
 

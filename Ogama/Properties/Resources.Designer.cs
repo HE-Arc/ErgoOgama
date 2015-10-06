@@ -850,6 +850,16 @@ namespace Ogama.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EyeTribeClibOk {
+            get {
+                object obj = ResourceManager.GetObject("EyeTribeClibOk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Filter2HS {
             get {
                 object obj = ResourceManager.GetObject("Filter2HS", resourceCulture);

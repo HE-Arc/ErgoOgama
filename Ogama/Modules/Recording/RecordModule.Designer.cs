@@ -219,6 +219,21 @@
             this.label101 = new System.Windows.Forms.Label();
             this.tbpEyeTribe = new System.Windows.Forms.TabPage();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.tabTestSteps = new System.Windows.Forms.TabControl();
+            this.tabEtape1Instal = new System.Windows.Forms.TabPage();
+            this.label_info_test = new System.Windows.Forms.Label();
+            this.tabEtape2Config = new System.Windows.Forms.TabPage();
+            this.tabEtape3Pre = new System.Windows.Forms.TabPage();
+            this.label113 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label108 = new System.Windows.Forms.Label();
+            this.tabEtape3Calib = new System.Windows.Forms.TabPage();
+            this.label114 = new System.Windows.Forms.Label();
+            this.tabEtape3Accept = new System.Windows.Forms.TabPage();
+            this.label115 = new System.Windows.Forms.Label();
+            this.tabEtape4Lance = new System.Windows.Forms.TabPage();
+            this.label116 = new System.Windows.Forms.Label();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.spcEyeTribeControls = new System.Windows.Forms.SplitContainer();
             this.spcEyeTribeTrackStatus = new System.Windows.Forms.SplitContainer();
@@ -229,12 +244,8 @@
             this.txbEyeTribeSubject = new System.Windows.Forms.TextBox();
             this.btnEyeTribeRecord = new System.Windows.Forms.Button();
             this.btnEyeTribeCalibrate = new System.Windows.Forms.Button();
-            this.label105 = new System.Windows.Forms.Label();
-            this.label106 = new System.Windows.Forms.Label();
             this.btnEyeTribeSubject = new System.Windows.Forms.Button();
             this.btnEyeTribeConnect = new System.Windows.Forms.Button();
-            this.label107 = new System.Windows.Forms.Label();
-            this.label108 = new System.Windows.Forms.Label();
             this.tbpSmartEye = new System.Windows.Forms.TabPage();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.spcSmartEyeControls = new System.Windows.Forms.SplitContainer();
@@ -603,6 +614,13 @@
             this.spcHaytham.SuspendLayout();
             this.tbpEyeTribe.SuspendLayout();
             this.panel14.SuspendLayout();
+            this.tabTestSteps.SuspendLayout();
+            this.tabEtape1Instal.SuspendLayout();
+            this.tabEtape3Pre.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabEtape3Calib.SuspendLayout();
+            this.tabEtape3Accept.SuspendLayout();
+            this.tabEtape4Lance.SuspendLayout();
             this.groupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spcEyeTribeControls)).BeginInit();
             this.spcEyeTribeControls.Panel1.SuspendLayout();
@@ -761,11 +779,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.sctRecording);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1199, 691);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1199, 741);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1199, 716);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1199, 766);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -784,13 +802,13 @@
             // sctRecording.Panel1
             // 
             this.sctRecording.Panel1.Controls.Add(this.spcPanelUserCam);
-            this.sctRecording.Panel1MinSize = 220;
+            this.sctRecording.Panel1MinSize = 520;
             // 
             // sctRecording.Panel2
             // 
             this.sctRecording.Panel2.Controls.Add(this.toolStripContainer2);
-            this.sctRecording.Size = new System.Drawing.Size(1199, 691);
-            this.sctRecording.SplitterDistance = 220;
+            this.sctRecording.Size = new System.Drawing.Size(1199, 741);
+            this.sctRecording.SplitterDistance = 850;
             this.sctRecording.TabIndex = 2;
             // 
             // spcPanelUserCam
@@ -811,8 +829,8 @@
             this.spcPanelUserCam.Panel2.Controls.Add(this.grpUsercam);
             this.spcPanelUserCam.Panel2.Padding = new System.Windows.Forms.Padding(5);
             this.spcPanelUserCam.Panel2MinSize = 20;
-            this.spcPanelUserCam.Size = new System.Drawing.Size(220, 691);
-            this.spcPanelUserCam.SplitterDistance = 479;
+            this.spcPanelUserCam.Size = new System.Drawing.Size(850, 741);
+            this.spcPanelUserCam.SplitterDistance = 645;
             this.spcPanelUserCam.TabIndex = 21;
             // 
             // spcPanelRecordTime
@@ -831,8 +849,8 @@
             // spcPanelRecordTime.Panel2
             // 
             this.spcPanelRecordTime.Panel2.Controls.Add(this.panel4);
-            this.spcPanelRecordTime.Size = new System.Drawing.Size(220, 479);
-            this.spcPanelRecordTime.SplitterDistance = 442;
+            this.spcPanelRecordTime.Size = new System.Drawing.Size(850, 645);
+            this.spcPanelRecordTime.SplitterDistance = 616;
             this.spcPanelRecordTime.TabIndex = 1;
             // 
             // tclEyetracker
@@ -857,7 +875,7 @@
             this.tclEyetracker.Location = new System.Drawing.Point(0, 0);
             this.tclEyetracker.Name = "tclEyetracker";
             this.tclEyetracker.SelectedIndex = 0;
-            this.tclEyetracker.Size = new System.Drawing.Size(220, 442);
+            this.tclEyetracker.Size = new System.Drawing.Size(850, 616);
             this.tclEyetracker.TabIndex = 1;
             this.tclEyetracker.SelectedIndexChanged += new System.EventHandler(this.TclEyetrackerSelectedIndexChanged);
             // 
@@ -868,7 +886,7 @@
             this.tbpGazetrackerIPClient.Location = new System.Drawing.Point(4, 23);
             this.tbpGazetrackerIPClient.Name = "tbpGazetrackerIPClient";
             this.tbpGazetrackerIPClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpGazetrackerIPClient.Size = new System.Drawing.Size(212, 415);
+            this.tbpGazetrackerIPClient.Size = new System.Drawing.Size(842, 589);
             this.tbpGazetrackerIPClient.TabIndex = 8;
             this.tbpGazetrackerIPClient.Text = "Gazetracker via UDP";
             this.tbpGazetrackerIPClient.UseVisualStyleBackColor = true;
@@ -889,7 +907,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(206, 409);
+            this.panel11.Size = new System.Drawing.Size(836, 583);
             this.panel11.TabIndex = 11;
             // 
             // btnGazetrackerIPLaunch
@@ -927,7 +945,7 @@
             this.groupBox15.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox15.Location = new System.Drawing.Point(0, 0);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(206, 120);
+            this.groupBox15.Size = new System.Drawing.Size(836, 120);
             this.groupBox15.TabIndex = 31;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Track status";
@@ -938,7 +956,7 @@
             this.txbGazetrackerIPStatus.Location = new System.Drawing.Point(3, 16);
             this.txbGazetrackerIPStatus.Multiline = true;
             this.txbGazetrackerIPStatus.Name = "txbGazetrackerIPStatus";
-            this.txbGazetrackerIPStatus.Size = new System.Drawing.Size(200, 101);
+            this.txbGazetrackerIPStatus.Size = new System.Drawing.Size(830, 101);
             this.txbGazetrackerIPStatus.TabIndex = 0;
             this.txbGazetrackerIPStatus.Text = "Please note:\r\n- The track status and the quality of\r\n   the calibration are shown" +
     " in the \r\n   gazetracker application.\r\n- Turn off the firewalls if connecting\r\n " +
@@ -1042,10 +1060,10 @@
             // 
             this.tbpGazetrackerDirectClient.Controls.Add(this.panel3);
             this.tbpGazetrackerDirectClient.ImageKey = "ITU";
-            this.tbpGazetrackerDirectClient.Location = new System.Drawing.Point(4, 23);
+            this.tbpGazetrackerDirectClient.Location = new System.Drawing.Point(4, 22);
             this.tbpGazetrackerDirectClient.Name = "tbpGazetrackerDirectClient";
             this.tbpGazetrackerDirectClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpGazetrackerDirectClient.Size = new System.Drawing.Size(212, 415);
+            this.tbpGazetrackerDirectClient.Size = new System.Drawing.Size(192, 74);
             this.tbpGazetrackerDirectClient.TabIndex = 9;
             this.tbpGazetrackerDirectClient.Text = "Gazetracker";
             this.tbpGazetrackerDirectClient.UseVisualStyleBackColor = true;
@@ -1067,7 +1085,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(206, 409);
+            this.panel3.Size = new System.Drawing.Size(186, 68);
             this.panel3.TabIndex = 11;
             // 
             // groupBox4
@@ -3124,37 +3142,226 @@
             // 
             this.tbpEyeTribe.Controls.Add(this.panel14);
             this.tbpEyeTribe.ImageKey = "TheEyeTribe";
-            this.tbpEyeTribe.Location = new System.Drawing.Point(4, 22);
+            this.tbpEyeTribe.Location = new System.Drawing.Point(4, 23);
             this.tbpEyeTribe.Margin = new System.Windows.Forms.Padding(2);
             this.tbpEyeTribe.Name = "tbpEyeTribe";
             this.tbpEyeTribe.Padding = new System.Windows.Forms.Padding(2);
-            this.tbpEyeTribe.Size = new System.Drawing.Size(192, 74);
+            this.tbpEyeTribe.Size = new System.Drawing.Size(842, 589);
             this.tbpEyeTribe.TabIndex = 15;
             this.tbpEyeTribe.Text = "The Eye Tribe";
             this.tbpEyeTribe.UseVisualStyleBackColor = true;
             // 
             // panel14
             // 
+            this.panel14.Controls.Add(this.btnNext);
+            this.panel14.Controls.Add(this.tabTestSteps);
             this.panel14.Controls.Add(this.groupBox21);
             this.panel14.Controls.Add(this.txbEyeTribeSubject);
             this.panel14.Controls.Add(this.btnEyeTribeRecord);
             this.panel14.Controls.Add(this.btnEyeTribeCalibrate);
-            this.panel14.Controls.Add(this.label105);
-            this.panel14.Controls.Add(this.label106);
             this.panel14.Controls.Add(this.btnEyeTribeSubject);
             this.panel14.Controls.Add(this.btnEyeTribeConnect);
-            this.panel14.Controls.Add(this.label107);
-            this.panel14.Controls.Add(this.label108);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel14.Location = new System.Drawing.Point(2, 2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(188, 70);
+            this.panel14.Size = new System.Drawing.Size(838, 585);
             this.panel14.TabIndex = 12;
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(253, 547);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(290, 38);
+            this.btnNext.TabIndex = 21;
+            this.btnNext.Text = "Passer à l\'étape suivante";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // tabTestSteps
+            // 
+            this.tabTestSteps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabTestSteps.Controls.Add(this.tabEtape1Instal);
+            this.tabTestSteps.Controls.Add(this.tabEtape2Config);
+            this.tabTestSteps.Controls.Add(this.tabEtape3Pre);
+            this.tabTestSteps.Controls.Add(this.tabEtape3Calib);
+            this.tabTestSteps.Controls.Add(this.tabEtape3Accept);
+            this.tabTestSteps.Controls.Add(this.tabEtape4Lance);
+            this.tabTestSteps.Location = new System.Drawing.Point(7, 197);
+            this.tabTestSteps.Name = "tabTestSteps";
+            this.tabTestSteps.SelectedIndex = 0;
+            this.tabTestSteps.Size = new System.Drawing.Size(830, 332);
+            this.tabTestSteps.TabIndex = 22;
+            // 
+            // tabEtape1Instal
+            // 
+            this.tabEtape1Instal.Controls.Add(this.label_info_test);
+            this.tabEtape1Instal.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape1Instal.Name = "tabEtape1Instal";
+            this.tabEtape1Instal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEtape1Instal.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape1Instal.TabIndex = 2;
+            this.tabEtape1Instal.Text = "Etape 1 : Installation";
+            this.tabEtape1Instal.UseVisualStyleBackColor = true;
+            // 
+            // label_info_test
+            // 
+            this.label_info_test.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_info_test.AutoSize = true;
+            this.label_info_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_info_test.Location = new System.Drawing.Point(77, 43);
+            this.label_info_test.Name = "label_info_test";
+            this.label_info_test.Size = new System.Drawing.Size(664, 114);
+            this.label_info_test.TabIndex = 13;
+            this.label_info_test.Text = resources.GetString("label_info_test.Text");
+            this.label_info_test.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_info_test.UseCompatibleTextRendering = true;
+            // 
+            // tabEtape2Config
+            // 
+            this.tabEtape2Config.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape2Config.Name = "tabEtape2Config";
+            this.tabEtape2Config.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEtape2Config.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape2Config.TabIndex = 1;
+            this.tabEtape2Config.Text = "Etape 2 : Configuration";
+            this.tabEtape2Config.UseVisualStyleBackColor = true;
+            // 
+            // tabEtape3Pre
+            // 
+            this.tabEtape3Pre.Controls.Add(this.label113);
+            this.tabEtape3Pre.Controls.Add(this.pictureBox2);
+            this.tabEtape3Pre.Controls.Add(this.label108);
+            this.tabEtape3Pre.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape3Pre.Name = "tabEtape3Pre";
+            this.tabEtape3Pre.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEtape3Pre.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Pre.TabIndex = 3;
+            this.tabEtape3Pre.Text = "Etape 3 : Pre Calibration";
+            this.tabEtape3Pre.UseVisualStyleBackColor = true;
+            // 
+            // label113
+            // 
+            this.label113.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label113.AutoSize = true;
+            this.label113.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label113.Location = new System.Drawing.Point(171, 230);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(398, 40);
+            this.label113.TabIndex = 2;
+            this.label113.Text = "Si ce n’est pas le cas, veuillez repositionner l’Eyetracker\r\n ou ajuster votre po" +
+    "sition.\r\n";
+            this.label113.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = global::Ogama.Properties.Resources.EyeTribeClibOk;
+            this.pictureBox2.Location = new System.Drawing.Point(299, 76);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(202, 134);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label108
+            // 
+            this.label108.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label108.AutoSize = true;
+            this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label108.Location = new System.Drawing.Point(62, 4);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(673, 60);
+            this.label108.TabIndex = 0;
+            this.label108.Text = resources.GetString("label108.Text");
+            this.label108.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabEtape3Calib
+            // 
+            this.tabEtape3Calib.Controls.Add(this.label114);
+            this.tabEtape3Calib.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape3Calib.Name = "tabEtape3Calib";
+            this.tabEtape3Calib.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Calib.TabIndex = 5;
+            this.tabEtape3Calib.Text = "Etape 3 : Calibration";
+            this.tabEtape3Calib.UseVisualStyleBackColor = true;
+            // 
+            // label114
+            // 
+            this.label114.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label114.AutoSize = true;
+            this.label114.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label114.Location = new System.Drawing.Point(215, 70);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(414, 80);
+            this.label114.TabIndex = 0;
+            this.label114.Text = "Le système doit être calibré par rapport à vos yeux.\r\n\r\nUn point rouge apparaitra" +
+    " sur l’écran : sans bouger la tête\r\n ni le buste, suivez des yeux le déplacement" +
+    " de ce point.\r\n";
+            this.label114.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabEtape3Accept
+            // 
+            this.tabEtape3Accept.Controls.Add(this.label115);
+            this.tabEtape3Accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabEtape3Accept.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape3Accept.Name = "tabEtape3Accept";
+            this.tabEtape3Accept.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Accept.TabIndex = 6;
+            this.tabEtape3Accept.Text = "Etape 4 : Pre-Lancement";
+            this.tabEtape3Accept.UseVisualStyleBackColor = true;
+            // 
+            // label115
+            // 
+            this.label115.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(81, 53);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(627, 140);
+            this.label115.TabIndex = 0;
+            this.label115.Text = resources.GetString("label115.Text");
+            this.label115.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabEtape4Lance
+            // 
+            this.tabEtape4Lance.Controls.Add(this.label116);
+            this.tabEtape4Lance.Location = new System.Drawing.Point(4, 22);
+            this.tabEtape4Lance.Name = "tabEtape4Lance";
+            this.tabEtape4Lance.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEtape4Lance.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape4Lance.TabIndex = 4;
+            this.tabEtape4Lance.Text = "Etape 4 :  Lancement";
+            this.tabEtape4Lance.UseVisualStyleBackColor = true;
+            // 
+            // label116
+            // 
+            this.label116.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label116.AutoSize = true;
+            this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label116.Location = new System.Drawing.Point(174, 78);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(447, 20);
+            this.label116.TabIndex = 0;
+            this.label116.Text = "L’installation et la calibration du test sont maintenant terminés.\r\n";
+            this.label116.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox21
             // 
             this.groupBox21.Controls.Add(this.spcEyeTribeControls);
-            this.groupBox21.Location = new System.Drawing.Point(5, 3);
+            this.groupBox21.Location = new System.Drawing.Point(307, 8);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(196, 183);
             this.groupBox21.TabIndex = 20;
@@ -3245,14 +3452,14 @@
             this.btnEyeTribeAccept.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnEyeTribeAccept.Location = new System.Drawing.Point(0, 0);
             this.btnEyeTribeAccept.Name = "btnEyeTribeAccept";
-            this.btnEyeTribeAccept.Size = new System.Drawing.Size(75, 35);
+            this.btnEyeTribeAccept.Size = new System.Drawing.Size(69, 35);
             this.btnEyeTribeAccept.TabIndex = 0;
             this.btnEyeTribeAccept.Text = "Accept";
             this.btnEyeTribeAccept.UseVisualStyleBackColor = true;
             // 
             // txbEyeTribeSubject
             // 
-            this.txbEyeTribeSubject.Location = new System.Drawing.Point(107, 229);
+            this.txbEyeTribeSubject.Location = new System.Drawing.Point(412, 53);
             this.txbEyeTribeSubject.Name = "txbEyeTribeSubject";
             this.txbEyeTribeSubject.ReadOnly = true;
             this.txbEyeTribeSubject.Size = new System.Drawing.Size(91, 20);
@@ -3265,7 +3472,7 @@
             this.btnEyeTribeRecord.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeRecord.ImageKey = "Record";
             this.btnEyeTribeRecord.ImageList = this.imlButtons;
-            this.btnEyeTribeRecord.Location = new System.Drawing.Point(29, 285);
+            this.btnEyeTribeRecord.Location = new System.Drawing.Point(334, 115);
             this.btnEyeTribeRecord.Name = "btnEyeTribeRecord";
             this.btnEyeTribeRecord.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeRecord.TabIndex = 17;
@@ -3278,32 +3485,12 @@
             this.btnEyeTribeCalibrate.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeCalibrate.ImageKey = "Calibrate";
             this.btnEyeTribeCalibrate.ImageList = this.imlButtons;
-            this.btnEyeTribeCalibrate.Location = new System.Drawing.Point(29, 256);
+            this.btnEyeTribeCalibrate.Location = new System.Drawing.Point(334, 84);
             this.btnEyeTribeCalibrate.Name = "btnEyeTribeCalibrate";
             this.btnEyeTribeCalibrate.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeCalibrate.TabIndex = 17;
             this.btnEyeTribeCalibrate.Text = "&Calibrate";
             this.btnEyeTribeCalibrate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            // 
-            // label105
-            // 
-            this.label105.AutoSize = true;
-            this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label105.Location = new System.Drawing.Point(5, 256);
-            this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(25, 24);
-            this.label105.TabIndex = 13;
-            this.label105.Text = "3.";
-            // 
-            // label106
-            // 
-            this.label106.AutoSize = true;
-            this.label106.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label106.Location = new System.Drawing.Point(5, 285);
-            this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(25, 24);
-            this.label106.TabIndex = 13;
-            this.label106.Text = "4.";
             // 
             // btnEyeTribeSubject
             // 
@@ -3311,7 +3498,7 @@
             this.btnEyeTribeSubject.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeSubject.ImageKey = "Subject";
             this.btnEyeTribeSubject.ImageList = this.imlButtons;
-            this.btnEyeTribeSubject.Location = new System.Drawing.Point(29, 228);
+            this.btnEyeTribeSubject.Location = new System.Drawing.Point(334, 53);
             this.btnEyeTribeSubject.Name = "btnEyeTribeSubject";
             this.btnEyeTribeSubject.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeSubject.TabIndex = 12;
@@ -3325,7 +3512,7 @@
             this.btnEyeTribeConnect.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeConnect.ImageKey = "Connect";
             this.btnEyeTribeConnect.ImageList = this.imlButtons;
-            this.btnEyeTribeConnect.Location = new System.Drawing.Point(29, 198);
+            this.btnEyeTribeConnect.Location = new System.Drawing.Point(333, 23);
             this.btnEyeTribeConnect.Name = "btnEyeTribeConnect";
             this.btnEyeTribeConnect.Size = new System.Drawing.Size(73, 23);
             this.btnEyeTribeConnect.TabIndex = 12;
@@ -3333,27 +3520,6 @@
             this.btnEyeTribeConnect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEyeTribeConnect.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEyeTribeConnect.UseVisualStyleBackColor = true;
-            // 
-            // label107
-            // 
-            this.label107.AutoSize = true;
-            this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label107.Location = new System.Drawing.Point(5, 227);
-            this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(25, 24);
-            this.label107.TabIndex = 13;
-            this.label107.Text = "2.";
-            // 
-            // label108
-            // 
-            this.label108.AutoSize = true;
-            this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label108.Location = new System.Drawing.Point(5, 198);
-            this.label108.Margin = new System.Windows.Forms.Padding(0);
-            this.label108.Name = "label108";
-            this.label108.Size = new System.Drawing.Size(25, 24);
-            this.label108.TabIndex = 13;
-            this.label108.Text = "1.";
             // 
             // tbpSmartEye
             // 
@@ -3605,18 +3771,18 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(220, 33);
+            this.panel4.Size = new System.Drawing.Size(850, 25);
             this.panel4.TabIndex = 0;
             // 
             // lblRecordedTime
             // 
             this.lblRecordedTime.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblRecordedTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecordedTime.Location = new System.Drawing.Point(120, 0);
+            this.lblRecordedTime.Location = new System.Drawing.Point(750, 0);
             this.lblRecordedTime.Name = "lblRecordedTime";
             this.lblRecordedTime.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.lblRecordedTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblRecordedTime.Size = new System.Drawing.Size(100, 33);
+            this.lblRecordedTime.Size = new System.Drawing.Size(100, 25);
             this.lblRecordedTime.TabIndex = 1;
             this.lblRecordedTime.Text = "00:00:00";
             this.lblRecordedTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -3636,7 +3802,7 @@
             this.grpUsercam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpUsercam.Location = new System.Drawing.Point(5, 5);
             this.grpUsercam.Name = "grpUsercam";
-            this.grpUsercam.Size = new System.Drawing.Size(210, 198);
+            this.grpUsercam.Size = new System.Drawing.Size(840, 82);
             this.grpUsercam.TabIndex = 0;
             this.grpUsercam.TabStop = false;
             this.grpUsercam.Text = "Usercam";
@@ -3658,7 +3824,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.webcamPreview);
-            this.splitContainer2.Size = new System.Drawing.Size(204, 179);
+            this.splitContainer2.Size = new System.Drawing.Size(834, 63);
             this.splitContainer2.SplitterDistance = 25;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -3669,7 +3835,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(204, 25);
+            this.panel2.Size = new System.Drawing.Size(834, 25);
             this.panel2.TabIndex = 0;
             // 
             // chbRecordAudio
@@ -3706,7 +3872,7 @@
             this.webcamPreview.Location = new System.Drawing.Point(0, 0);
             this.webcamPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.webcamPreview.Name = "webcamPreview";
-            this.webcamPreview.Size = new System.Drawing.Size(204, 150);
+            this.webcamPreview.Size = new System.Drawing.Size(834, 34);
             this.webcamPreview.TabIndex = 0;
             this.webcamPreview.WebcamAvailable += new OgamaControls.CaptureModeEventHandler(this.WebcamPreviewWebcamAvailable);
             // 
@@ -3720,11 +3886,11 @@
             // toolStripContainer2.ContentPanel
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pnlCanvas);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(975, 640);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(345, 690);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(975, 691);
+            this.toolStripContainer2.Size = new System.Drawing.Size(345, 741);
             this.toolStripContainer2.TabIndex = 1;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -3737,7 +3903,7 @@
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(975, 26);
+            this.toolStrip2.Size = new System.Drawing.Size(345, 26);
             this.toolStrip2.Stretch = true;
             this.toolStrip2.TabIndex = 0;
             this.toolStrip2.Text = "toolStrip2";
@@ -3763,7 +3929,7 @@
             this.pnlCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCanvas.Location = new System.Drawing.Point(0, 0);
             this.pnlCanvas.Name = "pnlCanvas";
-            this.pnlCanvas.Size = new System.Drawing.Size(975, 640);
+            this.pnlCanvas.Size = new System.Drawing.Size(345, 690);
             this.pnlCanvas.TabIndex = 4;
             // 
             // pnlPicture
@@ -6516,7 +6682,7 @@
             // RecordModule
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1199, 716);
+            this.ClientSize = new System.Drawing.Size(1199, 766);
             this.Controls.Add(this.toolStripContainer1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::Ogama.Properties.Settings.Default, "RecordingModuleLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DoubleBuffered = true;
@@ -6667,6 +6833,18 @@
             this.tbpEyeTribe.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
+            this.tabTestSteps.ResumeLayout(false);
+            this.tabEtape1Instal.ResumeLayout(false);
+            this.tabEtape1Instal.PerformLayout();
+            this.tabEtape3Pre.ResumeLayout(false);
+            this.tabEtape3Pre.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabEtape3Calib.ResumeLayout(false);
+            this.tabEtape3Calib.PerformLayout();
+            this.tabEtape3Accept.ResumeLayout(false);
+            this.tabEtape3Accept.PerformLayout();
+            this.tabEtape4Lance.ResumeLayout(false);
+            this.tabEtape4Lance.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             this.spcEyeTribeControls.Panel1.ResumeLayout(false);
             this.spcEyeTribeControls.Panel2.ResumeLayout(false);
@@ -6881,8 +7059,6 @@
     private System.Windows.Forms.Timer tmrWaitForPresentationEnd;
     private System.Windows.Forms.SplitContainer spcPanelRecordTime;
     private System.Windows.Forms.Panel panel4;
-    private System.Windows.Forms.Label lblRecordedTime;
-    private System.Windows.Forms.Label label21;
     private System.Windows.Forms.Timer tmrRecordClock;
     private System.Windows.Forms.TabPage tabPage1;
     private System.Windows.Forms.Panel panel5;
@@ -7018,13 +7194,6 @@
     private System.Windows.Forms.TextBox txbITUPS3SubjectName;
     private System.Windows.Forms.Button btnITUPS3Record;
     private System.Windows.Forms.Button btnITUPS3Calibrate;
-    private System.Windows.Forms.TabPage tbpEyeTech;
-    private System.Windows.Forms.TextBox textBox15;
-    private System.Windows.Forms.TextBox txbEyeTechSubjectName;
-    private System.Windows.Forms.Button btnEyeTechRecord;
-    private System.Windows.Forms.Button btnEyeTechCalibrate;
-    private System.Windows.Forms.Button btnEyeTechSubjectName;
-    private System.Windows.Forms.Button btnEyeTechConnect;
     private System.Windows.Forms.Label label57;
     private System.Windows.Forms.Label label58;
     private System.Windows.Forms.Label label59;
@@ -7080,16 +7249,6 @@
     private System.Windows.Forms.Label label74;
     private System.Windows.Forms.Button button61;
     private System.Windows.Forms.Button button62;
-    private System.Windows.Forms.TabPage tbpAsl;
-    private System.Windows.Forms.TextBox txbAslSubjectName;
-    private System.Windows.Forms.Button btnAslRecord;
-    private System.Windows.Forms.Button btnAslCalibrate;
-    private System.Windows.Forms.Label label75;
-    private System.Windows.Forms.Label recordLabel;
-    private System.Windows.Forms.Label label76;
-    private System.Windows.Forms.Label connectLabel;
-    private System.Windows.Forms.Button btnAslSubjectName;
-    private System.Windows.Forms.Button btnAslConnect;
     private System.Windows.Forms.TabPage tabPage11;
     private System.Windows.Forms.Label label77;
     private System.Windows.Forms.Label label78;
@@ -7102,125 +7261,56 @@
     private System.Windows.Forms.ToolStripContainer toolStripContainer2;
     private System.Windows.Forms.ToolStrip toolStrip2;
     private OgamaControls.ToolStripTrackBar trbZoom;
-    private System.Windows.Forms.TabControl tclEyetracker;
-    private System.Windows.Forms.TabPage tbpGazetrackerIPClient;
-    private System.Windows.Forms.Panel panel11;
-    private System.Windows.Forms.Label label17;
-    private System.Windows.Forms.Button btnGazetrackerIPLaunch;
-    private System.Windows.Forms.GroupBox groupBox15;
-    private System.Windows.Forms.TextBox txbGazetrackerIPStatus;
-    private System.Windows.Forms.Label label54;
-    private System.Windows.Forms.TextBox txbGazetrackerIPSubject;
-    private System.Windows.Forms.Button btnGazetrackerIPRecord;
-    private System.Windows.Forms.Label label80;
-    private System.Windows.Forms.Label label82;
-    private System.Windows.Forms.Button btnGazetrackerIPSubject;
-    private System.Windows.Forms.Button btnGazetrackerIPConnect;
-    private System.Windows.Forms.TabPage tbpGazetrackerDirectClient;
-    private System.Windows.Forms.Panel panel3;
-    private System.Windows.Forms.GroupBox groupBox4;
-    private System.Windows.Forms.SplitContainer splitContainer23;
+    private TabControl tclEyetracker;
+    private TabPage tbpGazetrackerIPClient;
+    private Panel panel11;
+    private Button btnGazetrackerIPLaunch;
+    private GroupBox groupBox15;
+    private TextBox txbGazetrackerIPStatus;
+    private TextBox txbGazetrackerIPSubject;
+    private Button btnGazetrackerIPRecord;
+    private Label label80;
+    private Button btnGazetrackerIPSubject;
+    private Button btnGazetrackerIPConnect;
+    private Label label54;
+    private Label label82;
+    private Label label17;
+    private TabPage tbpGazetrackerDirectClient;
+    private Panel panel3;
+    private GroupBox groupBox4;
+    private SplitContainer splitContainer23;
     private GTOgamaClient.Controls.EyeVideoControl eyeVideoControlGazetracker;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientShowOnPresentationScreen;
-    private System.Windows.Forms.TextBox txbGazetrackerDirectClientSubject;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientRecord;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientCalibrate;
-    private System.Windows.Forms.Label label19;
-    private System.Windows.Forms.Label label20;
-    private System.Windows.Forms.Label label47;
-    private System.Windows.Forms.Label label83;
-    private System.Windows.Forms.Label label81;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientSubject;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientAdjust;
-    private System.Windows.Forms.Button btnGazetrackerDirectClientConnect;
-    private System.Windows.Forms.TabPage tbpTobii;
-    private System.Windows.Forms.Panel panel1;
-    private System.Windows.Forms.GroupBox groupBox1;
-    private System.Windows.Forms.SplitContainer spcTobiiControls;
-    private System.Windows.Forms.SplitContainer spcTobiiTrackStatus;
-    private System.Windows.Forms.Button btnTobiiShowOnPresentationScreen;
-    private System.Windows.Forms.SplitContainer spcTobiiCalibPlot;
-    private System.Windows.Forms.Button btnTobiiRecalibrate;
-    private System.Windows.Forms.Button btnTobiiAcceptCalibration;
-    private System.Windows.Forms.TextBox txbTobiiSubjectName;
-    private System.Windows.Forms.Button btnTobiiRecord;
-    private System.Windows.Forms.Button btnTobiiCalibrate;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Button btnTobiiSubjectName;
-    private System.Windows.Forms.Button btnTobiiConnect;
-    private System.Windows.Forms.TabPage tbpAlea;
-    private System.Windows.Forms.GroupBox groupBox2;
-    private System.Windows.Forms.SplitContainer spcAleaControls;
-    private System.Windows.Forms.SplitContainer spcAleaTrackStatus;
-    private System.Windows.Forms.Button btnAleaShowOnPresentationScreen;
-    private System.Windows.Forms.SplitContainer spcAleaCalibPlot;
-    private System.Windows.Forms.Label labelCalibrationResult;
-    private System.Windows.Forms.Label label11;
-    private System.Windows.Forms.Button btnAleaRecalibrate;
-    private System.Windows.Forms.Button btnAleaAcceptCalibration;
-    private System.Windows.Forms.TextBox txbAleaSubjectName;
-    private System.Windows.Forms.Button btnAleaRecord;
-    private System.Windows.Forms.Button btnAleaCalibrate;
-    private System.Windows.Forms.Label label7;
-    private System.Windows.Forms.Label label8;
-    private System.Windows.Forms.Label label9;
-    private System.Windows.Forms.Label label10;
-    private System.Windows.Forms.Button btnAleaSubjectName;
-    private System.Windows.Forms.Button btnAleaConnect;
-    private System.Windows.Forms.TabPage tbpSMIiViewX;
-    private System.Windows.Forms.GroupBox groupBox3;
-    private System.Windows.Forms.TextBox textBox1;
-    private System.Windows.Forms.TextBox txbSMIiViewXSubjectName;
-    private System.Windows.Forms.Button btnSMIiViewXRecord;
-    private System.Windows.Forms.Button btnSMIiViewXCalibrate;
-    private System.Windows.Forms.Label label13;
-    private System.Windows.Forms.Label label14;
-    private System.Windows.Forms.Label label15;
-    private System.Windows.Forms.Label label16;
-    private System.Windows.Forms.Button btnSMIiViewXSubjectName;
-    private System.Windows.Forms.Button btnSMIiViewXConnect;
-    private System.Windows.Forms.TabPage tbpMouseOnly;
-    private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.Label label6;
-    private System.Windows.Forms.Button btnMouseOnlySubject;
-    private System.Windows.Forms.TextBox txbMouseOnlySubjectName;
-    private System.Windows.Forms.Button btnMouseOnlyRecord;
-    private System.Windows.Forms.TabPage tbpNoDevice;
-    private System.Windows.Forms.Label label12;
-    private System.Windows.Forms.Button btnNoDeviceTabSelectTracker;
-    private System.Windows.Forms.TabPage tbpMirametrix;
-    private System.Windows.Forms.Panel panel12;
-    private System.Windows.Forms.GroupBox groupBox16;
-    private System.Windows.Forms.GroupBox groupBox20;
-    private System.Windows.Forms.SplitContainer spcMirametrixControls;
-    private System.Windows.Forms.SplitContainer spcMirametrixTrackStatus;
-    private System.Windows.Forms.Button btnMirametrixShowOnPresentationScreen;
-    private System.Windows.Forms.SplitContainer spcMirametrixCalibPlot;
-    private System.Windows.Forms.Button btnMirametrixRecalibrate;
-    private System.Windows.Forms.Button btnMirametrixAcceptCalibration;
-    private System.Windows.Forms.TextBox txbMirametrixSubjectName;
-    private System.Windows.Forms.Button btnMirametrixRecord;
-    private System.Windows.Forms.Button btnMirametrixCalibrate;
-    private System.Windows.Forms.Label label84;
-    private System.Windows.Forms.Label label85;
-    private System.Windows.Forms.Label label86;
-    private System.Windows.Forms.Label label87;
-    private System.Windows.Forms.Button btnMirametrixSubjectName;
-    private System.Windows.Forms.Button btnMirametrixConnect;
-    private System.Windows.Forms.Label labelCalibrationResultMirametrix;
-    private System.Windows.Forms.TextBox tBWarning;
-    private Label label88;
-    private Label label89;
-    private Label label90;
-    private Label label91;
+    private Button btnGazetrackerDirectClientShowOnPresentationScreen;
+    private TextBox txbGazetrackerDirectClientSubject;
+    private Button btnGazetrackerDirectClientRecord;
+    private Button btnGazetrackerDirectClientCalibrate;
+    private Label label19;
+    private Label label20;
+    private Button btnGazetrackerDirectClientSubject;
+    private Button btnGazetrackerDirectClientAdjust;
+    private Button btnGazetrackerDirectClientConnect;
+    private Label label81;
+    private Label label83;
+    private Label label47;
+    private TabPage tbpTobii;
+    private Panel panel1;
+    private GroupBox groupBox1;
+    private SplitContainer spcTobiiControls;
+    private SplitContainer spcTobiiTrackStatus;
+    private Button btnTobiiShowOnPresentationScreen;
+    private SplitContainer spcTobiiCalibPlot;
+    private Button btnTobiiRecalibrate;
+    private Button btnTobiiAcceptCalibration;
+    private TextBox txbTobiiSubjectName;
+    private Button btnTobiiRecord;
+    private Button btnTobiiCalibrate;
+    private Label label3;
+    private Label label4;
+    private Button btnTobiiSubjectName;
+    private Button btnTobiiConnect;
+    private Label label1;
+    private Label label2;
     private TabPage tbpGazepoint;
-    private Label label93;
-    private Label label94;
-    private Label label95;
-    private Label label96;
     private TextBox txbGazepointSubjectName;
     private Button btnGazepointRecord;
     private Button btnGazepointCalibrate;
@@ -7235,6 +7325,92 @@
     private Label labelCalibrationResultGazepoint;
     private Button btnGazepointRecalibrate;
     private Button btnGazepointAcceptCalibration;
+    private Label label93;
+    private Label label94;
+    private Label label95;
+    private Label label96;
+    private TabPage tbpMirametrix;
+    private Panel panel12;
+    private GroupBox groupBox16;
+    private SplitContainer spcMirametrixControls;
+    private SplitContainer spcMirametrixTrackStatus;
+    private TextBox tBWarning;
+    private Button btnMirametrixShowOnPresentationScreen;
+    private SplitContainer spcMirametrixCalibPlot;
+    private Label labelCalibrationResultMirametrix;
+    private Button btnMirametrixRecalibrate;
+    private Button btnMirametrixAcceptCalibration;
+    private TextBox txbMirametrixSubjectName;
+    private Button btnMirametrixRecord;
+    private Button btnMirametrixCalibrate;
+    private Button btnMirametrixSubjectName;
+    private Button btnMirametrixConnect;
+    private Label label88;
+    private Label label89;
+    private Label label90;
+    private Label label91;
+    private TabPage tbpAlea;
+    private GroupBox groupBox2;
+    private SplitContainer spcAleaControls;
+    private SplitContainer spcAleaTrackStatus;
+    private Button btnAleaShowOnPresentationScreen;
+    private SplitContainer spcAleaCalibPlot;
+    private Label labelCalibrationResult;
+    private Label label11;
+    private Button btnAleaRecalibrate;
+    private Button btnAleaAcceptCalibration;
+    private TextBox txbAleaSubjectName;
+    private Button btnAleaRecord;
+    private Button btnAleaCalibrate;
+    private Label label7;
+    private Label label8;
+    private Button btnAleaSubjectName;
+    private Button btnAleaConnect;
+    private Label label9;
+    private Label label10;
+    private TabPage tbpSMIiViewX;
+    private GroupBox groupBox3;
+    private TextBox textBox1;
+    private TextBox txbSMIiViewXSubjectName;
+    private Button btnSMIiViewXRecord;
+    private Button btnSMIiViewXCalibrate;
+    private Label label13;
+    private Label label14;
+    private Button btnSMIiViewXSubjectName;
+    private Button btnSMIiViewXConnect;
+    private Label label15;
+    private Label label16;
+    private TabPage tbpAsl;
+    private TextBox txbAslSubjectName;
+    private Button btnAslRecord;
+    private Button btnAslCalibrate;
+    private Label label75;
+    private Label recordLabel;
+    private Button btnAslSubjectName;
+    private Button btnAslConnect;
+    private Label label76;
+    private Label connectLabel;
+    private TabPage tbpEyeTech;
+    private GroupBox groupBox20;
+    private TextBox textBox15;
+    private TextBox txbEyeTechSubjectName;
+    private Button btnEyeTechRecord;
+    private Button btnEyeTechCalibrate;
+    private Label label84;
+    private Label label85;
+    private Button btnEyeTechSubjectName;
+    private Button btnEyeTechConnect;
+    private Label label86;
+    private Label label87;
+    private TabPage tbpMouseOnly;
+    private Button btnMouseOnlySubject;
+    private TextBox txbMouseOnlySubjectName;
+    private Button btnMouseOnlyRecord;
+    private Label label5;
+    private Label label6;
+    private TabPage tbpNoDevice;
+    private Label label12;
+    private Button btnNoDeviceTabSelectTracker;
     private TabPage tbpSMIRedM;
     private GroupBox groupBox18;
     private TextBox textBox16;
@@ -7243,27 +7419,27 @@
     private Button btnSMIRedMCalibrate;
     private Label label92;
     private Label label97;
-    private Label label98;
-    private Label label99;
     private Button btnSMIRedMSubject;
     private Button btnSMIRedMConnect;
+    private Label label98;
+    private Label label99;
     private TabPage tbpHaytham;
     private Panel panel13;
     private Button btnHaythamCalibrate;
     private Label label104;
-    private Label label100;
     private Button btnHaythamLaunch;
     private GroupBox groupBox19;
+    private SplitContainer spcHaytham;
     private TextBox txbHaythamStatus;
-    private Label label101;
+    private TrackerBase.TrackStatusControl tscHaytham;
     private TextBox txbHaythamSubject;
     private Button btnHaythamRecord;
     private Label label102;
     private Label label103;
     private Button btnHaythamSubject;
     private Button btnHaythamConnect;
-    private SplitContainer spcHaytham;
-    private TrackerBase.TrackStatusControl tscHaytham;
+    private Label label100;
+    private Label label101;
     private TabPage tbpEyeTribe;
     private Panel panel14;
     private GroupBox groupBox21;
@@ -7276,12 +7452,7 @@
     private TextBox txbEyeTribeSubject;
     private Button btnEyeTribeRecord;
     private Button btnEyeTribeCalibrate;
-    private Label label105;
-    private Label label106;
-    private Label label107;
-    private Label label108;
     private Button btnEyeTribeSubject;
-    private Button btnEyeTribeConnect;
     private TabPage tbpSmartEye;
     private GroupBox groupBox22;
     private SplitContainer spcSmartEyeControls;
@@ -7299,5 +7470,23 @@
     private Label label112;
     private Button btnSmartEyeSubjectName;
     private Button btnSmartEyeConnect;
+    private Label lblRecordedTime;
+    private Label label21;
+    private Button btnEyeTribeConnect;
+    private Label label_info_test;
+    private Button btnNext;
+    private TabControl tabTestSteps;
+    private TabPage tabEtape1Instal;
+    private TabPage tabEtape2Config;
+    private TabPage tabEtape3Pre;
+    private TabPage tabEtape4Lance;
+    private Label label108;
+    private PictureBox pictureBox2;
+    private Label label113;
+    private TabPage tabEtape3Calib;
+    private TabPage tabEtape3Accept;
+    private Label label114;
+    private Label label115;
+    private Label label116;
   }
 }

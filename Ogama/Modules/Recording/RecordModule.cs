@@ -338,6 +338,11 @@ namespace Ogama.Modules.Recording
     /// </summary>
     private int yScrollOffset;
 
+    /// <summary>
+    /// Save the test step (1-Installation, 2-Configuration, 3-Calibration, 4-Recording)
+    /// </summary>
+    private int currentEtapeIndex;
+
     #endregion
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -796,6 +801,10 @@ namespace Ogama.Modules.Recording
       }
 
       this.trackerInterfaces = new Dictionary<HardwareTracker, Tracker>();
+
+      this.currentEtapeIndex = 0;
+
+
     }
 
     /// <summary>
@@ -2786,6 +2795,7 @@ namespace Ogama.Modules.Recording
           if (this.trackerInterfaces.ContainsKey(HardwareTracker.TheEyeTribe))
           {
             this.currentTracker = this.trackerInterfaces[HardwareTracker.TheEyeTribe];
+            removeEtapeTabs();
           }
 
           break;
@@ -2797,6 +2807,22 @@ namespace Ogama.Modules.Recording
 
           break;
       }
+    }
+
+    private void removeEtapeTabs()
+    {
+        //this.btnEyeTribeConnect.Visible = false;
+        //this.btnEyeTribeSubject.Visible = false;
+        //this.txbEyeTribeSubject.Visible = false;
+        //this.btnEyeTribeCalibrate.Visible = false;
+        //this.btnEyeTribeRecord.Visible = false;
+        this.tabTestSteps.TabPages.Remove(tabEtape2Config);
+        this.tabTestSteps.TabPages.Remove(tabEtape3Pre);
+        this.tabTestSteps.TabPages.Remove(tabEtape3Calib);
+        this.tabTestSteps.TabPages.Remove(tabEtape3Accept);        
+        this.tabTestSteps.TabPages.Remove(tabEtape4Lance);
+        if (!this.currentTracker.IsConnected)
+            this.btnEyeTribeConnect.PerformClick();    
     }
 
     /// <summary>
@@ -2936,6 +2962,63 @@ namespace Ogama.Modules.Recording
     private void txbGazetrackerIPStatus_TextChanged(object sender, EventArgs e)
     {
 
+    }
+
+    private void btnNext_Click(object sender, EventArgs e)
+    {
+        //if(!this.currentTracker.IsConnected)
+        //            this.btnEyeTribeConnect.PerformClick();        
+        switch(currentEtapeIndex)
+        {
+            case 0:                        
+                if(tabTestSteps.TabPages.Contains(tabEtape1Instal))
+                {
+                    this.tabTestSteps.TabPages.Remove(tabEtape1Instal); 
+                    this.tabTestSteps.TabPages.Add(tabEtape2Config);                     
+                }
+                this.btnEyeTribeSubject.PerformClick();
+                break;
+            case 1:
+                if (tabTestSteps.TabPages.Contains(tabEtape2Config))
+                {                    
+                    this.tabTestSteps.TabPages.Remove(tabEtape2Config);  
+                    this.tabTestSteps.TabPages.Add(tabEtape3Pre);              
+                }
+                break;
+            case 2:
+                if (tabTestSteps.TabPages.Contains(tabEtape3Pre))
+                {
+                    this.tabTestSteps.TabPages.Remove(tabEtape3Pre);
+                    this.tabTestSteps.TabPages.Add(tabEtape3Calib);
+                }
+                break;
+            case 3:
+                if (tabTestSteps.TabPages.Contains(tabEtape3Calib))
+                {
+                    this.tabTestSteps.TabPages.Remove(tabEtape3Calib);
+                    this.tabTestSteps.TabPages.Add(tabEtape3Accept);
+                }
+                 //this.btnEyeTribeCalibrate.PerformClick();
+                break;
+            case 4:
+                 if (tabTestSteps.TabPages.Contains(tabEtape3Accept))
+                {
+                    this.tabTestSteps.TabPages.Remove(tabEtape3Accept);
+                    this.tabTestSteps.TabPages.Add(tabEtape4Lance);
+                }
+                break;
+            case 5:
+                //if (tabTestSteps.TabPages.Contains(tabEtape4))
+                //{                    
+                //    this.tabTestSteps.TabPages.Remove(tabEtape4);
+                //    this.tabTestSteps.TabPages.Add(tabEtape1);
+                //}                 
+                this.btnNext.Enabled = false;
+                currentEtapeIndex = 0;
+                //this.btnEyeTribeRecord.PerformClick();
+                return;
+        }
+        this.currentEtapeIndex++;
     }
   }
 }
