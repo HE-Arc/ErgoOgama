@@ -11,6 +11,13 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+/// <summary>
+/// He-arc 
+/// Claudia Gheorghe
+/// Add <see cref="ParamTypes"> relative time 
+/// </summary>
+
+
 namespace Ogama.Modules.Statistics.Variables
 {
   using System.Text;
@@ -71,6 +78,12 @@ namespace Ogama.Modules.Statistics.Variables
     /// Calculate saccade velocity by dividing saccade length by saccade time in a specific AOI or AOI group.
     /// </summary>
     SaccadeVelocity,
+
+    /// <summary>
+    /// He-arc Claudia
+    /// Calculate the percentage of complete fixation time on Aoi or Group relative to total trail time    /// 
+    /// </summary>
+    RelativeTime,
   }
 
   /// <summary>
@@ -199,7 +212,12 @@ namespace Ogama.Modules.Statistics.Variables
             sb.Append(this.IsAOIGroup ? " Group: " : ":");
             sb.Append(this.AOIName);
           }
-
+          break;
+       case ParamTypes.RelativeTime:
+          sb.Append("Relative time :");
+          sb.Append(this.IsAOIGroup ? " Group: " : ":");
+          sb.Append(this.AOIName);
+          sb.Append(" %");
           break;
         case ParamTypes.SaccadeDuration:
           sb.Append("Saccade duration mean at AOI");

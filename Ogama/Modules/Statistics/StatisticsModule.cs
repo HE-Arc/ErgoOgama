@@ -11,6 +11,13 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+/// -----------------------------------------------------------------
+/// He-arc
+/// Claudia Gheorghe 
+/// changed <see cref="FillTransitionsWithData"/> method transformed in fixation scanpath on AOI
+/// changed <see cref="CreateCustomGazeParam"/> to add ParamTypes:RelativeTime
+/// ------------------------------
+
 namespace Ogama.Modules.Statistics
 {
   using System;
@@ -220,6 +227,28 @@ namespace Ogama.Modules.Statistics
       return trialIDs;
     }
 
+    /// <summary>
+    /// This method returns the names of the selected trials of the treeview
+    /// </summary>
+    /// <param name="treeView"></param>
+    /// <returns></returns>
+    public static List<string> GetSelectedTrailsNames(TreeView treeView)
+    {
+        var trailsNames= new List<string>();
+        foreach (TreeNode categoryNode in treeView.Nodes)
+        {
+            foreach (TreeNode trialNode in categoryNode.Nodes)
+            {
+                if (trialNode.Checked)
+                {
+                   trailsNames.Add(trialNode.Text);                  
+                }
+            }
+        }
+        return trailsNames;
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////
     // Defining Properties                                                       //
     ///////////////////////////////////////////////////////////////////////////////
@@ -278,6 +307,7 @@ namespace Ogama.Modules.Statistics
       this.btnHelp.Click += this.btnHelp_Click;
 
       this.chbSubjectDefault_CheckedChanged(this.chbSUBID, EventArgs.Empty);
+      this.chbTrialDefault_CheckedChanged(this.chbTRITrialID, EventArgs.Empty);
       this.tolerance = 0;
 
       this.cbbMouseClickButton.Items.AddRange(Enum.GetNames(typeof(MouseButtons)));
@@ -366,7 +396,12 @@ namespace Ogama.Modules.Statistics
     {
       this.gazeParams |= GazeParams.Custom;
       var newGazeVariable = new CustomVariable();
-      newGazeVariable.AOIName = isAOIGroup ? this.cbbGazeAOIGroups.Text : this.cbbGazeAOISingle.Text;
+      string [] spliter=new string[]{"--"};
+       //string name=this.cbbGazeAOISingle.Text;
+       // string temp=name.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
+       // Console.Out.WriteLine(temp);      
+
+      newGazeVariable.AOIName = isAOIGroup ? this.cbbGazeAOIGroups.Text : this.cbbGazeAOISingle.Text.Split(spliter, StringSplitOptions.RemoveEmptyEntries)[0];
       newGazeVariable.ColumnName = "GFIX_C" + this.gazeCustomParams.Count.ToString();
       newGazeVariable.Number = (int)this.nudGazeTimeUntilNumberOf.Value;
       newGazeVariable.IsAOIGroup = isAOIGroup;
@@ -401,6 +436,10 @@ namespace Ogama.Modules.Statistics
       else if (this.rdbGazeSaccadeVelocity.Checked)
       {
         newGazeVariable.ParamType = ParamTypes.SaccadeVelocity;
+      }
+      else if (this.rdbGazeRelativeTime.Checked)
+      {
+          newGazeVariable.ParamType = ParamTypes.RelativeTime;
       }
 
       var var = new GazeVariable(
@@ -1224,7 +1263,7 @@ namespace Ogama.Modules.Statistics
       this.btnMouseAddCustomVariable.Enabled = enable;
     }
 
-    ///// <summary>
+    ///// <summary> ----------------original methode FillTransitionsWithData-------------------------------
     ///// Iterates selected trials and calculates the transition table.
     ///// </summary>
     ///// <param name="worker">
@@ -1451,7 +1490,7 @@ namespace Ogama.Modules.Statistics
 
       if (this.rdbTransitionUseAOIGroups.Checked)
       {
-        //mee
+        
         string pathAoi = string.Empty;
         string pathCategoryAoi=string.Empty;
         List<string[]> listAllHittedAoisParUser = new List<string[]>();
@@ -1485,7 +1524,6 @@ namespace Ogama.Modules.Statistics
             if (checkedSubjects.Contains(subjectName))
             {
 
-                //Console.WriteLine("subject name" + subjectName);
                 checkedSubjectsIdOrdonateList.Add(subjectName);
                 pathAoi = string.Empty;
                 pathCategoryAoi = string.Empty;               
@@ -1503,8 +1541,6 @@ namespace Ogama.Modules.Statistics
                 foreach (DataRowView fixationRow in fixations)
                 {
                     var trialID = (int)fixationRow["TrialID"];
-                    //Console.WriteLine("trail id " + trialID);
-                    //Meeee
                     var fixationStartTime=Convert.ToInt32(fixationRow["StartTime"]);   
                     if (!trialIDs.Contains(trialID))
                     {
@@ -1526,7 +1562,6 @@ namespace Ogama.Modules.Statistics
                         }
                     }                
                     List<string[]> hittedAOIs = Statistic.FixationHitsAOI(trialAOIs, fixationRow);              
-                    //Meee
                     foreach(string[] hittedAOIParTrail in hittedAOIs)
                     {
                         //Console.WriteLine("path aoi test " + hittedAOIParTrail[0]);
@@ -1537,8 +1572,6 @@ namespace Ogama.Modules.Statistics
 
                     }                  
                  }
-                 //Console.WriteLine("path aoi " + pathAoi);
-                 //Console.WriteLine("path category aoi " + pathCategoryAoi);                    
                  resultPath.Add(new string[]{ pathAoi , pathCategoryAoi});                
               }               
         }       
@@ -1615,7 +1648,7 @@ namespace Ogama.Modules.Statistics
       }
     }
 
-    /// <summary>
+    /// <summary>------main fonction used to fill the grid when thw "Start calculation" is clicked
     /// Iterates selected subjects and calculates the statistics variables 
     ///   with checkbox state= selected.
     /// </summary>
@@ -1701,6 +1734,7 @@ namespace Ogama.Modules.Statistics
 
                 var targetAOIs = this.GetGroupAOIs(trialID, "Target");
                 var searchRectAOIs = this.GetGroupAOIs(trialID, "SearchRect");
+                
 
                 if (this.subjectParams != SubjectParams.None)
                 {
@@ -1765,7 +1799,8 @@ namespace Ogama.Modules.Statistics
       }
     }
 
-    /// <summary>
+    /// <
+    /// mary>
     /// This method extracts the AOI groups from the AOI data table.
     /// </summary>
     private void GenerateAOIGroups()
@@ -1789,7 +1824,7 @@ namespace Ogama.Modules.Statistics
 
     /// <summary>
     /// This static method parses the aoi table filtered by the given trialID
-    ///   for AOIs within the given group and returns them in a <see cref="VGElementCollection"/>
+    ///  for AOIs within the given group and returns them in a <see cref="VGElementCollection"/>
     /// </summary>
     /// <param name="trialID">
     /// An <see cref="Int32"/> with the trial ID
@@ -1805,6 +1840,7 @@ namespace Ogama.Modules.Statistics
       var groupAOIs = new VGElementCollection();
       DataTable targetTable = Document.ActiveDocument.DocDataSet.AOIsAdapter.GetDataByTrialIDAndGroup(
         trialID, groupName);
+        
       var targetAois = new VGElementCollection();
       foreach (DataRow row in targetTable.Rows)
       {
@@ -1819,6 +1855,8 @@ namespace Ogama.Modules.Statistics
 
       return groupAOIs;
     }
+
+   
 
     /// <summary>
     /// This method invokes the method to retrieve a
@@ -1961,13 +1999,14 @@ namespace Ogama.Modules.Statistics
       aoiSingleCombo.Items.Clear();
 
       List<int> selectedTrials = GetSelectedTrials(this.trvTrialsDefault);
+      List<string> selectedNames = GetSelectedTrailsNames(this.trvTrialsDefault);
       foreach (int trialID in selectedTrials)
       {
         // Trial level
         DataTable aois = Document.ActiveDocument.DocDataSet.AOIsAdapter.GetDataByTrialID(trialID);
         foreach (DataRow row in aois.Rows)
-        {
-          string aoiName = row["ShapeName"].ToString();
+        {        
+          string aoiName = row["ShapeName"].ToString()+"--"+selectedNames[trialID] ;
           if (!aoiSingleCombo.Items.Contains(aoiName))
           {
             aoiSingleCombo.Items.Add(aoiName);

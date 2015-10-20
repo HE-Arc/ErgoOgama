@@ -52,6 +52,16 @@
             this.txbComments = new System.Windows.Forms.TextBox();
             this.txbAge = new System.Windows.Forms.TextBox();
             this.dialogTop1 = new Ogama.Modules.Common.Controls.DialogTop();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboGlasses = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboLight = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboAmbiance = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboLangue = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txbSubjectName
@@ -73,7 +83,7 @@
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(213, 253);
+            this.btnOK.Location = new System.Drawing.Point(211, 500);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 9;
@@ -84,7 +94,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(304, 253);
+            this.btnCancel.Location = new System.Drawing.Point(302, 500);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
@@ -123,14 +133,14 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(13, 178);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Handedness";
+            this.label6.Text = "Manualité";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 204);
+            this.label7.Location = new System.Drawing.Point(11, 450);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 5;
@@ -182,9 +192,8 @@
             this.cbbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbSex.FormattingEnabled = true;
             this.cbbSex.Items.AddRange(new object[] {
-            "not specified",
-            "female",
-            "male"});
+            "Homme",
+            "Femme"});
             this.cbbSex.Location = new System.Drawing.Point(91, 148);
             this.cbbSex.Name = "cbbSex";
             this.cbbSex.Size = new System.Drawing.Size(120, 21);
@@ -195,9 +204,9 @@
             this.cbbHandedness.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbHandedness.FormattingEnabled = true;
             this.cbbHandedness.Items.AddRange(new object[] {
-            "not specified",
-            "left",
-            "right"});
+            "Droitier",
+            "Gaucher",
+            "Ambidextre"});
             this.cbbHandedness.Location = new System.Drawing.Point(91, 174);
             this.cbbHandedness.Name = "cbbHandedness";
             this.cbbHandedness.Size = new System.Drawing.Size(120, 21);
@@ -229,7 +238,7 @@
             // 
             // txbComments
             // 
-            this.txbComments.Location = new System.Drawing.Point(91, 200);
+            this.txbComments.Location = new System.Drawing.Point(89, 447);
             this.txbComments.Multiline = true;
             this.txbComments.Name = "txbComments";
             this.txbComments.Size = new System.Drawing.Size(288, 47);
@@ -257,13 +266,140 @@
             this.dialogTop1.Size = new System.Drawing.Size(389, 60);
             this.dialogTop1.TabIndex = 11;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 210);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Port de lunette";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // comboGlasses
+            // 
+            this.comboGlasses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGlasses.FormattingEnabled = true;
+            this.comboGlasses.Items.AddRange(new object[] {
+            "No",
+            "Oui"});
+            this.comboGlasses.Location = new System.Drawing.Point(91, 203);
+            this.comboGlasses.Name = "comboGlasses";
+            this.comboGlasses.Size = new System.Drawing.Size(121, 21);
+            this.comboGlasses.TabIndex = 13;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 235);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(283, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Quel est la luminosité de l’endroit où vous réalisez le test ? \r\n";
+            // 
+            // comboLight
+            // 
+            this.comboLight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLight.FormattingEnabled = true;
+            this.comboLight.Items.AddRange(new object[] {
+            "Faible",
+            "Moyenne",
+            "Forte"});
+            this.comboLight.Location = new System.Drawing.Point(89, 257);
+            this.comboLight.Name = "comboLight";
+            this.comboLight.Size = new System.Drawing.Size(121, 21);
+            this.comboLight.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 281);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(347, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Comment décririez-vous l’ambiance de l’endroit où vous réalisez le test ?";
+            // 
+            // comboAmbiance
+            // 
+            this.comboAmbiance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboAmbiance.FormattingEnabled = true;
+            this.comboAmbiance.Items.AddRange(new object[] {
+            "Calme",
+            "Agité"});
+            this.comboAmbiance.Location = new System.Drawing.Point(89, 302);
+            this.comboAmbiance.Name = "comboAmbiance";
+            this.comboAmbiance.Size = new System.Drawing.Size(121, 21);
+            this.comboAmbiance.TabIndex = 17;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 336);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(179, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Quelle est votre langue maternelle ? \r\n";
+            // 
+            // comboLangue
+            // 
+            this.comboLangue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLangue.FormattingEnabled = true;
+            this.comboLangue.Items.AddRange(new object[] {
+            "Français",
+            "Allemand",
+            "Italien",
+            "Anglais",
+            "Espagnol",
+            "Portugais",
+            "Roumain",
+            "Polonais",
+            "Autre"});
+            this.comboLangue.Location = new System.Drawing.Point(89, 357);
+            this.comboLangue.Name = "comboLangue";
+            this.comboLangue.Size = new System.Drawing.Size(121, 21);
+            this.comboLangue.TabIndex = 19;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 390);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(166, 13);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "Quel est votre type ethno-racial ? ";
+            // 
+            // comboType
+            // 
+            this.comboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboType.FormattingEnabled = true;
+            this.comboType.Items.AddRange(new object[] {
+            "Caucasien",
+            "Asiatique",
+            "Africain",
+            "Maghrébin",
+            "Autre"});
+            this.comboType.Location = new System.Drawing.Point(89, 412);
+            this.comboType.Name = "comboType";
+            this.comboType.Size = new System.Drawing.Size(121, 21);
+            this.comboType.TabIndex = 21;
+            // 
             // SubjectDetailsDialog
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(389, 284);
+            this.ClientSize = new System.Drawing.Size(389, 531);
+            this.Controls.Add(this.comboType);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.comboLangue);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.comboAmbiance);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.comboLight);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.comboGlasses);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.dialogTop1);
             this.Controls.Add(this.txbAge);
             this.Controls.Add(this.txbComments);
@@ -321,5 +457,15 @@
     private System.Windows.Forms.TextBox txbComments;
     private System.Windows.Forms.TextBox txbAge;
     private DialogTop dialogTop1;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.ComboBox comboGlasses;
+    private System.Windows.Forms.Label label11;
+    private System.Windows.Forms.ComboBox comboLight;
+    private System.Windows.Forms.Label label12;
+    private System.Windows.Forms.ComboBox comboAmbiance;
+    private System.Windows.Forms.Label label13;
+    private System.Windows.Forms.ComboBox comboLangue;
+    private System.Windows.Forms.Label label14;
+    private System.Windows.Forms.ComboBox comboType;
   }
 }

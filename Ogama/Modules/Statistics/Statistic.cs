@@ -11,6 +11,12 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+///-------------------------------------------------------------
+///He-Arc
+/// Claudia
+/// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
+/// -----------------------------------------------
+
 namespace Ogama.Modules.Statistics
 {
   using System;
@@ -888,6 +894,11 @@ namespace Ogama.Modules.Statistics
       fixationTable.Dispose();
     }
 
+    /// ------------------------------------------------------------------
+    /// He-Arc
+    /// Claudia
+    /// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
+    /// -----------------------------------------------
     /// <summary>
     /// Submethod for calculating gaze statistics variables
     /// Calls the static methods used for calculating the variables.
@@ -953,6 +964,7 @@ namespace Ogama.Modules.Statistics
       if (this.gazeParams == (this.gazeParams | GazeParams.FixationSaccadeRatio))
       {
         newRow.Cells["GFIXDUpS"].Value = fixationsDurations.Length == 0 ? -1 : descriptives.Result.Sum / duration * 1000;
+        
       }
 
       if (this.gazeParams == (this.gazeParams | GazeParams.TimeToFirstFixInSearchRect))
@@ -1082,6 +1094,9 @@ namespace Ogama.Modules.Statistics
               case ParamTypes.SaccadeVelocity:
                 newRow.Cells[var.ColumnName].Value = aoiStatistic.SaccadeVelocity;
                 break;
+              case ParamTypes.RelativeTime:
+                newRow.Cells[var.ColumnName].Value = (aoiStatistic.SumOfTimeOfAllFixations / duration) * 100;
+                break;
             }
           }
           else if (var.AOIName != string.Empty)
@@ -1131,6 +1146,12 @@ namespace Ogama.Modules.Statistics
                 case ParamTypes.SaccadeVelocity:
                   newRow.Cells[var.ColumnName].Value = aoiStatistic.SaccadeVelocity;
                   break;
+                case ParamTypes.RelativeTime:
+                  newRow.Cells[var.ColumnName].Value = (aoiStatistic.SumOfTimeOfAllFixations / duration) * 100;
+                    Console.Out.WriteLine("total fixationsDurations "+aoiStatistic.SumOfTimeOfAllFixations);
+                    Console.Out.WriteLine(duration);
+                  break;
+
               }
             }
             else

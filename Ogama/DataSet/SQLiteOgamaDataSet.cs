@@ -11,6 +11,17 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+
+///----------------------------------------------------------
+///He-arc
+///Claudia Gheorghe
+///Modified classes : SubjectDataTable and SubjectRow
+///Add columnGlasses;
+///       columnRoomLight;
+///       columnRoomAmbiance;
+//        columnLangue;
+//        columnSubjectType;
+
 namespace Ogama.DataSet
 {
   using System;
@@ -1515,6 +1526,12 @@ namespace Ogama.DataSet
       /// </summary>
       private DataColumn columnComments;
 
+      private DataColumn columnGlasses;
+      private DataColumn columnRoomLight;
+      private DataColumn columnRoomAmbiance;
+      private DataColumn columnLangue;
+      private DataColumn columnSubjectType;
+
 
 
       /// <summary>
@@ -1664,8 +1681,43 @@ namespace Ogama.DataSet
         }
       }
 
+      public DataColumn GlassesColumn
+      {
+          get
+          {
+              return this.columnGlasses;
+          }
+      }
+      
+      public DataColumn LightColumn
+      {
+          get
+          {
+              return this.columnRoomLight;
+          }
+      }
 
-
+      public DataColumn AmbianceColumn
+      {
+          get
+          {
+              return this.columnRoomAmbiance;
+          }
+      }
+      public DataColumn LangueColumn
+      {
+          get
+          {
+              return this.columnLangue;
+          }
+      }
+      public DataColumn TypeColumn
+      {
+          get
+          {
+              return this.columnSubjectType;
+          }
+      }
 
       /// <summary>
       /// Gets the count.
@@ -1678,6 +1730,8 @@ namespace Ogama.DataSet
           return this.Rows.Count;
         }
       }
+
+        
 
 
 
@@ -1741,7 +1795,7 @@ namespace Ogama.DataSet
       /// <param name="Handedness">The handedness.</param>
       /// <param name="Comments">The comments.</param>
       /// <returns>SubjectsRow.</returns>
-      public SubjectsRow AddSubjectsRow(string SubjectName, string Category, int Age, string Sex, string Handedness, string Comments)
+      public SubjectsRow AddSubjectsRow(string SubjectName, string Category, int Age, string Sex, string Handedness, string Comments, string Glasses, string Light, string Ambiance, string Language, string Type)
       {
         SubjectsRow rowSubjectsRow = ((SubjectsRow)(this.NewRow()));
         object[] columnValuesArray = new object[] {
@@ -1751,7 +1805,12 @@ namespace Ogama.DataSet
                         Age,
                         Sex,
                         Handedness,
-                        Comments};
+                        Comments,
+                        Glasses,
+                        Light,
+                        Ambiance,
+                        Language,
+                        Type};
         rowSubjectsRow.ItemArray = columnValuesArray;
         this.Rows.Add(rowSubjectsRow);
         return rowSubjectsRow;
@@ -1813,6 +1872,12 @@ namespace Ogama.DataSet
         this.columnSex = base.Columns["Sex"];
         this.columnHandedness = base.Columns["Handedness"];
         this.columnComments = base.Columns["Comments"];
+       
+        this.columnGlasses = base.Columns["Glasses"];
+        this.columnRoomLight = base.Columns["Light"];
+        this.columnRoomAmbiance = base.Columns["Ambiance"];
+        this.columnLangue = base.Columns["Language"];
+        this.columnSubjectType = base.Columns["Type"];
       }
 
 
@@ -1836,6 +1901,19 @@ namespace Ogama.DataSet
         base.Columns.Add(this.columnHandedness);
         this.columnComments = new DataColumn("Comments", typeof(string), null, MappingType.Element);
         base.Columns.Add(this.columnComments);
+
+        this.columnGlasses = new DataColumn("Glasses", typeof(string), null, MappingType.Element);
+        base.Columns.Add(this.columnGlasses);
+        this.columnRoomLight = new DataColumn("Light", typeof(string), null, MappingType.Element);
+        base.Columns.Add(this.columnRoomLight);
+        this.columnRoomAmbiance = new DataColumn("Ambiance", typeof(string), null, MappingType.Element);
+        base.Columns.Add(this.columnRoomAmbiance);
+        this.columnLangue = new DataColumn("Language", typeof(string), null, MappingType.Element);
+        base.Columns.Add(this.columnLangue);
+        this.columnSubjectType = new DataColumn("Type", typeof(string), null, MappingType.Element);
+        base.Columns.Add(this.columnSubjectType);
+
+
         this.Constraints.Add(new UniqueConstraint("Constraint1", new DataColumn[] {
                                 this.columnID}, true));
         this.Constraints.Add(new UniqueConstraint("SubjectsKey1", new DataColumn[] {
@@ -1855,6 +1933,15 @@ namespace Ogama.DataSet
         this.columnSex.MaxLength = 50;
         this.columnHandedness.MaxLength = 50;
         this.columnComments.MaxLength = 4000;
+
+        this.columnGlasses.MaxLength=60; 
+        this.columnRoomLight.MaxLength=60;
+        this.columnRoomAmbiance.MaxLength=60; 
+        this.columnLangue.MaxLength=60;
+        this.columnSubjectType.MaxLength = 60; 
+
+
+
       }
 
 
@@ -6957,7 +7044,100 @@ namespace Ogama.DataSet
         }
       }
 
+      public string Glasses
+      {
+          get
+          {
+              try
+              {
+                  return ((string)(this[this.tableSubjects.GlassesColumn]));
+              }
+              catch (global::System.InvalidCastException e)
+              {
+                  throw new StrongTypingException("The value for column \'Glasses\' in table \'Subjects\' is DBNull.", e);
+              }
+          }
+          set
+          {
+              this[this.tableSubjects.GlassesColumn] = value;
+          }
+      }
 
+      public string Light
+      {
+          get
+          {
+              try
+              {
+                  return ((string)(this[this.tableSubjects.LightColumn]));
+              }
+              catch (global::System.InvalidCastException e)
+              {
+                  throw new StrongTypingException("The value for column \'Light\' in table \'Subjects\' is DBNull.", e);
+              }
+          }
+          set
+          {
+              this[this.tableSubjects.LightColumn] = value;
+          }
+      }
+
+      public string Ambiance
+      {
+          get
+          {
+              try
+              {
+                  return ((string)(this[this.tableSubjects.AmbianceColumn]));
+              }
+              catch (global::System.InvalidCastException e)
+              {
+                  throw new StrongTypingException("The value for column \'Ambiance\' in table \'Subjects\' is DBNull.", e);
+              }
+          }
+          set
+          {
+              this[this.tableSubjects.AmbianceColumn] = value;
+          }
+      }
+
+      public string Language
+      {
+          get
+          {
+              try
+              {
+                  return ((string)(this[this.tableSubjects.LangueColumn]));
+              }
+              catch (global::System.InvalidCastException e)
+              {
+                  throw new StrongTypingException("The value for column \'Language\' in table \'Subjects\' is DBNull.", e);
+              }
+          }
+          set
+          {
+              this[this.tableSubjects.LangueColumn] = value;
+          }
+      }
+
+      public string Type
+      {
+          get
+          {
+              try
+              {
+                  return ((string)(this[this.tableSubjects.TypeColumn]));
+              }
+              catch (global::System.InvalidCastException e)
+              {
+                  throw new StrongTypingException("The value for column \'Type\' in table \'Subjects\' is DBNull.", e);
+              }
+          }
+          set
+          {
+              this[this.tableSubjects.TypeColumn] = value;
+          }
+      }
 
       /// <summary>
       /// Determines whether [is category null].
@@ -10682,8 +10862,8 @@ namespace Ogama.DataSet
     private void RearrangeColumnLayoutInTables()
     {
       string tableName = "Subjects";
-      string columnDefinitions = "[ID] [bigint] IDENTITY(1,1) NOT NULL,[SubjectName] [varchar](50) COLLATE Latin1_General_CI_AS NOT NULL,[Category] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Age] [int] NULL,[Sex] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Handedness] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Comments] [varchar](4000) COLLATE Latin1_General_CI_AS NULL";
-      string columns = "SubjectName, Category, Age, Sex, Handedness, Comments";
+      string columnDefinitions = "[ID] [bigint] IDENTITY(1,1) NOT NULL,[SubjectName] [varchar](50) COLLATE Latin1_General_CI_AS NOT NULL,[Category] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Age] [int] NULL,[Sex] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Handedness] [varchar](50) COLLATE Latin1_General_CI_AS NULL,[Comments] [varchar](4000) COLLATE Latin1_General_CI_AS NULL,[Glasses] [varchar](5000) COLLATE Latin1_General_CI_AS NULL,[Light] [varchar](5000) COLLATE Latin1_General_CI_AS NULL,[Ambiance] [varchar](5000) COLLATE Latin1_General_CI_AS NULL,[Language] [varchar](4000) COLLATE Latin1_General_CI_AS NULL,[Type] [varchar](4000) COLLATE Latin1_General_CI_AS NULL";
+      string columns = "SubjectName, Category, Age, Sex, Handedness, Comments, Glasses, Light, Ambiance, Language, Type";
 
       Queries.RecreateTable(tableName, columnDefinitions, columns);
 

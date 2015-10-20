@@ -11,6 +11,20 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+///------------------------------
+///He-arc
+///Claudia Gheorghe
+///Add members to <see cref="SubjectData"/>
+///         Glasses;
+///         Light;
+///         Ambiance;
+///         Langue;
+///          Type
+///          ---------------------------------------------------
+
+
+
+
 namespace Ogama.Modules.ImportExport.Common
 {
   using System;
@@ -147,6 +161,30 @@ namespace Ogama.Modules.ImportExport.Common
     public DetectionSettings DetectionSetting;
   }
 
+    /// <summary> ------new-------
+    /// Subject parameters data structure : with fields that match
+    /// the database columns. 
+    /// Used for saving subjects parametes before they are stored into the sql database.
+    /// </summary>
+    public struct SubjectsParametersData
+    {
+        /// <summary>
+        /// Subject name
+        /// </summary>
+        public string SubjectName;
+
+        /// <summary>
+        /// Parameter name
+        /// </summary>
+        public string Param;
+
+        /// <summary>
+        /// Parameter value
+        /// </summary>
+        public string ParamValue;
+
+    }
+
   /// <summary>
   /// Subject data structure with fields that match the database columns.
   /// Used for saving subjects, before they are stored
@@ -185,7 +223,16 @@ namespace Ogama.Modules.ImportExport.Common
     /// Comments on subjects entry
     /// </summary>
     public string Comments;
+
+    public string Glasses;
+    public string Light;
+    public string Ambiance;
+    public string Language;
+    public string Type;
+
   }
+
+  
 
   /// <summary>
   /// Trial data structure with fields that match the database columns.

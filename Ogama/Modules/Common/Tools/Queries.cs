@@ -1593,7 +1593,45 @@ SELECT ID, SubjectName, TrialSequence, Time, PupilDiaX, PupilDiaY, GazePosX, Gaz
 
     #endregion DatabaseBulkCopy
 
+
+
     #region DataSetUpdates
+
+    //public static bool WriteSubjectParametersToDataSet(SubjectsParametersData subjectParamData)
+    //{
+
+    //    SQLiteOgamaDataSet.SubjectParametersRow workSubjectParametersData;
+    //    workSubjectParametersData = Document.ActiveDocument.DocDataSet.SubjectParameters.NewSubjectParametersRow();
+    //    workSubjectParametersData.SubjectName = subjectParamData.SubjectName;
+
+    //    if(subjectParamData.Param!=null)
+    //    {
+    //        workSubjectParametersData.Param = subjectParamData.Param;
+    //    }
+    //    if(subjectParamData.ParamValue==null)
+    //    {
+    //        workSubjectParametersData.SetParamValueNull();
+    //    }
+    //    else
+    //    {
+    //        workSubjectParametersData.ParamValue = subjectParamData.ParamValue;
+    //    }
+
+    //    try
+    //    {
+    //        Document.ActiveDocument.DocDataSet.SubjectParameters.BeginLoadData();                               
+    //        Document.ActiveDocument.DocDataSet.SubjectParameters.AddSubjectParametersRow(workSubjectParametersData);
+    //        Document.ActiveDocument.DocDataSet.SubjectParameters.EndLoadData();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        ExceptionMethods.HandleException(ex);
+
+    //        return false;
+    //    }
+
+    //    return true;
+    //}
 
     /// <summary>
     /// This method writes a new <see cref="SubjectsData"/> information
@@ -1656,10 +1694,14 @@ SELECT ID, SubjectName, TrialSequence, Time, PupilDiaX, PupilDiaY, GazePosX, Gaz
       {
         workSubjectData.Comments = subjectData.Comments;
       }
-
+      workSubjectData.Glasses = subjectData.Glasses;
+      workSubjectData.Light = subjectData.Light;
+      workSubjectData.Ambiance = subjectData.Ambiance;
+      workSubjectData.Language = subjectData.Language;
+      workSubjectData.Type = subjectData.Type;
       try
       {
-        Document.ActiveDocument.DocDataSet.Subjects.BeginLoadData();
+        Document.ActiveDocument.DocDataSet.Subjects.BeginLoadData();         
         Document.ActiveDocument.DocDataSet.Subjects.AddSubjectsRow(workSubjectData);
         Document.ActiveDocument.DocDataSet.Subjects.EndLoadData();
       }

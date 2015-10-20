@@ -459,6 +459,11 @@ namespace Ogama.MainWindow.ContextPanel
           string strGroup = subjectRow.IsNull("Category") ? string.Empty : (string)subjectRow["Category"];
           string strAge = subjectRow.IsNull("Age") ? string.Empty : ((int)subjectRow["Age"]).ToString();
           string strComments = subjectRow.IsNull("Comments") ? string.Empty : (string)subjectRow["Comments"];
+          string glasses = subjectRow.IsNull("Glasses") ? string.Empty : (string)subjectRow["Glasses"];
+          string light = subjectRow.IsNull("Light") ? string.Empty : (string)subjectRow["Light"];
+          string ambiance = subjectRow.IsNull("Ambiance") ? string.Empty : (string)subjectRow["Ambiance"];
+          string langue = subjectRow.IsNull("Language") ? string.Empty : (string)subjectRow["Language"];
+          string type = subjectRow.IsNull("Type") ? string.Empty : (string)subjectRow["Type"];
 
           item = new ListViewItem((string)subjectRow["SubjectName"], "User");
 
@@ -466,7 +471,12 @@ namespace Ogama.MainWindow.ContextPanel
             { 
               new ListViewItem.ListViewSubItem(item, strGroup),
               new ListViewItem.ListViewSubItem(item, strAge),
-              new ListViewItem.ListViewSubItem(item, strComments)
+              new ListViewItem.ListViewSubItem(item, strComments),
+              new ListViewItem.ListViewSubItem(item, glasses),
+              new ListViewItem.ListViewSubItem(item, light),
+              new ListViewItem.ListViewSubItem(item, ambiance),
+              new ListViewItem.ListViewSubItem(item, langue),
+              new ListViewItem.ListViewSubItem(item, type),
             };
 
           item.SubItems.AddRange(subItems);

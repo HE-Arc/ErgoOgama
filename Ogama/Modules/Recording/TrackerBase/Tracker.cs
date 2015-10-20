@@ -93,6 +93,8 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// </summary>
     private SubjectsData subject;
 
+    
+
     #endregion
 
     #region Constructors and Destructors
@@ -172,6 +174,8 @@ namespace Ogama.Modules.Recording.TrackerBase
       // Create new empty subject
       this.subject = new SubjectsData();
 
+      
+
       // Wire button events.
       this.recordButton.Click += this.BtnRecordClick;
 
@@ -231,6 +235,7 @@ namespace Ogama.Modules.Recording.TrackerBase
         return this.settingsFile;
       }
     }
+  
 
     /// <summary>
     ///   Gets the <see cref="SubjectsData" /> of the current subject.
@@ -477,7 +482,7 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// </param>
     protected virtual void BtnCalibrateClick(object sender, EventArgs e)
     {
-      this.Calibrate(false);
+      this.Calibrate(false);       
     }
 
     /// <summary>
@@ -574,6 +579,7 @@ namespace Ogama.Modules.Recording.TrackerBase
       {
         this.subjectNameTextBox.Text = subjectName;
         this.subject.SubjectName = subjectName;
+       
 
         if (this.calibrateButton != null)
         {
@@ -617,6 +623,7 @@ namespace Ogama.Modules.Recording.TrackerBase
     protected bool OpenSubjectDialog(ref string subjectname)
     {
       var dlg = new SubjectDetailsDialog { SubjectName = subjectname };
+      
       if (dlg.ShowDialog() == DialogResult.OK)
       {
         this.subject.SubjectName = dlg.SubjectName;
@@ -626,6 +633,12 @@ namespace Ogama.Modules.Recording.TrackerBase
         this.subject.Handedness = dlg.Handedness;
         this.subject.Comments = dlg.Comments;
         subjectname = dlg.SubjectName;
+        this.subject.Glasses = dlg.Glasses;
+        this.subject.Light = dlg.Light;
+        this.subject.Ambiance = dlg.Ambiance;
+        this.subject.Language = dlg.Language;
+        this.subject.Type = dlg.Type;
+        
         Document.ActiveDocument.SelectionState.Update(subjectname, null, null, null);
         return true;
       }

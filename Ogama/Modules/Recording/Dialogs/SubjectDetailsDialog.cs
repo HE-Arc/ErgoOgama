@@ -49,6 +49,12 @@ namespace Ogama.Modules.Recording.Dialogs
       this.InitializeComponent();
       this.cbbSex.SelectedIndex = 0;
       this.cbbHandedness.SelectedIndex = 0;
+      this.comboGlasses.SelectedIndex = 0;
+      this.comboAmbiance.SelectedIndex = 0;
+      this.comboLangue.SelectedIndex = 0;
+      this.comboLight.SelectedIndex = 0;
+      this.comboType.SelectedIndex = 0;
+
     }
 
     #endregion //CONSTRUCTION
@@ -194,6 +200,51 @@ namespace Ogama.Modules.Recording.Dialogs
       }
     }
 
+    public string Glasses
+    {
+        get
+        {
+            return this.comboGlasses.Text;
+            
+        }
+    }
+
+    public string Light
+    {
+        get
+        {
+            return this.comboLight.Text;
+
+        }
+    }
+
+    public string Ambiance
+    {
+
+        get
+        {
+            return this.comboAmbiance.Text;
+        }
+    }
+    public string Language
+    {
+
+        get
+        {
+            return this.comboLangue.Text;
+        }
+    }
+    public string Type
+    {
+
+        get
+        {
+            return this.comboType.Text;
+        }
+    }
+
+      
+
     /// <summary>
     /// Gets the param1 of the subject as entered in the text box.
     /// </summary>
@@ -315,6 +366,11 @@ namespace Ogama.Modules.Recording.Dialogs
     }
 
     #endregion //WINDOWSEVENTHANDLER
+
+    private void label2_Click(object sender, EventArgs e)
+    {
+
+    }
 
     ///////////////////////////////////////////////////////////////////////////////
     // Eventhandler for Custom Defined Events                                    //

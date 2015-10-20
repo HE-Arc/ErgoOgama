@@ -15,6 +15,18 @@
 //   into OGAMAs database.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+///-------------------------------------------------------------------------------
+///He-arc
+///Claudia Gheorghe
+///Add tabTestSteps =TabControl  => to show the test steps
+///Add bntNext 
+///Add method bnt_Click=>to manage the tab control and all the steps into a test
+///Add method removeEtapeTabs =>to manage the visibilite of the tabs
+
+
+
+
 namespace Ogama.Modules.Recording
 {
   using System;
@@ -1489,9 +1501,12 @@ namespace Ogama.Modules.Recording
           this.btnEyeTribeSubject,
           this.btnEyeTribeCalibrate,
           this.btnEyeTribeRecord,
+          this.btnNext,
           this.txbEyeTribeSubject);
+          
 
         this.trackerInterfaces.Add(HardwareTracker.TheEyeTribe, newTheEyeTribe);
+          
       }
       else
       {
@@ -1550,6 +1565,7 @@ namespace Ogama.Modules.Recording
       }
 
       this.trackerInterfaces.Clear();
+        
     }
 
     /// <summary>
@@ -2403,6 +2419,8 @@ namespace Ogama.Modules.Recording
         {
           throw new DataException("The new subject information could not be written into the dataset.");
         }
+        
+          
 
         // Save trial information to dataset
         if (!Queries.WriteTrialsDataListToDataSet(this.trialDataList))
@@ -2969,7 +2987,7 @@ namespace Ogama.Modules.Recording
         //if(!this.currentTracker.IsConnected)
         //            this.btnEyeTribeConnect.PerformClick();        
         switch(currentEtapeIndex)
-        {
+        {                
             case 0:                        
                 if(tabTestSteps.TabPages.Contains(tabEtape1Instal))
                 {
@@ -2991,14 +3009,17 @@ namespace Ogama.Modules.Recording
                     this.tabTestSteps.TabPages.Remove(tabEtape3Pre);
                     this.tabTestSteps.TabPages.Add(tabEtape3Calib);
                 }
+                this.btnNext.Text = "Lancer la calibration";
                 break;
             case 3:
                 if (tabTestSteps.TabPages.Contains(tabEtape3Calib))
                 {
                     this.tabTestSteps.TabPages.Remove(tabEtape3Calib);
                     this.tabTestSteps.TabPages.Add(tabEtape3Accept);
-                }
-                 //this.btnEyeTribeCalibrate.PerformClick();
+                    this.btnEyeTribeCalibrate.PerformClick();
+                }               
+                this.btnNext.Text = "Passer à l'étape suivante"; 
+                //this.btnNext.Enabled = false;                     
                 break;
             case 4:
                  if (tabTestSteps.TabPages.Contains(tabEtape3Accept))
@@ -3006,7 +3027,8 @@ namespace Ogama.Modules.Recording
                     this.tabTestSteps.TabPages.Remove(tabEtape3Accept);
                     this.tabTestSteps.TabPages.Add(tabEtape4Lance);
                 }
-                break;
+                 this.btnNext.Text = "Lancer le test";
+                 break;
             case 5:
                 //if (tabTestSteps.TabPages.Contains(tabEtape4))
                 //{                    
@@ -3015,7 +3037,7 @@ namespace Ogama.Modules.Recording
                 //}                 
                 this.btnNext.Enabled = false;
                 currentEtapeIndex = 0;
-                //this.btnEyeTribeRecord.PerformClick();
+                this.btnEyeTribeRecord.PerformClick();
                 return;
         }
         this.currentEtapeIndex++;

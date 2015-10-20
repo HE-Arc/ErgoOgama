@@ -10,6 +10,20 @@
 //   Represents the connection and commands used to retrieve and save data.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+
+///----------------------------------------------------------------------------------------------------------------
+///He-arc
+///Claudia Gheorghe
+///Modified clases: SQLiteTadSubjects
+///Add columns:
+///            Glasses;
+///            Light;
+///            Ambiance;
+//             Langue;
+//             SubjectType;
+///-------------------------------------------------------------------------
+
 namespace Ogama.DataSet.SQLiteOgamaDataSetTableAdapters
 {
   using System;
@@ -1096,7 +1110,12 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       int? Original_Age,
       string Original_Sex,
       string Original_Handedness,
-      string Original_Comments)
+      string Original_Comments,
+      string Original_Glasses,
+        string Original_Light, 
+        string Original_Ambiance,
+        string Original_Language, 
+        string Original_Type)
     {
       this.Adapter.DeleteCommand.Parameters[0].Value = Original_ID;
       if (Original_SubjectName == null)
@@ -1158,6 +1177,61 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       {
         this.Adapter.DeleteCommand.Parameters[10].Value = 0;
         this.Adapter.DeleteCommand.Parameters[11].Value = Original_Comments;
+      }
+
+      if (Original_Glasses == null)
+      {
+          this.Adapter.DeleteCommand.Parameters[12].Value = 1;
+          this.Adapter.DeleteCommand.Parameters[13].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.DeleteCommand.Parameters[12].Value = 0;
+          this.Adapter.DeleteCommand.Parameters[13].Value = Original_Glasses;
+      }
+
+      if (Original_Light == null)
+      {
+          this.Adapter.DeleteCommand.Parameters[14].Value = 1;
+          this.Adapter.DeleteCommand.Parameters[15].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.DeleteCommand.Parameters[14].Value = 0;
+          this.Adapter.DeleteCommand.Parameters[15].Value = Original_Light;
+      }
+
+      if (Original_Ambiance == null)
+      {
+          this.Adapter.DeleteCommand.Parameters[16].Value = 1;
+          this.Adapter.DeleteCommand.Parameters[17].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.DeleteCommand.Parameters[16].Value = 0;
+          this.Adapter.DeleteCommand.Parameters[17].Value = Original_Ambiance;
+      }
+
+      if (Original_Language == null)
+      {
+          this.Adapter.DeleteCommand.Parameters[18].Value = 1;
+          this.Adapter.DeleteCommand.Parameters[19].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.DeleteCommand.Parameters[18].Value = 0;
+          this.Adapter.DeleteCommand.Parameters[19].Value = Original_Language;
+      }
+
+      if (Original_Type == null)
+      {
+          this.Adapter.DeleteCommand.Parameters[20].Value = 1;
+          this.Adapter.DeleteCommand.Parameters[21].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.DeleteCommand.Parameters[20].Value = 0;
+          this.Adapter.DeleteCommand.Parameters[21].Value = Original_Type;
       }
 
       ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
@@ -1309,7 +1383,12 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       int? Age,
       string Sex,
       string Handedness,
-      string Comments)
+      string Comments,
+        string Glasses,
+        string Light,
+        string Ambiance,
+        string Language,
+        string Type)
     {
       if (SubjectName == null)
       {
@@ -1360,6 +1439,51 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       else
       {
         this.Adapter.InsertCommand.Parameters[5].Value = Comments;
+      }
+
+      if(Glasses==null)
+      {
+          this.Adapter.InsertCommand.Parameters[6].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.InsertCommand.Parameters[6].Value = Glasses;
+      }
+
+      if (Light == null)
+      {
+          this.Adapter.InsertCommand.Parameters[7].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.InsertCommand.Parameters[7].Value = Light;
+      }
+
+      if (Ambiance == null)
+      {
+          this.Adapter.InsertCommand.Parameters[8].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.InsertCommand.Parameters[8].Value = Ambiance;
+      }
+
+      if (Language == null)
+      {
+          this.Adapter.InsertCommand.Parameters[9].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.InsertCommand.Parameters[9].Value = Language;
+      }
+
+      if (Type == null)
+      {
+          this.Adapter.InsertCommand.Parameters[10].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.InsertCommand.Parameters[10].Value = Type;
       }
 
       ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
@@ -1501,6 +1625,11 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       string Sex,
       string Handedness,
       string Comments,
+      string Glasses, 
+        string Light,
+        string Ambiance, 
+        string Language, 
+        string Type,
       long Original_ID,
       string Original_SubjectName,
       string Original_Category,
@@ -1508,6 +1637,11 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       string Original_Sex,
       string Original_Handedness,
       string Original_Comments,
+        string Original_Glasses, 
+        string Original_Light,
+        string Original_Ambiance,
+        string Original_Language,
+        string Original_Type,
       long ID)
     {
       if (SubjectName == null)
@@ -1561,69 +1695,168 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
         this.Adapter.UpdateCommand.Parameters[5].Value = Comments;
       }
 
-      this.Adapter.UpdateCommand.Parameters[6].Value = Original_ID;
+      if (Glasses == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[6].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[6].Value = Glasses;
+      }
+
+      if (Light == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[7].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[7].Value = Light;
+      }
+
+      if (Ambiance == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[8].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[8].Value = Ambiance;
+      }
+
+      if (Language == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[9].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[9].Value = Language;
+      }
+      if (Type == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[10].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[10].Value = Type;
+      }
+
+      this.Adapter.UpdateCommand.Parameters[11].Value = Original_ID;
       if (Original_SubjectName == null)
       {
         throw new ArgumentNullException("Original_SubjectName");
       }
 
-      this.Adapter.UpdateCommand.Parameters[7].Value = Original_SubjectName;
+      this.Adapter.UpdateCommand.Parameters[12].Value = Original_SubjectName;
       if (Original_Category == null)
       {
-        this.Adapter.UpdateCommand.Parameters[8].Value = 1;
-        this.Adapter.UpdateCommand.Parameters[9].Value = DBNull.Value;
+        this.Adapter.UpdateCommand.Parameters[13].Value = 1;
+        this.Adapter.UpdateCommand.Parameters[14].Value = DBNull.Value;
       }
       else
       {
-        this.Adapter.UpdateCommand.Parameters[8].Value = 0;
-        this.Adapter.UpdateCommand.Parameters[9].Value = Original_Category;
+        this.Adapter.UpdateCommand.Parameters[13].Value = 0;
+        this.Adapter.UpdateCommand.Parameters[14].Value = Original_Category;
       }
 
       if (Original_Age.HasValue)
       {
-        this.Adapter.UpdateCommand.Parameters[10].Value = 0;
-        this.Adapter.UpdateCommand.Parameters[11].Value = Original_Age.Value;
+        this.Adapter.UpdateCommand.Parameters[15].Value = 0;
+        this.Adapter.UpdateCommand.Parameters[16].Value = Original_Age.Value;
       }
       else
       {
-        this.Adapter.UpdateCommand.Parameters[10].Value = 1;
-        this.Adapter.UpdateCommand.Parameters[11].Value = DBNull.Value;
+        this.Adapter.UpdateCommand.Parameters[15].Value = 1;
+        this.Adapter.UpdateCommand.Parameters[16].Value = DBNull.Value;
       }
 
       if (Original_Sex == null)
       {
-        this.Adapter.UpdateCommand.Parameters[12].Value = 1;
-        this.Adapter.UpdateCommand.Parameters[13].Value = DBNull.Value;
+        this.Adapter.UpdateCommand.Parameters[17].Value = 1;
+        this.Adapter.UpdateCommand.Parameters[18].Value = DBNull.Value;
       }
       else
       {
-        this.Adapter.UpdateCommand.Parameters[12].Value = 0;
-        this.Adapter.UpdateCommand.Parameters[13].Value = Original_Sex;
+        this.Adapter.UpdateCommand.Parameters[17].Value = 0;
+        this.Adapter.UpdateCommand.Parameters[18].Value = Original_Sex;
       }
 
       if (Original_Handedness == null)
       {
-        this.Adapter.UpdateCommand.Parameters[14].Value = 1;
-        this.Adapter.UpdateCommand.Parameters[15].Value = DBNull.Value;
+        this.Adapter.UpdateCommand.Parameters[19].Value = 1;
+        this.Adapter.UpdateCommand.Parameters[20].Value = DBNull.Value;
       }
       else
       {
-        this.Adapter.UpdateCommand.Parameters[14].Value = 0;
-        this.Adapter.UpdateCommand.Parameters[15].Value = Original_Handedness;
+        this.Adapter.UpdateCommand.Parameters[19].Value = 0;
+        this.Adapter.UpdateCommand.Parameters[20].Value = Original_Handedness;
       }
 
       if (Original_Comments == null)
       {
-        this.Adapter.UpdateCommand.Parameters[16].Value = 1;
-        this.Adapter.UpdateCommand.Parameters[17].Value = DBNull.Value;
+        this.Adapter.UpdateCommand.Parameters[21].Value = 1;
+        this.Adapter.UpdateCommand.Parameters[22].Value = DBNull.Value;
       }
       else
       {
-        this.Adapter.UpdateCommand.Parameters[16].Value = 0;
-        this.Adapter.UpdateCommand.Parameters[17].Value = Original_Comments;
+        this.Adapter.UpdateCommand.Parameters[21].Value = 0;
+        this.Adapter.UpdateCommand.Parameters[22].Value = Original_Comments;
       }
 
-      this.Adapter.UpdateCommand.Parameters[18].Value = ID;
+      if (Original_Glasses == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[23].Value = 1;
+          this.Adapter.UpdateCommand.Parameters[24].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[23].Value = 0;
+          this.Adapter.UpdateCommand.Parameters[24].Value = Original_Glasses;
+      }
+
+      if (Original_Light == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[25].Value = 1;
+          this.Adapter.UpdateCommand.Parameters[26].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[25].Value = 0;
+          this.Adapter.UpdateCommand.Parameters[26].Value = Original_Comments;
+      }
+
+      if (Original_Ambiance == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[27].Value = 1;
+          this.Adapter.UpdateCommand.Parameters[28].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[27].Value = 0;
+          this.Adapter.UpdateCommand.Parameters[28].Value = Original_Ambiance;
+      }
+
+
+      if (Original_Language == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[29].Value = 1;
+          this.Adapter.UpdateCommand.Parameters[30].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[29].Value = 0;
+          this.Adapter.UpdateCommand.Parameters[30].Value = Original_Language;
+      }
+      if (Original_Type == null)
+      {
+          this.Adapter.UpdateCommand.Parameters[31].Value = 1;
+          this.Adapter.UpdateCommand.Parameters[32].Value = DBNull.Value;
+      }
+      else
+      {
+          this.Adapter.UpdateCommand.Parameters[31].Value = 0;
+          this.Adapter.UpdateCommand.Parameters[32].Value = Original_Type;
+      }
+
+      this.Adapter.UpdateCommand.Parameters[33].Value = ID;
       ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
       if ((this.Adapter.UpdateCommand.Connection.State & ConnectionState.Open)
            != ConnectionState.Open)
@@ -1699,13 +1932,23 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       string Sex,
       string Handedness,
       string Comments,
+     string Glasses,
+        string Light,
+        string Ambiance,
+        string Language,
+        string Type,
       long Original_ID,
       string Original_SubjectName,
       string Original_Category,
       int? Original_Age,
       string Original_Sex,
       string Original_Handedness,
-      string Original_Comments)
+      string Original_Comments,
+         string Original_Glasses, 
+        string Original_Light,
+        string Original_Ambiance,
+        string Original_Language,
+        string Original_Type)
     {
       return this.Update(
         SubjectName,
@@ -1713,14 +1956,14 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
         Age,
         Sex,
         Handedness,
-        Comments,
+        Comments, Glasses, Light, Ambiance, Language, Type,
         Original_ID,
         Original_SubjectName,
         Original_Category,
         Original_Age,
         Original_Sex,
         Original_Handedness,
-        Original_Comments,
+        Original_Comments, Original_Glasses, Original_Light, Original_Ambiance, Original_Language, Original_Type,
         Original_ID);
     }
 
@@ -1744,6 +1987,13 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       tableMapping.ColumnMappings.Add("Sex", "Sex");
       tableMapping.ColumnMappings.Add("Handedness", "Handedness");
       tableMapping.ColumnMappings.Add("Comments", "Comments");
+
+      tableMapping.ColumnMappings.Add("Glasses", "Glasses");
+      tableMapping.ColumnMappings.Add("Light", "Light");
+      tableMapping.ColumnMappings.Add("Ambiance", "Ambiance");
+      tableMapping.ColumnMappings.Add("Language", "Language");
+      tableMapping.ColumnMappings.Add("Type", "Type");
+
       this._adapter.TableMappings.Add(tableMapping);
       this._adapter.DeleteCommand = new SQLiteCommand();
       this._adapter.DeleteCommand.Connection = this.Connection;
@@ -1897,8 +2147,8 @@ SELECT ID, SubjectName, Param, ParamValue FROM SubjectParameters WHERE (ID = @ID
       this._adapter.InsertCommand = new SQLiteCommand();
       this._adapter.InsertCommand.Connection = this.Connection;
       this._adapter.InsertCommand.CommandText =
-        @"INSERT INTO [Subjects] ([SubjectName], [Category], [Age], [Sex], [Handedness], [Comments]) VALUES (@SubjectName, @Category, @Age, @Sex, @Handedness, @Comments);
-SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects WHERE (ID = last_insert_rowid())";
+        @"INSERT INTO [Subjects] ([SubjectName], [Category], [Age], [Sex], [Handedness], [Comments], [Glasses], [Light], [Ambiance], [Language], [Type]) VALUES (@SubjectName, @Category, @Age, @Sex, @Handedness, @Comments, @Glasses, @Light, @Ambiance, @Language, @Type);
+SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments, Glasses, Light, Ambiance, Language, Type FROM Subjects WHERE (ID = last_insert_rowid())";
       this._adapter.InsertCommand.CommandType = CommandType.Text;
       this._adapter.InsertCommand.Parameters.Add(
         new SQLiteParameter(
@@ -1972,11 +2222,73 @@ SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects W
           DataRowVersion.Current,
           false,
           null));
+      this._adapter.InsertCommand.Parameters.Add(
+         new SQLiteParameter(
+           "@Glasses",
+           DbType.String,
+           0,
+           ParameterDirection.Input,
+           0,
+           0,
+           "Glasses",
+           DataRowVersion.Current,
+           false,
+           null));
+      this._adapter.InsertCommand.Parameters.Add(
+         new SQLiteParameter(
+            "@Light",
+            DbType.String,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Light",
+            DataRowVersion.Current,
+            false,
+            null));
+      this._adapter.InsertCommand.Parameters.Add(
+        new SQLiteParameter(
+            "@Ambiance",
+            DbType.String,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Ambiance",
+            DataRowVersion.Current,
+            false,
+            null));
+      this._adapter.InsertCommand.Parameters.Add(
+          new SQLiteParameter(
+            "@Language",
+            DbType.String,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Language",
+            DataRowVersion.Current,
+            false,
+            null));
+      this._adapter.InsertCommand.Parameters.Add(
+          new SQLiteParameter(
+            "@Type",
+            DbType.String,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Type",
+            DataRowVersion.Current,
+            false,
+            null));
+
+
       this._adapter.UpdateCommand = new SQLiteCommand();
       this._adapter.UpdateCommand.Connection = this.Connection;
       this._adapter.UpdateCommand.CommandText =
-        @"UPDATE [Subjects] SET [SubjectName] = @SubjectName, [Category] = @Category, [Age] = @Age, [Sex] = @Sex, [Handedness] = @Handedness, [Comments] = @Comments WHERE (([ID] = @Original_ID) AND ([SubjectName] = @Original_SubjectName) AND ((@IsNull_Category = 1 AND [Category] IS NULL) OR ([Category] = @Original_Category)) AND ((@IsNull_Age = 1 AND [Age] IS NULL) OR ([Age] = @Original_Age)) AND ((@IsNull_Sex = 1 AND [Sex] IS NULL) OR ([Sex] = @Original_Sex)) AND ((@IsNull_Handedness = 1 AND [Handedness] IS NULL) OR ([Handedness] = @Original_Handedness)) AND ((@IsNull_Comments = 1 AND [Comments] IS NULL) OR ([Comments] = @Original_Comments)));
-SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects WHERE (ID = @ID)";
+        @"UPDATE [Subjects] SET [SubjectName] = @SubjectName, [Category] = @Category, [Age] = @Age, [Sex] = @Sex, [Handedness] = @Handedness, [Comments] = @Comments, [Glasses] = @Glasses, [Light] = @Light, [Ambiance] = @Ambiance, [Language] = @Language, [Type] = @Type WHERE (([ID] = @Original_ID) AND ([SubjectName] = @Original_SubjectName) AND ((@IsNull_Category = 1 AND [Category] IS NULL) OR ([Category] = @Original_Category)) AND ((@IsNull_Age = 1 AND [Age] IS NULL) OR ([Age] = @Original_Age)) AND ((@IsNull_Sex = 1 AND [Sex] IS NULL) OR ([Sex] = @Original_Sex)) AND ((@IsNull_Handedness = 1 AND [Handedness] IS NULL) OR ([Handedness] = @Original_Handedness)) AND ((@IsNull_Comments = 1 AND [Comments] IS NULL) OR ([Comments] = @Original_Comments)) AND ((@IsNull_Glasses = 1 AND [Glasses] IS NULL) OR ([Glasses] = @Original_Glasses)) AND ((@IsNull_Light = 1 AND [Light] IS NULL) OR ([Light] = @Original_Light)) AND ((@IsNull_Ambiance = 1 AND [Ambiance] IS NULL) OR ([Ambiance] = @Original_Ambiance)) AND ((@IsNull_Language = 1 AND [Language] IS NULL) OR ([Language] = @Original_Language)) AND ((@IsNull_Type = 1 AND [Type] IS NULL) OR ([Type] = @Original_Type)));
+SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments, Glasses, Light, Ambiance, Language, Type FROM Subjects WHERE (ID = @ID)";
       this._adapter.UpdateCommand.CommandType = CommandType.Text;
       this._adapter.UpdateCommand.Parameters.Add(
         new SQLiteParameter(
@@ -2050,6 +2362,67 @@ SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects W
           DataRowVersion.Current,
           false,
           null));
+      this._adapter.UpdateCommand.Parameters.Add(
+         new SQLiteParameter(
+           "@Glasses",
+           DbType.String,
+           0,
+           ParameterDirection.Input,
+           0,
+           0,
+           "Glasses",
+           DataRowVersion.Current,
+           false,
+           null));
+      this._adapter.UpdateCommand.Parameters.Add(
+         new SQLiteParameter(
+           "@Light",
+           DbType.String,
+           0,
+           ParameterDirection.Input,
+           0,
+           0,
+           "Light",
+           DataRowVersion.Current,
+           false,
+           null));
+      this._adapter.UpdateCommand.Parameters.Add(
+         new SQLiteParameter(
+            "@Ambiance",
+            DbType.String,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Ambiance",
+            DataRowVersion.Current,
+            false,
+            null));
+      this._adapter.UpdateCommand.Parameters.Add(
+         new SQLiteParameter(
+           "@Language",
+           DbType.String,
+           0,
+           ParameterDirection.Input,
+           0,
+           0,
+           "Language",
+           DataRowVersion.Current,
+           false,
+           null));
+      this._adapter.UpdateCommand.Parameters.Add(
+         new SQLiteParameter(
+           "@Type",
+           DbType.String,
+           0,
+           ParameterDirection.Input,
+           0,
+           0,
+           "Type",
+           DataRowVersion.Current,
+           false,
+           null));
+
       this._adapter.UpdateCommand.Parameters.Add(
         new SQLiteParameter(
           "@Original_ID",
@@ -2195,6 +2568,132 @@ SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects W
           false,
           null));
       this._adapter.UpdateCommand.Parameters.Add(
+      new SQLiteParameter(
+        "@IsNull_Glasses",
+        DbType.Int32,
+        0,
+        ParameterDirection.Input,
+        0,
+        0,
+        "Glasses",
+        DataRowVersion.Original,
+        true,
+        null));
+      this._adapter.UpdateCommand.Parameters.Add(
+        new SQLiteParameter(
+          "@Original_Glasses",
+          DbType.String,
+          0,
+          ParameterDirection.Input,
+          0,
+          0,
+          "Glasses",
+          DataRowVersion.Original,
+          false,
+          null));
+      this._adapter.UpdateCommand.Parameters.Add(
+          new SQLiteParameter(
+            "@IsNull_Light",
+            DbType.Int32,
+            0,
+            ParameterDirection.Input,
+            0,
+            0,
+            "Light",
+            DataRowVersion.Original,
+            true,
+            null));
+      this._adapter.UpdateCommand.Parameters.Add(
+        new SQLiteParameter(
+          "@Original_Light",
+          DbType.String,
+          0,
+          ParameterDirection.Input,
+          0,
+          0,
+          "Light",
+          DataRowVersion.Original,
+          false,
+          null));
+
+
+      this._adapter.UpdateCommand.Parameters.Add(
+      new SQLiteParameter(
+        "@IsNull_Ambiance",
+        DbType.Int32,
+        0,
+        ParameterDirection.Input,
+        0,
+        0,
+        "Ambiance",
+        DataRowVersion.Original,
+        true,
+        null));
+      this._adapter.UpdateCommand.Parameters.Add(
+        new SQLiteParameter(
+          "@Original_Ambiance",
+          DbType.String,
+          0,
+          ParameterDirection.Input,
+          0,
+          0,
+          "Ambiance",
+          DataRowVersion.Original,
+          false,
+          null));
+
+
+      this._adapter.UpdateCommand.Parameters.Add(
+      new SQLiteParameter(
+        "@IsNull_Language",
+        DbType.Int32,
+        0,
+        ParameterDirection.Input,
+        0,
+        0,
+        "Language",
+        DataRowVersion.Original,
+        true,
+        null));
+      this._adapter.UpdateCommand.Parameters.Add(
+        new SQLiteParameter(
+          "@Original_Language",
+          DbType.String,
+          0,
+          ParameterDirection.Input,
+          0,
+          0,
+          "Language",
+          DataRowVersion.Original,
+          false,
+          null));
+
+      this._adapter.UpdateCommand.Parameters.Add(
+      new SQLiteParameter(
+        "@IsNull_Type",
+        DbType.Int32,
+        0,
+        ParameterDirection.Input,
+        0,
+        0,
+        "Type",
+        DataRowVersion.Original,
+        true,
+        null));
+      this._adapter.UpdateCommand.Parameters.Add(
+        new SQLiteParameter(
+          "@Original_Type",
+          DbType.String,
+          0,
+          ParameterDirection.Input,
+          0,
+          0,
+          "Type",
+          DataRowVersion.Original,
+          false,
+          null));
+
+      this._adapter.UpdateCommand.Parameters.Add(
         new SQLiteParameter(
           "@ID",
           DbType.Int64,
@@ -2217,7 +2716,7 @@ SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects W
       this._commandCollection[0] = new SQLiteCommand();
       this._commandCollection[0].Connection = this.Connection;
       this._commandCollection[0].CommandText =
-        "SELECT     ID, SubjectName, Category, Age, Sex, Handedness, Comments\r\nFROM       " + "  Subjects";
+        "SELECT     ID, SubjectName, Category, Age, Sex, Handedness, Comments, Glasses, Light, Ambiance, Language, Type\r\nFROM       " + "  Subjects";
       this._commandCollection[0].CommandType = CommandType.Text;
       this._commandCollection[1] = new SQLiteCommand();
       this._commandCollection[1].Connection = this.Connection;
@@ -2233,7 +2732,7 @@ SELECT ID, SubjectName, Category, Age, Sex, Handedness, Comments FROM Subjects W
       this._commandCollection[3] = new SQLiteCommand();
       this._commandCollection[3].Connection = this.Connection;
       this._commandCollection[3].CommandText =
-        "SELECT Age, Category, Comments, Handedness, ID, Sex, SubjectName FROM Subjects WH"
+        "SELECT Age, Ambiance, Category, Comments, Glasses, Handedness, ID, Language, Light, Sex, SubjectName, Type FROM Subjects WH"
         + "ERE (SubjectName = @Param1)";
       this._commandCollection[3].CommandType = CommandType.Text;
       this._commandCollection[3].Parameters.Add(

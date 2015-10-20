@@ -2,6 +2,14 @@
 {
   partial class WebcamPropertiesDlg
   {
+
+      private System.Windows.Forms.Button btnCancel;
+      private System.Windows.Forms.Button btnOK;
+      private System.Windows.Forms.SplitContainer splitContainer1;
+      private DSVideoProperties dsVideoProperties;
+
+
+
     /// <summary>
     /// Required designer variable.
     /// </summary>
@@ -109,10 +117,7 @@
 
     #endregion
 
-    private System.Windows.Forms.Button btnCancel;
-    private System.Windows.Forms.Button btnOK;
-    private System.Windows.Forms.SplitContainer splitContainer1;
-    private DSVideoProperties dsVideoProperties;
+   
 
   }
 }

@@ -76,6 +76,8 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// </summary>
     private readonly Button recalibrateButton;
 
+    private readonly Button nextEtapeButton;
+
     #endregion //FIELDS
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -147,6 +149,45 @@ namespace Ogama.Modules.Recording.TrackerBase
       this.recalibrateButton.Click += this.BtnRecalibrateClick;
       this.acceptButton.Click += this.BtnAcceptCalibrationClick;
     }
+
+
+
+    protected TrackerWithStatusControls(
+        RecordModule owningRecordModule,
+        SplitContainer trackerTrackerControlsContainer,
+        Panel trackerTrackStatusPanel,
+        Panel trackerCalibrationResultPanel,
+        Button trackerShowOnPresentationScreenButton,
+        Button trackerAcceptButton,
+        Button trackerRecalibrateButton,
+        Button trackerConnectButton,
+        Button trackerSubjectButton,
+        Button trackerCalibrateButton,
+        Button trackerRecordButton,
+        Button trackerNextEtape,
+        TextBox trackerSubjectNameTextBox,
+        string trackerSettingsFile)
+            : base(
+            owningRecordModule,
+            trackerConnectButton,
+            trackerSubjectButton,
+            trackerCalibrateButton,
+            trackerRecordButton,
+            trackerSubjectNameTextBox,
+            trackerSettingsFile)
+        {
+            this.trackerControlsContainer = trackerTrackerControlsContainer;
+            this.trackStatusPanel = trackerTrackStatusPanel;
+            this.calibrationResultPanel = trackerCalibrationResultPanel;
+            this.showOnPresentationScreenButton = trackerShowOnPresentationScreenButton;
+            this.acceptButton = trackerAcceptButton;
+            this.recalibrateButton = trackerRecalibrateButton;
+            this.nextEtapeButton = trackerNextEtape;
+
+            this.showOnPresentationScreenButton.Click += this.BtnShowOnPresentationScreenClick;
+            this.recalibrateButton.Click += this.BtnRecalibrateClick;
+            this.acceptButton.Click += this.BtnAcceptCalibrationClick;
+        }
 
     #endregion //CONSTRUCTION
 
@@ -325,8 +366,9 @@ namespace Ogama.Modules.Recording.TrackerBase
     protected virtual void BtnAcceptCalibrationClick(object sender, EventArgs e)
     {
       this.CalibrateButton.Enabled = true;
-      this.RecordButton.Enabled = true;
+      this.RecordButton.Enabled = true;      
       this.ShowTrackStatus();
+      //this.nextEtapeButton.Enabled = true;
     }
 
     /// <summary>
@@ -339,6 +381,8 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// <param name="e">An empty <see cref="EventArgs"/>.</param>
     protected virtual void BtnRecalibrateClick(object sender, EventArgs e)
     {
+      
+      //this.nextEtapeButton.Enabled = false;
       this.ShowTrackStatus();
       this.Calibrate(true);
     }

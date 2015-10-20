@@ -779,11 +779,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.sctRecording);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1199, 741);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1199, 796);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1199, 766);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1199, 821);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -807,7 +807,7 @@
             // sctRecording.Panel2
             // 
             this.sctRecording.Panel2.Controls.Add(this.toolStripContainer2);
-            this.sctRecording.Size = new System.Drawing.Size(1199, 741);
+            this.sctRecording.Size = new System.Drawing.Size(1199, 796);
             this.sctRecording.SplitterDistance = 850;
             this.sctRecording.TabIndex = 2;
             // 
@@ -828,9 +828,9 @@
             // 
             this.spcPanelUserCam.Panel2.Controls.Add(this.grpUsercam);
             this.spcPanelUserCam.Panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.spcPanelUserCam.Panel2MinSize = 20;
-            this.spcPanelUserCam.Size = new System.Drawing.Size(850, 741);
-            this.spcPanelUserCam.SplitterDistance = 645;
+            this.spcPanelUserCam.Panel2MinSize = 160;
+            this.spcPanelUserCam.Size = new System.Drawing.Size(850, 796);
+            this.spcPanelUserCam.SplitterDistance = 632;
             this.spcPanelUserCam.TabIndex = 21;
             // 
             // spcPanelRecordTime
@@ -849,8 +849,8 @@
             // spcPanelRecordTime.Panel2
             // 
             this.spcPanelRecordTime.Panel2.Controls.Add(this.panel4);
-            this.spcPanelRecordTime.Size = new System.Drawing.Size(850, 645);
-            this.spcPanelRecordTime.SplitterDistance = 616;
+            this.spcPanelRecordTime.Size = new System.Drawing.Size(850, 632);
+            this.spcPanelRecordTime.SplitterDistance = 603;
             this.spcPanelRecordTime.TabIndex = 1;
             // 
             // tclEyetracker
@@ -875,7 +875,7 @@
             this.tclEyetracker.Location = new System.Drawing.Point(0, 0);
             this.tclEyetracker.Name = "tclEyetracker";
             this.tclEyetracker.SelectedIndex = 0;
-            this.tclEyetracker.Size = new System.Drawing.Size(850, 616);
+            this.tclEyetracker.Size = new System.Drawing.Size(850, 603);
             this.tclEyetracker.TabIndex = 1;
             this.tclEyetracker.SelectedIndexChanged += new System.EventHandler(this.TclEyetrackerSelectedIndexChanged);
             // 
@@ -886,7 +886,7 @@
             this.tbpGazetrackerIPClient.Location = new System.Drawing.Point(4, 23);
             this.tbpGazetrackerIPClient.Name = "tbpGazetrackerIPClient";
             this.tbpGazetrackerIPClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpGazetrackerIPClient.Size = new System.Drawing.Size(842, 589);
+            this.tbpGazetrackerIPClient.Size = new System.Drawing.Size(842, 576);
             this.tbpGazetrackerIPClient.TabIndex = 8;
             this.tbpGazetrackerIPClient.Text = "Gazetracker via UDP";
             this.tbpGazetrackerIPClient.UseVisualStyleBackColor = true;
@@ -907,7 +907,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(836, 583);
+            this.panel11.Size = new System.Drawing.Size(836, 570);
             this.panel11.TabIndex = 11;
             // 
             // btnGazetrackerIPLaunch
@@ -3146,7 +3146,7 @@
             this.tbpEyeTribe.Margin = new System.Windows.Forms.Padding(2);
             this.tbpEyeTribe.Name = "tbpEyeTribe";
             this.tbpEyeTribe.Padding = new System.Windows.Forms.Padding(2);
-            this.tbpEyeTribe.Size = new System.Drawing.Size(842, 589);
+            this.tbpEyeTribe.Size = new System.Drawing.Size(842, 576);
             this.tbpEyeTribe.TabIndex = 15;
             this.tbpEyeTribe.Text = "The Eye Tribe";
             this.tbpEyeTribe.UseVisualStyleBackColor = true;
@@ -3164,12 +3164,12 @@
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel14.Location = new System.Drawing.Point(2, 2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(838, 585);
+            this.panel14.Size = new System.Drawing.Size(838, 572);
             this.panel14.TabIndex = 12;
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(253, 547);
+            this.btnNext.Location = new System.Drawing.Point(259, 537);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(290, 38);
             this.btnNext.TabIndex = 21;
@@ -3190,7 +3190,7 @@
             this.tabTestSteps.Location = new System.Drawing.Point(7, 197);
             this.tabTestSteps.Name = "tabTestSteps";
             this.tabTestSteps.SelectedIndex = 0;
-            this.tabTestSteps.Size = new System.Drawing.Size(830, 332);
+            this.tabTestSteps.Size = new System.Drawing.Size(830, 322);
             this.tabTestSteps.TabIndex = 22;
             // 
             // tabEtape1Instal
@@ -3199,7 +3199,7 @@
             this.tabEtape1Instal.Location = new System.Drawing.Point(4, 22);
             this.tabEtape1Instal.Name = "tabEtape1Instal";
             this.tabEtape1Instal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEtape1Instal.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape1Instal.Size = new System.Drawing.Size(822, 296);
             this.tabEtape1Instal.TabIndex = 2;
             this.tabEtape1Instal.Text = "Etape 1 : Installation";
             this.tabEtape1Instal.UseVisualStyleBackColor = true;
@@ -3224,7 +3224,7 @@
             this.tabEtape2Config.Location = new System.Drawing.Point(4, 22);
             this.tabEtape2Config.Name = "tabEtape2Config";
             this.tabEtape2Config.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEtape2Config.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape2Config.Size = new System.Drawing.Size(822, 296);
             this.tabEtape2Config.TabIndex = 1;
             this.tabEtape2Config.Text = "Etape 2 : Configuration";
             this.tabEtape2Config.UseVisualStyleBackColor = true;
@@ -3237,7 +3237,7 @@
             this.tabEtape3Pre.Location = new System.Drawing.Point(4, 22);
             this.tabEtape3Pre.Name = "tabEtape3Pre";
             this.tabEtape3Pre.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEtape3Pre.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Pre.Size = new System.Drawing.Size(822, 296);
             this.tabEtape3Pre.TabIndex = 3;
             this.tabEtape3Pre.Text = "Etape 3 : Pre Calibration";
             this.tabEtape3Pre.UseVisualStyleBackColor = true;
@@ -3265,7 +3265,7 @@
             this.pictureBox2.Image = global::Ogama.Properties.Resources.EyeTribeClibOk;
             this.pictureBox2.Location = new System.Drawing.Point(299, 76);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(202, 134);
+            this.pictureBox2.Size = new System.Drawing.Size(202, 124);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
@@ -3288,7 +3288,7 @@
             this.tabEtape3Calib.Controls.Add(this.label114);
             this.tabEtape3Calib.Location = new System.Drawing.Point(4, 22);
             this.tabEtape3Calib.Name = "tabEtape3Calib";
-            this.tabEtape3Calib.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Calib.Size = new System.Drawing.Size(822, 296);
             this.tabEtape3Calib.TabIndex = 5;
             this.tabEtape3Calib.Text = "Etape 3 : Calibration";
             this.tabEtape3Calib.UseVisualStyleBackColor = true;
@@ -3315,7 +3315,7 @@
             this.tabEtape3Accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabEtape3Accept.Location = new System.Drawing.Point(4, 22);
             this.tabEtape3Accept.Name = "tabEtape3Accept";
-            this.tabEtape3Accept.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape3Accept.Size = new System.Drawing.Size(822, 296);
             this.tabEtape3Accept.TabIndex = 6;
             this.tabEtape3Accept.Text = "Etape 4 : Pre-Lancement";
             this.tabEtape3Accept.UseVisualStyleBackColor = true;
@@ -3326,9 +3326,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(81, 53);
+            this.label115.Location = new System.Drawing.Point(58, 42);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(627, 140);
+            this.label115.Size = new System.Drawing.Size(627, 180);
             this.label115.TabIndex = 0;
             this.label115.Text = resources.GetString("label115.Text");
             this.label115.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3339,7 +3339,7 @@
             this.tabEtape4Lance.Location = new System.Drawing.Point(4, 22);
             this.tabEtape4Lance.Name = "tabEtape4Lance";
             this.tabEtape4Lance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEtape4Lance.Size = new System.Drawing.Size(822, 306);
+            this.tabEtape4Lance.Size = new System.Drawing.Size(822, 296);
             this.tabEtape4Lance.TabIndex = 4;
             this.tabEtape4Lance.Text = "Etape 4 :  Lancement";
             this.tabEtape4Lance.UseVisualStyleBackColor = true;
@@ -3361,7 +3361,7 @@
             // groupBox21
             // 
             this.groupBox21.Controls.Add(this.spcEyeTribeControls);
-            this.groupBox21.Location = new System.Drawing.Point(307, 8);
+            this.groupBox21.Location = new System.Drawing.Point(308, 4);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(196, 183);
             this.groupBox21.TabIndex = 20;
@@ -3459,7 +3459,7 @@
             // 
             // txbEyeTribeSubject
             // 
-            this.txbEyeTribeSubject.Location = new System.Drawing.Point(412, 53);
+            this.txbEyeTribeSubject.Location = new System.Drawing.Point(372, 49);
             this.txbEyeTribeSubject.Name = "txbEyeTribeSubject";
             this.txbEyeTribeSubject.ReadOnly = true;
             this.txbEyeTribeSubject.Size = new System.Drawing.Size(91, 20);
@@ -3472,7 +3472,7 @@
             this.btnEyeTribeRecord.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeRecord.ImageKey = "Record";
             this.btnEyeTribeRecord.ImageList = this.imlButtons;
-            this.btnEyeTribeRecord.Location = new System.Drawing.Point(334, 115);
+            this.btnEyeTribeRecord.Location = new System.Drawing.Point(372, 137);
             this.btnEyeTribeRecord.Name = "btnEyeTribeRecord";
             this.btnEyeTribeRecord.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeRecord.TabIndex = 17;
@@ -3485,7 +3485,7 @@
             this.btnEyeTribeCalibrate.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeCalibrate.ImageKey = "Calibrate";
             this.btnEyeTribeCalibrate.ImageList = this.imlButtons;
-            this.btnEyeTribeCalibrate.Location = new System.Drawing.Point(334, 84);
+            this.btnEyeTribeCalibrate.Location = new System.Drawing.Point(372, 102);
             this.btnEyeTribeCalibrate.Name = "btnEyeTribeCalibrate";
             this.btnEyeTribeCalibrate.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeCalibrate.TabIndex = 17;
@@ -3498,7 +3498,7 @@
             this.btnEyeTribeSubject.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeSubject.ImageKey = "Subject";
             this.btnEyeTribeSubject.ImageList = this.imlButtons;
-            this.btnEyeTribeSubject.Location = new System.Drawing.Point(334, 53);
+            this.btnEyeTribeSubject.Location = new System.Drawing.Point(372, 69);
             this.btnEyeTribeSubject.Name = "btnEyeTribeSubject";
             this.btnEyeTribeSubject.Size = new System.Drawing.Size(72, 23);
             this.btnEyeTribeSubject.TabIndex = 12;
@@ -3512,7 +3512,7 @@
             this.btnEyeTribeConnect.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnEyeTribeConnect.ImageKey = "Connect";
             this.btnEyeTribeConnect.ImageList = this.imlButtons;
-            this.btnEyeTribeConnect.Location = new System.Drawing.Point(333, 23);
+            this.btnEyeTribeConnect.Location = new System.Drawing.Point(372, 20);
             this.btnEyeTribeConnect.Name = "btnEyeTribeConnect";
             this.btnEyeTribeConnect.Size = new System.Drawing.Size(73, 23);
             this.btnEyeTribeConnect.TabIndex = 12;
@@ -3799,10 +3799,10 @@
             // grpUsercam
             // 
             this.grpUsercam.Controls.Add(this.splitContainer2);
-            this.grpUsercam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpUsercam.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpUsercam.Location = new System.Drawing.Point(5, 5);
             this.grpUsercam.Name = "grpUsercam";
-            this.grpUsercam.Size = new System.Drawing.Size(840, 82);
+            this.grpUsercam.Size = new System.Drawing.Size(210, 150);
             this.grpUsercam.TabIndex = 0;
             this.grpUsercam.TabStop = false;
             this.grpUsercam.Text = "Usercam";
@@ -3824,7 +3824,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.webcamPreview);
-            this.splitContainer2.Size = new System.Drawing.Size(834, 63);
+            this.splitContainer2.Size = new System.Drawing.Size(204, 131);
             this.splitContainer2.SplitterDistance = 25;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -3835,7 +3835,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(834, 25);
+            this.panel2.Size = new System.Drawing.Size(204, 25);
             this.panel2.TabIndex = 0;
             // 
             // chbRecordAudio
@@ -3843,7 +3843,7 @@
             this.chbRecordAudio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chbRecordAudio.ImageKey = "Sound";
             this.chbRecordAudio.ImageList = this.imlButtons;
-            this.chbRecordAudio.Location = new System.Drawing.Point(108, 1);
+            this.chbRecordAudio.Location = new System.Drawing.Point(104, 1);
             this.chbRecordAudio.Name = "chbRecordAudio";
             this.chbRecordAudio.Size = new System.Drawing.Size(97, 24);
             this.chbRecordAudio.TabIndex = 0;
@@ -3872,7 +3872,7 @@
             this.webcamPreview.Location = new System.Drawing.Point(0, 0);
             this.webcamPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.webcamPreview.Name = "webcamPreview";
-            this.webcamPreview.Size = new System.Drawing.Size(834, 34);
+            this.webcamPreview.Size = new System.Drawing.Size(204, 102);
             this.webcamPreview.TabIndex = 0;
             this.webcamPreview.WebcamAvailable += new OgamaControls.CaptureModeEventHandler(this.WebcamPreviewWebcamAvailable);
             // 
@@ -3886,11 +3886,11 @@
             // toolStripContainer2.ContentPanel
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pnlCanvas);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(345, 690);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(345, 745);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(345, 741);
+            this.toolStripContainer2.Size = new System.Drawing.Size(345, 796);
             this.toolStripContainer2.TabIndex = 1;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -3929,7 +3929,7 @@
             this.pnlCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCanvas.Location = new System.Drawing.Point(0, 0);
             this.pnlCanvas.Name = "pnlCanvas";
-            this.pnlCanvas.Size = new System.Drawing.Size(345, 690);
+            this.pnlCanvas.Size = new System.Drawing.Size(345, 745);
             this.pnlCanvas.TabIndex = 4;
             // 
             // pnlPicture
@@ -4046,9 +4046,7 @@
             // 
             // btnUsercam
             // 
-            this.btnUsercam.Checked = true;
             this.btnUsercam.CheckOnClick = true;
-            this.btnUsercam.CheckState = System.Windows.Forms.CheckState.Checked;
             this.btnUsercam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnUsercam.Image = global::Ogama.Properties.Resources.video;
             this.btnUsercam.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -6682,7 +6680,7 @@
             // RecordModule
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1199, 766);
+            this.ClientSize = new System.Drawing.Size(1199, 821);
             this.Controls.Add(this.toolStripContainer1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::Ogama.Properties.Settings.Default, "RecordingModuleLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DoubleBuffered = true;

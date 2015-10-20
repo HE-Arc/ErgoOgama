@@ -16,6 +16,14 @@ namespace OgamaControls
   /// It can also capture video and audio stream into a file with
   /// default or custom devices and compressors.
   /// </summary>
+  /// 
+  /// ----------------------------------------------------------------
+  /// He-arc
+  /// Claudia Gheorghe
+  /// bug fix for using a web cam  !!!!!!!!!!!!!!!!!!!!! to test on machine with integrated camera!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  /// Method InitializeCustomComponents() -> changed cameras[0]= teh eye tracker with Camera[1]= the web camera
+
+
   public partial class Webcam : UserControl
   {
     ///////////////////////////////////////////////////////////////////////////////
@@ -480,10 +488,18 @@ namespace OgamaControls
     private void InitializeCustomComponents()
     {
       this.properties = new CaptureDeviceProperties();
+      
       //this.stopWatch = new Stopwatch();
+      //if (DirectShowDevices.Instance.Cameras.Count > 0)
+      //{
+      //  this.properties.VideoInputDevice = DirectShowDevices.Instance.Cameras[0];
+      //}
+
+      
+      //error inssuficient system resources  because the cameras[0] arg is always the eyetracker
       if (DirectShowDevices.Instance.Cameras.Count > 0)
       {
-        this.properties.VideoInputDevice = DirectShowDevices.Instance.Cameras[0];
+          this.properties.VideoInputDevice = DirectShowDevices.Instance.Cameras[0];
       }
 
       DsDevice[] videoCompressors = DsDevice.GetDevicesOfCat(FilterCategory.VideoCompressorCategory);

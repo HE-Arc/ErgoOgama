@@ -950,7 +950,7 @@ namespace Ogama.MainWindow
             this.Location = global::Ogama.Properties.Settings.Default.MainWindowLocation;
             this.MainMenuStrip = this.mnsMain;
             this.Name = "MainForm";
-            this.Text = "Ogama";
+            this.Text = "ErgoCrowd Ogama";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

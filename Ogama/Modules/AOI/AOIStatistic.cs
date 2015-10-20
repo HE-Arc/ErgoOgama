@@ -83,6 +83,13 @@ namespace Ogama.Modules.AOI
     /// </summary>
     private long firstHitTimeAfterBeeingOutside;
 
+    /// <summary>
+    /// He-Arc
+    /// Claudia Gheorghe
+    /// The sum of all fixation durations at the aoi in ms / total duration of the trail *100
+    /// </summary>
+    private int relativeTime;
+
     #endregion //FIELDS
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -200,6 +207,12 @@ namespace Ogama.Modules.AOI
     {
       get { return this.firstHitTimeAfterBeeingOutside; }
       set { this.firstHitTimeAfterBeeingOutside = value; }
+    }
+
+    public int RelativeTime
+    {
+        get { return this.relativeTime; }
+        set { this.relativeTime = value; }
     }
 
     #endregion //PROPERTIES

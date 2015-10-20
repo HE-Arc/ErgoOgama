@@ -168,6 +168,7 @@ namespace Ogama.Modules.Statistics
             this.tbpGazeAOI = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.rdbGazeRelativeTime = new System.Windows.Forms.RadioButton();
             this.rdbGazeAOISingle = new System.Windows.Forms.RadioButton();
             this.rdbGazeAOIGroup = new System.Windows.Forms.RadioButton();
             this.btnGazeAddCustomVariable = new System.Windows.Forms.Button();
@@ -392,7 +393,7 @@ namespace Ogama.Modules.Statistics
             this.dGVExportTable.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.dGVExportTable.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dGVExportTable.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-            this.dGVExportTable.Size = new System.Drawing.Size(775, 82);
+            this.dGVExportTable.Size = new System.Drawing.Size(775, 130);
             this.dGVExportTable.TabIndex = 0;
             this.dGVExportTable.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dGVExportTable_MouseDown);
             // 
@@ -594,6 +595,9 @@ namespace Ogama.Modules.Statistics
             // chbTRITrialID
             // 
             this.chbTRITrialID.AutoSize = true;
+            this.chbTRITrialID.Checked = true;
+            this.chbTRITrialID.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbTRITrialID.Enabled = false;
             this.chbTRITrialID.Location = new System.Drawing.Point(6, 42);
             this.chbTRITrialID.Name = "chbTRITrialID";
             this.chbTRITrialID.Size = new System.Drawing.Size(60, 17);
@@ -605,6 +609,7 @@ namespace Ogama.Modules.Statistics
             // 
             // chbGAZFixTimeAtTarget
             // 
+            this.chbGAZFixTimeAtTarget.Enabled = false;
             this.chbGAZFixTimeAtTarget.Location = new System.Drawing.Point(6, 109);
             this.chbGAZFixTimeAtTarget.Name = "chbGAZFixTimeAtTarget";
             this.chbGAZFixTimeAtTarget.Size = new System.Drawing.Size(138, 30);
@@ -617,6 +622,7 @@ namespace Ogama.Modules.Statistics
             // 
             // chbGAZTime2SecondFixAtTarget
             // 
+            this.chbGAZTime2SecondFixAtTarget.Enabled = false;
             this.chbGAZTime2SecondFixAtTarget.Location = new System.Drawing.Point(6, 77);
             this.chbGAZTime2SecondFixAtTarget.Name = "chbGAZTime2SecondFixAtTarget";
             this.chbGAZTime2SecondFixAtTarget.Size = new System.Drawing.Size(138, 30);
@@ -640,6 +646,7 @@ namespace Ogama.Modules.Statistics
             // 
             // chbGAZTime2FirstFixAtTarget
             // 
+            this.chbGAZTime2FirstFixAtTarget.Enabled = false;
             this.chbGAZTime2FirstFixAtTarget.Location = new System.Drawing.Point(6, 45);
             this.chbGAZTime2FirstFixAtTarget.Name = "chbGAZTime2FirstFixAtTarget";
             this.chbGAZTime2FirstFixAtTarget.Size = new System.Drawing.Size(138, 30);
@@ -651,6 +658,7 @@ namespace Ogama.Modules.Statistics
             // 
             // chbGAZTime2FirstFixInSearchRect
             // 
+            this.chbGAZTime2FirstFixInSearchRect.Enabled = false;
             this.chbGAZTime2FirstFixInSearchRect.Location = new System.Drawing.Point(6, 13);
             this.chbGAZTime2FirstFixInSearchRect.Name = "chbGAZTime2FirstFixInSearchRect";
             this.chbGAZTime2FirstFixInSearchRect.Size = new System.Drawing.Size(138, 30);
@@ -1121,7 +1129,7 @@ namespace Ogama.Modules.Statistics
             this.dgvTransitions.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.dgvTransitions.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvTransitions.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-            this.dgvTransitions.Size = new System.Drawing.Size(775, 146);
+            this.dgvTransitions.Size = new System.Drawing.Size(775, 194);
             this.dgvTransitions.TabIndex = 1;
             this.toolTipStatistic.SetToolTip(this.dgvTransitions, "Number of fixations for each trial\r\nuntil first mouse click.\r\n\r\nA value of -1 mea" +
         "ns:\r\nNo left or right mouse click\r\nin this trial.");
@@ -1176,7 +1184,8 @@ namespace Ogama.Modules.Statistics
             // rdbGazeFixationDurationMean
             // 
             this.rdbGazeFixationDurationMean.AutoSize = true;
-            this.rdbGazeFixationDurationMean.Location = new System.Drawing.Point(6, 85);
+            this.rdbGazeFixationDurationMean.Enabled = false;
+            this.rdbGazeFixationDurationMean.Location = new System.Drawing.Point(160, 13);
             this.rdbGazeFixationDurationMean.Name = "rdbGazeFixationDurationMean";
             this.rdbGazeFixationDurationMean.Size = new System.Drawing.Size(128, 17);
             this.rdbGazeFixationDurationMean.TabIndex = 26;
@@ -1206,9 +1215,9 @@ namespace Ogama.Modules.Statistics
             this.cbbGazeAOISingle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbGazeAOISingle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbGazeAOISingle.FormattingEnabled = true;
-            this.cbbGazeAOISingle.Location = new System.Drawing.Point(415, 62);
+            this.cbbGazeAOISingle.Location = new System.Drawing.Point(323, 70);
             this.cbbGazeAOISingle.Name = "cbbGazeAOISingle";
-            this.cbbGazeAOISingle.Size = new System.Drawing.Size(100, 21);
+            this.cbbGazeAOISingle.Size = new System.Drawing.Size(262, 21);
             this.cbbGazeAOISingle.TabIndex = 23;
             this.toolTipStatistic.SetToolTip(this.cbbGazeAOISingle, "Choose an area of interest.");
             this.cbbGazeAOISingle.DropDown += new System.EventHandler(this.cbbGazeAOISingle_DropDown);
@@ -1219,7 +1228,7 @@ namespace Ogama.Modules.Statistics
             this.cbbGazeAOIGroups.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbbGazeAOIGroups.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbGazeAOIGroups.FormattingEnabled = true;
-            this.cbbGazeAOIGroups.Location = new System.Drawing.Point(415, 40);
+            this.cbbGazeAOIGroups.Location = new System.Drawing.Point(410, 30);
             this.cbbGazeAOIGroups.Name = "cbbGazeAOIGroups";
             this.cbbGazeAOIGroups.Size = new System.Drawing.Size(100, 21);
             this.cbbGazeAOIGroups.TabIndex = 23;
@@ -1395,7 +1404,7 @@ namespace Ogama.Modules.Statistics
             this.tacMeta.Location = new System.Drawing.Point(5, 5);
             this.tacMeta.Name = "tacMeta";
             this.tacMeta.SelectedIndex = 0;
-            this.tacMeta.Size = new System.Drawing.Size(789, 425);
+            this.tacMeta.Size = new System.Drawing.Size(789, 473);
             this.tacMeta.TabIndex = 17;
             // 
             // tbpMetaStandard
@@ -1407,7 +1416,7 @@ namespace Ogama.Modules.Statistics
             this.tbpMetaStandard.Location = new System.Drawing.Point(4, 34);
             this.tbpMetaStandard.Name = "tbpMetaStandard";
             this.tbpMetaStandard.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpMetaStandard.Size = new System.Drawing.Size(781, 387);
+            this.tbpMetaStandard.Size = new System.Drawing.Size(781, 435);
             this.tbpMetaStandard.TabIndex = 0;
             this.tbpMetaStandard.Text = "Standard variables";
             // 
@@ -1418,11 +1427,11 @@ namespace Ogama.Modules.Statistics
             // 
             this.tscStandard.ContentPanel.Controls.Add(this.spcTacDgv);
             this.tscStandard.ContentPanel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.tscStandard.ContentPanel.Size = new System.Drawing.Size(775, 356);
+            this.tscStandard.ContentPanel.Size = new System.Drawing.Size(775, 404);
             this.tscStandard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscStandard.Location = new System.Drawing.Point(3, 3);
             this.tscStandard.Name = "tscStandard";
-            this.tscStandard.Size = new System.Drawing.Size(775, 381);
+            this.tscStandard.Size = new System.Drawing.Size(775, 429);
             this.tscStandard.TabIndex = 0;
             this.tscStandard.Text = "toolStripContainer2";
             // 
@@ -1449,7 +1458,7 @@ namespace Ogama.Modules.Statistics
             // 
             this.spcTacDgv.Panel2.Controls.Add(this.dGVExportTable);
             this.spcTacDgv.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.spcTacDgv.Size = new System.Drawing.Size(775, 351);
+            this.spcTacDgv.Size = new System.Drawing.Size(775, 399);
             this.spcTacDgv.SplitterDistance = 265;
             this.spcTacDgv.TabIndex = 15;
             // 
@@ -1928,6 +1937,7 @@ namespace Ogama.Modules.Statistics
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.rdbGazeRelativeTime);
             this.groupBox15.Controls.Add(this.rdbGazeAOISingle);
             this.groupBox15.Controls.Add(this.rdbGazeAOIGroup);
             this.groupBox15.Controls.Add(this.btnGazeAddCustomVariable);
@@ -1945,16 +1955,27 @@ namespace Ogama.Modules.Statistics
             this.groupBox15.Controls.Add(this.cbbGazeAOIGroups);
             this.groupBox15.Location = new System.Drawing.Point(162, 6);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(540, 140);
+            this.groupBox15.Size = new System.Drawing.Size(591, 140);
             this.groupBox15.TabIndex = 27;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Gaze at AOI (custom)";
+            // 
+            // rdbGazeRelativeTime
+            // 
+            this.rdbGazeRelativeTime.AutoSize = true;
+            this.rdbGazeRelativeTime.Location = new System.Drawing.Point(6, 87);
+            this.rdbGazeRelativeTime.Name = "rdbGazeRelativeTime";
+            this.rdbGazeRelativeTime.Size = new System.Drawing.Size(81, 17);
+            this.rdbGazeRelativeTime.TabIndex = 34;
+            this.rdbGazeRelativeTime.TabStop = true;
+            this.rdbGazeRelativeTime.Text = "relative time";
+            this.rdbGazeRelativeTime.UseVisualStyleBackColor = true;
             // 
             // rdbGazeAOISingle
             // 
             this.rdbGazeAOISingle.AutoCheck = false;
             this.rdbGazeAOISingle.AutoSize = true;
-            this.rdbGazeAOISingle.Location = new System.Drawing.Point(323, 63);
+            this.rdbGazeAOISingle.Location = new System.Drawing.Point(323, 53);
             this.rdbGazeAOISingle.Name = "rdbGazeAOISingle";
             this.rdbGazeAOISingle.Size = new System.Drawing.Size(85, 17);
             this.rdbGazeAOISingle.TabIndex = 33;
@@ -1967,7 +1988,7 @@ namespace Ogama.Modules.Statistics
             this.rdbGazeAOIGroup.AutoCheck = false;
             this.rdbGazeAOIGroup.AutoSize = true;
             this.rdbGazeAOIGroup.Checked = true;
-            this.rdbGazeAOIGroup.Location = new System.Drawing.Point(323, 41);
+            this.rdbGazeAOIGroup.Location = new System.Drawing.Point(323, 31);
             this.rdbGazeAOIGroup.Name = "rdbGazeAOIGroup";
             this.rdbGazeAOIGroup.Size = new System.Drawing.Size(86, 17);
             this.rdbGazeAOIGroup.TabIndex = 32;
@@ -2006,17 +2027,19 @@ namespace Ogama.Modules.Statistics
             // rdbGazeSaccadeVelocity
             // 
             this.rdbGazeSaccadeVelocity.AutoSize = true;
-            this.rdbGazeSaccadeVelocity.Location = new System.Drawing.Point(162, 109);
+            this.rdbGazeSaccadeVelocity.Location = new System.Drawing.Point(160, 112);
             this.rdbGazeSaccadeVelocity.Name = "rdbGazeSaccadeVelocity";
             this.rdbGazeSaccadeVelocity.Size = new System.Drawing.Size(105, 17);
             this.rdbGazeSaccadeVelocity.TabIndex = 26;
             this.rdbGazeSaccadeVelocity.Text = "saccade velocity";
             this.rdbGazeSaccadeVelocity.UseVisualStyleBackColor = true;
+            this.rdbGazeSaccadeVelocity.Visible = false;
             // 
             // rdbGazeFixationDurationMedian
             // 
             this.rdbGazeFixationDurationMedian.AutoSize = true;
-            this.rdbGazeFixationDurationMedian.Location = new System.Drawing.Point(6, 109);
+            this.rdbGazeFixationDurationMedian.Enabled = false;
+            this.rdbGazeFixationDurationMedian.Location = new System.Drawing.Point(160, 36);
             this.rdbGazeFixationDurationMedian.Name = "rdbGazeFixationDurationMedian";
             this.rdbGazeFixationDurationMedian.Size = new System.Drawing.Size(136, 17);
             this.rdbGazeFixationDurationMedian.TabIndex = 26;
@@ -2026,22 +2049,24 @@ namespace Ogama.Modules.Statistics
             // rdbGazeSaccadeLength
             // 
             this.rdbGazeSaccadeLength.AutoSize = true;
-            this.rdbGazeSaccadeLength.Location = new System.Drawing.Point(162, 85);
+            this.rdbGazeSaccadeLength.Location = new System.Drawing.Point(160, 88);
             this.rdbGazeSaccadeLength.Name = "rdbGazeSaccadeLength";
             this.rdbGazeSaccadeLength.Size = new System.Drawing.Size(98, 17);
             this.rdbGazeSaccadeLength.TabIndex = 26;
             this.rdbGazeSaccadeLength.Text = "saccade length";
             this.rdbGazeSaccadeLength.UseVisualStyleBackColor = true;
+            this.rdbGazeSaccadeLength.Visible = false;
             // 
             // rdbGazeSaccadeDuration
             // 
             this.rdbGazeSaccadeDuration.AutoSize = true;
-            this.rdbGazeSaccadeDuration.Location = new System.Drawing.Point(162, 63);
+            this.rdbGazeSaccadeDuration.Location = new System.Drawing.Point(160, 67);
             this.rdbGazeSaccadeDuration.Name = "rdbGazeSaccadeDuration";
             this.rdbGazeSaccadeDuration.Size = new System.Drawing.Size(107, 17);
             this.rdbGazeSaccadeDuration.TabIndex = 26;
             this.rdbGazeSaccadeDuration.Text = "saccade duration";
             this.rdbGazeSaccadeDuration.UseVisualStyleBackColor = true;
+            this.rdbGazeSaccadeDuration.Visible = false;
             // 
             // label11
             // 
@@ -2628,7 +2653,7 @@ namespace Ogama.Modules.Statistics
             this.tbpMetaTransitions.Location = new System.Drawing.Point(4, 34);
             this.tbpMetaTransitions.Name = "tbpMetaTransitions";
             this.tbpMetaTransitions.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpMetaTransitions.Size = new System.Drawing.Size(781, 387);
+            this.tbpMetaTransitions.Size = new System.Drawing.Size(781, 435);
             this.tbpMetaTransitions.TabIndex = 1;
             this.tbpMetaTransitions.Text = "AOI transitions";
             // 
@@ -2638,12 +2663,12 @@ namespace Ogama.Modules.Statistics
             // tscTransitions.ContentPanel
             // 
             this.tscTransitions.ContentPanel.Controls.Add(this.splitContainer2);
-            this.tscTransitions.ContentPanel.Size = new System.Drawing.Size(775, 356);
+            this.tscTransitions.ContentPanel.Size = new System.Drawing.Size(775, 404);
             this.tscTransitions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscTransitions.Location = new System.Drawing.Point(3, 3);
             this.tscTransitions.Margin = new System.Windows.Forms.Padding(0);
             this.tscTransitions.Name = "tscTransitions";
-            this.tscTransitions.Size = new System.Drawing.Size(775, 381);
+            this.tscTransitions.Size = new System.Drawing.Size(775, 429);
             this.tscTransitions.TabIndex = 3;
             this.tscTransitions.Text = "toolStripContainer3";
             // 
@@ -2667,7 +2692,7 @@ namespace Ogama.Modules.Statistics
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dgvTransitions);
-            this.splitContainer2.Size = new System.Drawing.Size(775, 356);
+            this.splitContainer2.Size = new System.Drawing.Size(775, 404);
             this.splitContainer2.SplitterDistance = 206;
             this.splitContainer2.TabIndex = 3;
             // 
@@ -2957,7 +2982,7 @@ namespace Ogama.Modules.Statistics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(799, 435);
+            this.ClientSize = new System.Drawing.Size(799, 483);
             this.Controls.Add(this.tacMeta);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::Ogama.Properties.Settings.Default, "StatisticsModuleLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3308,5 +3333,6 @@ namespace Ogama.Modules.Statistics
     private System.Windows.Forms.ToolStripButton btnEye;
     private System.Windows.Forms.ToolStripButton btnMouse;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+    private System.Windows.Forms.RadioButton rdbGazeRelativeTime;
   }
 }

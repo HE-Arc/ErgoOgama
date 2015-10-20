@@ -182,6 +182,45 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       this.Initialize();
     }
 
+
+
+
+
+
+
+   public TheEyeTribeTracker(
+       RecordModule owningRecordModule,
+       SplitContainer trackerTrackerControlsContainer,
+       Panel trackerTrackStatusPanel,
+       Panel trackerCalibrationResultPanel,
+       Button trackerShowOnSecondaryScreenButton,
+       Button trackerAcceptButton,
+       Button trackerRecalibrateButton,
+       Button trackerConnectButton,
+       Button trackerSubjectButton,
+       Button trackerCalibrateButton,
+       Button trackerRecordButton,
+       Button trackerNextEtape,
+       TextBox trackerSubjectNameTextBox)
+        : base(
+          owningRecordModule,
+          trackerTrackerControlsContainer,
+          trackerTrackStatusPanel,
+          trackerCalibrationResultPanel,
+          trackerShowOnSecondaryScreenButton,
+          trackerAcceptButton,
+          trackerRecalibrateButton,
+          trackerConnectButton,
+          trackerSubjectButton,
+          trackerCalibrateButton,
+          trackerRecordButton,
+          trackerNextEtape,
+          trackerSubjectNameTextBox,
+          Properties.Settings.Default.EyeTrackerSettingsPath + "TheEyeTribeSetting.xml")
+    {
+        // Call the initialize methods of derived classes
+        this.Initialize();
+    }
     #endregion
 
     #region Public Properties
