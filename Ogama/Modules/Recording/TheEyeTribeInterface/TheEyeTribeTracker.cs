@@ -181,13 +181,69 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       // Call the initialize methods of derived classes
       this.Initialize();
     }
+      
 
-
-
-
-
-
-
+    /// ------------------------------------------------
+    /// He-Arc
+    /// Claudia
+    /// new constructor with name="trackerNextButton" Button as parameter
+    /// ---------------------------------------------------------- 
+    /// <summary>
+    /// Initializes a new instance of the TheEyeTribeTracker class.
+    /// </summary>
+    /// <param name="owningRecordModule">
+    /// The <see cref="RecordModule"/>
+    ///   form wich host the recorder.
+    /// </param>
+    /// <param name="trackerTrackerControlsContainer">
+    /// The <see cref="SplitContainer"/>
+    ///   control which contains two <see cref="SplitContainer"/>s with
+    ///   track status and calibration plot controls and buttons.
+    /// </param>
+    /// <param name="trackerTrackStatusPanel">
+    /// The <see cref="Panel"/>
+    ///   which should contain the track status object.
+    /// </param>
+    /// <param name="trackerCalibrationResultPanel">
+    /// The <see cref="Panel"/>
+    ///   which should contain the calibration result object.
+    /// </param>
+    /// <param name="trackerShowOnSecondaryScreenButton">
+    /// The <see cref="Button"/>
+    ///   named "ShowOnPresentationScreenButton" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerAcceptButton">
+    /// The <see cref="Button"/>
+    ///   named "Accept" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerRecalibrateButton">
+    /// The <see cref="Button"/>
+    ///   named "Recalibrate" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerConnectButton">
+    /// The <see cref="Button"/>
+    ///   named "Connect" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerSubjectButton">
+    /// The <see cref="Button"/>
+    ///   named "Subject" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerCalibrateButton">
+    /// The <see cref="Button"/>
+    ///   named "Calibrate" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerRecordButton">
+    /// The <see cref="Button"/>
+    ///   named "Record" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerNextButton">
+    /// The <see cref="Button"/>
+    ///   named "Next" at the tab page of the TheEyeTribe device.
+    /// </param>
+    /// <param name="trackerSubjectNameTextBox">
+    /// The <see cref="TextBox"/>
+    ///   which should contain the subject name at the tab page of the TheEyeTribe device.
+    /// </param>
    public TheEyeTribeTracker(
        RecordModule owningRecordModule,
        SplitContainer trackerTrackerControlsContainer,
@@ -375,7 +431,6 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
               this.StartEyeTribeProcess();
             }
           }
-
           break;
       }
     }

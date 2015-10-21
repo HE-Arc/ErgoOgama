@@ -3019,7 +3019,7 @@ namespace Ogama.Modules.Recording
                     this.btnEyeTribeCalibrate.PerformClick();
                 }               
                 this.btnNext.Text = "Passer à l'étape suivante"; 
-                //this.btnNext.Enabled = false;                     
+                this.btnNext.Enabled = false;                     
                 break;
             case 4:
                  if (tabTestSteps.TabPages.Contains(tabEtape3Accept))

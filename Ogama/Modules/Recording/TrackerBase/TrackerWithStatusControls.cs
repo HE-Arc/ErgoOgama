@@ -152,6 +152,43 @@ namespace Ogama.Modules.Recording.TrackerBase
 
 
 
+    /// --------------------------------------------------------
+    /// He-Arc
+    /// Claudia
+    /// new constractor with name="trackerNextEtape" button as parameter
+    /// --------------------------------------------------------
+    /// <summary>
+    /// Initializes a new instance of the TrackerWithStatusControls class.
+    /// </summary>
+    /// <param name="owningRecordModule">The <see cref="RecordModule"/>
+    /// form wich host the recorder.</param>
+    /// <param name="trackerTrackerControlsContainer">The <see cref="SplitContainer"/>
+    /// control which contains two <see cref="SplitContainer"/>s with
+    /// track status and calibration plot controls and buttons.</param>
+    /// <param name="trackerTrackStatusPanel">The <see cref="Panel"/>
+    /// which should contain the track status object.</param>
+    /// <param name="trackerCalibrationResultPanel">The <see cref="Panel"/>
+    /// which should contain the calibration result object.</param>
+    /// <param name="trackerShowOnPresentationScreenButton">The <see cref="Button"/>
+    /// named "ShowOnPresentationScreenButton" at the tab page of the tracking device.</param>
+    /// <param name="trackerAcceptButton">The <see cref="Button"/>
+    /// named "Accept" at the tab page of the tracking device.</param>
+    /// <param name="trackerRecalibrateButton">The <see cref="Button"/>
+    /// named "Recalibrate" at the tab page of the tracking device.</param>
+    /// <param name="trackerConnectButton">The <see cref="Button"/>
+    /// named "Connect" at the tab page of the tracking device.</param>
+    /// <param name="trackerSubjectButton">The <see cref="Button"/>
+    /// named "Subject" at the tab page of the tracking device.</param>
+    /// <param name="trackerCalibrateButton">The <see cref="Button"/>
+    /// named "Calibrate" at the tab page of the tracking device.</param>
+    /// <param name="trackerRecordButton">The <see cref="Button"/>
+    /// named "Record" at the tab page of the tracking device.</param>
+    /// <param name="trackerNextEtape">The <see cref="Button"/>
+    /// named "Next" at the tab page of the tracking device.</param>
+    /// <param name="trackerSubjectNameTextBox">The <see cref="TextBox"/>
+    /// which should contain the subject name at the tab page of the tracking device.</param>
+    /// <param name="trackerSettingsFile">The file with full path to the settings
+    /// xml file of the tracking device.</param>
     protected TrackerWithStatusControls(
         RecordModule owningRecordModule,
         SplitContainer trackerTrackerControlsContainer,
@@ -368,7 +405,7 @@ namespace Ogama.Modules.Recording.TrackerBase
       this.CalibrateButton.Enabled = true;
       this.RecordButton.Enabled = true;      
       this.ShowTrackStatus();
-      //this.nextEtapeButton.Enabled = true;
+      this.nextEtapeButton.Enabled = true;
     }
 
     /// <summary>
@@ -380,9 +417,8 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// <param name="sender">Source of the event.</param>
     /// <param name="e">An empty <see cref="EventArgs"/>.</param>
     protected virtual void BtnRecalibrateClick(object sender, EventArgs e)
-    {
-      
-      //this.nextEtapeButton.Enabled = false;
+    {      
+      this.nextEtapeButton.Enabled = false;
       this.ShowTrackStatus();
       this.Calibrate(true);
     }
