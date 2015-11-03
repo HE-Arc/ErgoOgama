@@ -918,6 +918,16 @@ namespace Ogama.Modules.Statistics
         this.chbMSEAverageDistance,
         this.toolTipStatistic.GetToolTip(this.chbMSEAverageDistance));
       this.defaultVariables.Add("chbMSEAverageDistance", varMouseAverageDistanceToGaze);
+
+       var varMouseScanpathOfUrlsClicked= new MouseVariable(
+           MouseParams.ScanpathOfUrlsClicked,
+           "MSPUC",
+           "Mouse: Scanpath of all the links clicked by the user",
+           Type.GetType("System.Single"),
+           "N2",
+           this.chbClicksUrlPath,
+           this.toolTipStatistic.GetToolTip(this.chbClicksUrlPath));
+       this.defaultVariables.Add("chbClicksUrlPath", varMouseScanpathOfUrlsClicked);
     }
 
     /// <summary>
@@ -1255,6 +1265,7 @@ namespace Ogama.Modules.Statistics
       this.chbMSEPathlength.Enabled = enable;
       this.chbMSEPathlengthPS.Enabled = enable;
       this.chbMSEAverageDistance.Enabled = enable;
+      this.chbClicksUrlPath.Enabled = enable;
 
       this.trvSubjects.Enabled = enable;
       this.clbSUBCustomparameters.Enabled = enable;
@@ -1648,7 +1659,7 @@ namespace Ogama.Modules.Statistics
       }
     }
 
-    /// <summary>------main fonction used to fill the grid when thw "Start calculation" is clicked
+    /// <summary>------main fonction used to fill the grid when the btn "Start calculation" is clicked
     /// Iterates selected subjects and calculates the statistics variables 
     ///   with checkbox state= selected.
     /// </summary>
@@ -3207,5 +3218,9 @@ namespace Ogama.Modules.Statistics
     }
 
     #endregion
+
+   
+
+    
   }
 }

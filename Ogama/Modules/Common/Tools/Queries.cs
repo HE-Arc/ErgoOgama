@@ -10,6 +10,12 @@
 // </copyright>
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
+///--------------------------------------------------------------
+/// He-Arc
+/// Claudia Gheorghe
+/// add methode GetTrialMouseResponseEvents() to get a liste of all the Response Type Events 
+/// ------------------------------------------------------
+
 
 namespace Ogama.Modules.Common.Tools
 {
@@ -362,9 +368,59 @@ namespace Ogama.Modules.Common.Tools
             break;
         }
       }
-
       return returnList;
     }
+    
+    /// <summary>
+    /// This method parses the trial event table for the mouse events made by the given
+    /// subject during the trial with the given sequence number and we keep only the EventType= Response
+    /// </summary>
+    /// <param name="subjectName">A <see cref="String"/> with the subject name.</param>
+    /// <param name="trialSequence">The <see cref="Int32"/> with the sequence number
+    /// of this trial for the given subject.</param>
+    /// <returns> A <see cref="SortedList{Int64, InputEvent}"/> with the mouse events type=Response/SlideChange </returns>
+    public static SortedList<long, InputEvent> GetTrialMouseResponseEvents(string subjectName, int trialSequence)
+    {
+        SortedList<long, InputEvent> returnList = new SortedList<long, InputEvent>();
+        DataTable table = Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetDataBySubjectAndSequence(subjectName, trialSequence);
+
+        foreach (DataRow row in table.Rows)
+        {
+            string typeString = row["EventType"].ToString();
+            EventType type = EventType.None;
+            try
+            {
+                type = (EventType)Enum.Parse(typeof(EventType), typeString, true);
+            }
+            catch (ArgumentException)
+            {
+                continue;
+            }
+
+            int id = Convert.ToInt32(row["EventID"]);
+            long time = Convert.ToInt64(row["EventTime"]);
+            string taskString = row["EventTask"].ToString();
+            string param = row["EventParam"].ToString();
+            
+
+            InputEvent newEvent = null;
+            if(type ==EventType.Response)
+            {
+                newEvent = new InputEvent();
+                newEvent.EventID = id;
+                newEvent.Param = param;
+                ((InputEvent)newEvent).Task = (InputEventTask)Enum.Parse(typeof(InputEventTask), taskString, true);
+                newEvent.Time = time;
+                newEvent.Type = type;
+                if (!returnList.ContainsKey(time))
+                {
+                    returnList.Add(time, newEvent);
+                }
+            }
+        }
+        return returnList;
+    }
+
 
     /// <summary>
     /// This method parses the trial event table for the response made by the given

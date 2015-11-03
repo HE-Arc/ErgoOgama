@@ -195,6 +195,7 @@ namespace Ogama.Modules.Statistics
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.chbClicksUrlPath = new System.Windows.Forms.CheckBox();
             this.tbpMouseAOI = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -2282,6 +2283,7 @@ namespace Ogama.Modules.Statistics
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.chbClicksUrlPath);
             this.groupBox12.Controls.Add(this.chbMSEPathlength);
             this.groupBox12.Controls.Add(this.chbMSEPathlengthPS);
             this.groupBox12.Location = new System.Drawing.Point(474, 6);
@@ -2290,6 +2292,17 @@ namespace Ogama.Modules.Statistics
             this.groupBox12.TabIndex = 17;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Mouse path";
+            // 
+            // chbClicksUrlPath
+            // 
+            this.chbClicksUrlPath.AutoSize = true;
+            this.chbClicksUrlPath.Location = new System.Drawing.Point(7, 79);
+            this.chbClicksUrlPath.Name = "chbClicksUrlPath";
+            this.chbClicksUrlPath.Size = new System.Drawing.Size(126, 17);
+            this.chbClicksUrlPath.TabIndex = 2;
+            this.chbClicksUrlPath.Text = "urls clicked scanpath";
+            this.chbClicksUrlPath.UseVisualStyleBackColor = true;
+            this.chbClicksUrlPath.CheckedChanged += new System.EventHandler(this.chbMouseDefault_CheckedChanged);
             // 
             // tbpMouseAOI
             // 
@@ -3080,6 +3093,7 @@ namespace Ogama.Modules.Statistics
             this.groupBox23.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.tbpMouseAOI.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
@@ -3334,5 +3348,6 @@ namespace Ogama.Modules.Statistics
     private System.Windows.Forms.ToolStripButton btnMouse;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     private System.Windows.Forms.RadioButton rdbGazeRelativeTime;
+    private System.Windows.Forms.CheckBox chbClicksUrlPath;
   }
 }

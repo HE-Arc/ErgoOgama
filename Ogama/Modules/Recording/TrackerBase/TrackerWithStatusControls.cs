@@ -76,6 +76,12 @@ namespace Ogama.Modules.Recording.TrackerBase
     /// </summary>
     private readonly Button recalibrateButton;
 
+
+    /// <summary>
+    /// This <see cref="Button"/> is placed at the end of 
+    /// the test scenario to pass to next etape   <see cref="Ne"/>
+    /// and named "Recalibrate".
+    /// </summary>
     private readonly Button nextEtapeButton;
 
     #endregion //FIELDS

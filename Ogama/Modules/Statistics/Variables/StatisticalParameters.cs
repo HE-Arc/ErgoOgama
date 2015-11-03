@@ -334,7 +334,7 @@ namespace Ogama.Modules.Statistics.Variables
   /// Flags. Selection values for mouse parameters.
   /// </summary>
   [Flags]
-  public enum MouseParams
+      public enum MouseParams
   {
     /// <summary>
     /// Do not calculate mouse variables.
@@ -497,5 +497,9 @@ namespace Ogama.Modules.Statistics.Variables
     /// All mouse variables.
     /// </summary>
     All = 2097151,
+    /// <summary>
+    ///  List of all the urls clicked by a user during a test
+    /// </summary>
+    ScanpathOfUrlsClicked = 4194304,
   }
 }

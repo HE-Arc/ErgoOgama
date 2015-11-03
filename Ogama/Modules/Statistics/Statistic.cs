@@ -15,6 +15,7 @@
 ///He-Arc
 /// Claudia
 /// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
+/// add mettode :ExtractMouseSlideChange() to get the url of the SlideChange event
 /// -----------------------------------------------
 
 namespace Ogama.Modules.Statistics
@@ -204,7 +205,6 @@ namespace Ogama.Modules.Statistics
             break;
         }
       }
-
       return aoiSize;
     }
 
@@ -574,7 +574,7 @@ namespace Ogama.Modules.Statistics
           ref averageDistance,
           ref countGazeSamples);
       }
-
+      
       // TrialDataLoss
       if (this.trialParams == (this.trialParams | TrialParams.Dataloss))
       {
@@ -595,7 +595,7 @@ namespace Ogama.Modules.Statistics
       {
         newRow.Cells["TRI_LMpc"].Value = countGazeSamples > 0 ? countOutOfMonitorLoss / (float)countGazeSamples * 100 : 0;
       }
-
+              
       // MousePath
       if (this.mouseParams == (this.mouseParams | MouseParams.Pathlength))
       {
@@ -632,10 +632,12 @@ namespace Ogama.Modules.Statistics
     {
       int trialID = (int)trialRow["TrialID"];
       int trialSequence = (int)trialRow["TrialSequence"];
+      Console.Out.WriteLine(trialSequence);
       float duration = Convert.ToSingle(trialRow["Duration"]);
 
       SortedList<long, InputEvent> mouseEvents = Queries.GetTrialMouseEvents(subjectName, trialSequence);
       List<MouseStopCondition> mousStopConditions = Statistic.ExtractMouseStopConditions(mouseEvents);
+        
 
       // Mouse Clicks
       int leftClickCount = CalcLeftClickCount(mousStopConditions);
@@ -658,6 +660,14 @@ namespace Ogama.Modules.Statistics
       if (this.mouseParams == (this.mouseParams | MouseParams.RightClicksPS))
       {
         newRow.Cells["MCLIRCpS"].Value = rightClickCount > 0 ? rightClickCount / duration * 1000 : -1;
+      }
+
+      // scan path of all the url clicked during a test
+      SortedList<long, InputEvent> mouseResponses = Queries.GetTrialMouseResponseEvents(subjectName, trialSequence);
+      string urlPath = ExtractMouseSlideChange(mouseResponses);
+      if(this.mouseParams==(this.mouseParams | MouseParams.ScanpathOfUrlsClicked))
+      {
+          newRow.Cells["MSPUC"].Value = urlPath;
       }
 
       // Mouse fixations
@@ -772,6 +782,8 @@ namespace Ogama.Modules.Statistics
       {
         newRow.Cells["MFIXSAVE"].Value = CalcAverageSaccadeVelocity(fixationTable);
       }
+
+     
 
       // Custom fixation variables
       if (this.mouseParams == (this.mouseParams | MouseParams.Custom))
@@ -1586,6 +1598,7 @@ namespace Ogama.Modules.Statistics
       List<MouseStopCondition> mouseStopConditions = new List<MouseStopCondition>();
       foreach (InputEvent mouseEvent in mouseEvents.Values)
       {
+        
         if (mouseEvent.Task == InputEventTask.Down || mouseEvent.Type == EventType.Response)
         {
           StopCondition condition;
@@ -1604,9 +1617,29 @@ namespace Ogama.Modules.Statistics
           }
         }
       }
-
       return mouseStopConditions;
     }
+
+    /// <summary>
+    /// This static method extracts the mouse "SlideChange" event out of the given list of 
+    /// </summary>
+    /// <param name="mouseEvents"></param>
+    /// <returns></returns>
+    private static string ExtractMouseSlideChange(SortedList<long, InputEvent> mouseEvents)
+    {
+        string urlEvent = null;
+        foreach(InputEvent mouseEvent in mouseEvents.Values)
+        {
+            
+            if(mouseEvent.Task==InputEventTask.SlideChange)
+            {
+                urlEvent += mouseEvent.Param;                
+            }
+        }        
+        return urlEvent;
+    }
+
+    
 
     /// <summary>
     /// This static method calculates the number of clicks at the given AOI group.
