@@ -235,6 +235,8 @@ namespace Ogama.Modules.SlideshowDesign
       }
     }
 
+    
+
     /// <summary>
     /// The <see cref="Form.Load"/> event handler.
     /// Initializes this form with the slides from the experiment settings.
@@ -530,6 +532,29 @@ namespace Ogama.Modules.SlideshowDesign
         this.SlideShowModified();
       }
     }
+    
+    private void OpenSurveyForm(BrowserTreeNode node)
+    {
+        SurveyDialog surveyDlg = new SurveyDialog();
+        if(node !=null)
+        {
+            surveyDlg.SurveyNode = node;
+        }
+        //surveyDlg.Show(); 
+        if(surveyDlg.ShowDialog()==DialogResult.OK)
+        {
+            BrowserTreeNode newNode = surveyDlg.SurveyNode;
+            if( node != null)
+            {
+                newNode.UrlToID.Clear();
+                newNode.UrlToID.Add(newNode.OriginURL, Convert.ToInt32(node.Name));
+                node = newNode;
+            }
+            else
+                this.AddBrowserSlide(newNode);
+        }
+        this.SlideShowModified();
+    }
 
     /// <summary>
     /// Opens a <see cref="BrowserDialog"/> form, waits for successful
@@ -547,19 +572,19 @@ namespace Ogama.Modules.SlideshowDesign
 
       if (dlg.ShowDialog() == DialogResult.OK)
       {
-        BrowserTreeNode newNode = dlg.BrowserNode;
-        if (node != null)
-        {
-          newNode.UrlToID.Clear();
-          newNode.UrlToID.Add(newNode.OriginURL, Convert.ToInt32(node.Name));
-          node = newNode;
-        }
-        else
-        {
-          this.AddBrowserSlide(newNode);
-        }
+          BrowserTreeNode newNode = dlg.BrowserNode;
+          if (node != null)
+          {
+              newNode.UrlToID.Clear();
+              newNode.UrlToID.Add(newNode.OriginURL, Convert.ToInt32(node.Name));
+              node = newNode;
+          }
+          else
+          {
+              this.AddBrowserSlide(newNode);
+          }
 
-        this.SlideShowModified();
+          this.SlideShowModified();
       }
     }
 
@@ -600,5 +625,7 @@ namespace Ogama.Modules.SlideshowDesign
     }
 
     #endregion //HELPER
+
+   
   }
 }

@@ -11,12 +11,12 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
-/// -----------------------------------------------------------------
-/// He-arc
-/// Claudia Gheorghe 
-/// changed <see cref="FillTransitionsWithData"/> method transformed in fixation scanpath on AOI
-/// changed <see cref="CreateCustomGazeParam"/> to add ParamTypes:RelativeTime
-/// ------------------------------
+// -----------------------------------------------------------------
+// He-arc
+// Claudia Gheorghe 
+// changed <see cref="FillTransitionsWithData"/> method transformed in fixation scanpath on AOI
+// changed <see cref="CreateCustomGazeParam"/> to add ParamTypes:RelativeTime
+// ------------------------------
 
 namespace Ogama.Modules.Statistics
 {

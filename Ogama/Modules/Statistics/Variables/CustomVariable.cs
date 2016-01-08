@@ -11,11 +11,11 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
-/// <summary>
-/// He-arc 
-/// Claudia Gheorghe
-/// Add <see cref="ParamTypes"> relative time 
-/// </summary>
+// <summary>
+// He-arc 
+// Claudia Gheorghe
+// Add <see cref="ParamTypes"> relative time 
+// </summary>
 
 
 namespace Ogama.Modules.Statistics.Variables

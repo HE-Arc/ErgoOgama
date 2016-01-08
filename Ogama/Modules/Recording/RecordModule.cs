@@ -16,13 +16,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-///-------------------------------------------------------------------------------
-///He-arc
-///Claudia Gheorghe
-///Add tabTestSteps =TabControl  => to show the test steps
-///Add bntNext 
-///Add method bnt_Click=>to manage the tab control and all the steps into a test
-///Add method removeEtapeTabs =>to manage the visibilite of the tabs
+//-------------------------------------------------------------------------------
+//He-arc
+//Claudia Gheorghe
+//Add tabTestSteps =TabControl  => to show the test steps
+//Add bntNext 
+//Add method bnt_Click=>to manage the tab control and all the steps into a test
+//Add method removeEtapeTabs =>to manage the visibilite of the tabs
 
 
 

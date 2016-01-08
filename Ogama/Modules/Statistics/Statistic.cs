@@ -11,12 +11,11 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
-///-------------------------------------------------------------
-///He-Arc
-/// Claudia
-/// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
-/// add mettode :ExtractMouseSlideChange() to get the url of the SlideChange event
-/// -----------------------------------------------
+//-------------------------------------------------------------
+//<author>He-Arc Claudia </author>
+// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
+// add mettode :ExtractMouseSlideChange() to get the url of the SlideChange event
+// -----------------------------------------------
 
 namespace Ogama.Modules.Statistics
 {

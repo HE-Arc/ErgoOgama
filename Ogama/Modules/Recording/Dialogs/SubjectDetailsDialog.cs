@@ -46,14 +46,11 @@ namespace Ogama.Modules.Recording.Dialogs
     /// </summary>
     public SubjectDetailsDialog()
     {
-      this.InitializeComponent();
-      this.cbbSex.SelectedIndex = 0;
-      this.cbbHandedness.SelectedIndex = 0;
-      this.comboGlasses.SelectedIndex = 0;
+      this.InitializeComponent(); 
       this.comboAmbiance.SelectedIndex = 0;
       this.comboLangue.SelectedIndex = 0;
       this.comboLight.SelectedIndex = 0;
-      this.comboType.SelectedIndex = 0;
+      //this.comboType.SelectedIndex = 0;
 
     }
 
@@ -100,7 +97,12 @@ namespace Ogama.Modules.Recording.Dialogs
     }
 
     /// <summary>
-    /// Gets the category as entered in the text box.
+    /// ----------------------------------------------
+    /// He-arc
+    /// Claudia
+    /// The category is no longer available in form. 
+    /// --------------------------------------------------
+    /// Gets the category as entered in the text box.     
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects category
     /// or <strong>null</strong> if the category is not specified.</value>
@@ -108,14 +110,15 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.cbbCategory.Text != "not specified")
-        {
-          return this.cbbCategory.Text;
-        }
-        else
-        {
           return null;
-        }
+        //if (this.cbbCategory.Text != "not specified")
+        //{
+        //  return this.cbbCategory.Text;
+        //}
+        //else
+        //{
+          //return null;
+        //}
       }
     }
 
@@ -141,6 +144,9 @@ namespace Ogama.Modules.Recording.Dialogs
     }
 
     /// <summary>
+    /// ------------------------------------------
+    /// Replace the combobox with radio buttons
+    /// -----------------------------------------
     /// Gets the sex of the subject as entered in the text box.
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects sex
@@ -149,18 +155,19 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.cbbSex.Text != "not specified")
-        {
-          return this.cbbSex.Text;
-        }
-        else
-        {
-          return null;
-        }
+          if (this.rdbMen.Checked)
+              return this.rdbMen.Text;
+          else if (this.rdbWomen.Checked)
+              return this.rdbWomen.Text;
+          else
+              return null;    
       }
     }
 
     /// <summary>
+    /// --------------------------------------
+    /// Replace the combobox with radio buttons
+    /// -------------------------------------------
     /// Gets the handedness of the subject as entered in the text box.
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects handedness
@@ -169,14 +176,12 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.cbbHandedness.Text != "not specified")
-        {
-          return this.cbbHandedness.Text;
-        }
+        if (this.rdbRight.Checked)
+            return this.rdbRight.Text;
+        else if(this.rdbLeft.Checked)
+            return this.rdbLeft.Text;
         else
-        {
-          return null;
-        }
+            return null;
       }
     }
 
@@ -200,52 +205,86 @@ namespace Ogama.Modules.Recording.Dialogs
       }
     }
 
+    /// <summary>
+    /// The user has glasses or not
+    /// </summary> 
+    /// <value>A <see cref="string"/>yes or no
+    /// or <strong>null</strong> if the comments section is empty.</value>
     public string Glasses
     {
         get
         {
-            return this.comboGlasses.Text;
-            
+            if (this.rdbNo.Checked)
+                return this.rdbNo.Text;
+            else if(this.rdbOui.Checked)
+                return this.rdbOui.Text;
+            else
+                return null;            
         }
     }
 
+     /// <summary>
+     /// Get the light conditions in the room where the test is been made
+     /// </summary>
     public string Light
     {
         get
         {
-            return this.comboLight.Text;
-
+            if (this.comboLight.Text != string.Empty)
+                return this.comboLight.Text;
+            else
+                return null;
         }
     }
 
+    /// <summary>
+    /// Get the ambiance around the user during the test
+    /// </summary>
     public string Ambiance
     {
-
         get
         {
-            return this.comboAmbiance.Text;
+            if (this.comboAmbiance.Text != string.Empty)
+                return this.comboAmbiance.Text;
+            else
+                return null;
         }
     }
+
+    /// <summary>
+    /// Get the user language
+    /// </summary>
     public string Language
     {
-
         get
         {
-            return this.comboLangue.Text;
+            if (this.comboLangue.Text != string.Empty)
+                return this.comboLangue.Text;
+            else
+                return null;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public string Type
     {
 
         get
         {
-            return this.comboType.Text;
+            //if(this.comboType.Text !=string.Empty)                
+            //    return this.comboType.Text;
+            //else
+                return null;
         }
     }
 
       
 
     /// <summary>
+    /// -------------------
+    /// Not availabale in the form
+    /// --------------------
     /// Gets the param1 of the subject as entered in the text box.
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects param1
@@ -254,18 +293,22 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.txbParam1.Text != string.Empty)
-        {
-          return this.txbParam1.Text;
-        }
-        else
-        {
           return null;
-        }
+        //if (this.txbParam1.Text != string.Empty)
+        //{
+        //  return this.txbParam1.Text;
+        //}
+        //else
+        //{
+        //  return null;
+        //}
       }
     }
 
     /// <summary>
+    /// -----------------------------
+    /// Not availabale in the form
+    /// ----------------------------
     /// Gets the param2 of the subject as entered in the text box.
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects param2
@@ -274,18 +317,22 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.txbParam2.Text != string.Empty)
-        {
-          return this.txbParam2.Text;
-        }
-        else
-        {
           return null;
-        }
+        //if (this.txbParam2.Text != string.Empty)
+        //{
+        //  return this.txbParam2.Text;
+        //}
+        //else
+        //{
+        //  return null;
+        //}
       }
     }
 
     /// <summary>
+    /// ------------------------------
+    /// Not availabale in the form
+    /// ----------------------------
     /// Gets the param3 of the subject as entered in the text box.
     /// </summary>
     /// <value>A <see cref="string"/> with the subjects param3
@@ -294,14 +341,15 @@ namespace Ogama.Modules.Recording.Dialogs
     {
       get
       {
-        if (this.txbParam3.Text != string.Empty)
-        {
-          return this.txbParam3.Text;
-        }
-        else
-        {
           return null;
-        }
+        //if (this.txbParam3.Text != string.Empty)
+        //{
+        //  return this.txbParam3.Text;
+        //}
+        //else
+        //{
+        //  return null;
+        //}
       }
     }
 

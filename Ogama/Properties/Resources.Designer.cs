@@ -1070,6 +1070,16 @@ namespace Ogama.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap google_drive_mini {
+            get {
+                object obj = ResourceManager.GetObject("google_drive_mini", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HandCursor {
             get {
                 object obj = ResourceManager.GetObject("HandCursor", resourceCulture);

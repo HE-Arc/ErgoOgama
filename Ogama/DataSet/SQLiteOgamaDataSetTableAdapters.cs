@@ -10,19 +10,16 @@
 //   Represents the connection and commands used to retrieve and save data.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-
-///----------------------------------------------------------------------------------------------------------------
-///He-arc
-///Claudia Gheorghe
-///Modified clases: SQLiteTadSubjects
-///Add columns:
-///            Glasses;
-///            Light;
-///            Ambiance;
+//He-arc
+//Claudia Gheorghe
+//Modified clases: SQLiteTadSubjects
+//Add columns:
+//            Glasses;
+//            Light;
+//            Ambiance;
 //             Langue;
 //             SubjectType;
-///-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 namespace Ogama.DataSet.SQLiteOgamaDataSetTableAdapters
 {

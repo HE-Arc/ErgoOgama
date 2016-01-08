@@ -10,6 +10,11 @@
 // </copyright>
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
+//--------------------------------------------------------------------------------------------------------------------------
+//He-Arc
+// Claudia Gheorghe
+// Add btn_Survey_Click methode
+//---------------------------------------------------------------------------------------------------------------------------
 
 namespace Ogama.Modules.SlideshowDesign
 {
@@ -268,6 +273,11 @@ namespace Ogama.Modules.SlideshowDesign
     private void btnInternet_Click(object sender, EventArgs e)
     {
       this.OpenBrowserDesignerForm(null);
+    }
+
+    private void btnSurvey_Click(object sender, EventArgs e)
+    {
+        this.OpenSurveyForm(null);
     }
 
     /// <summary>
@@ -530,6 +540,8 @@ namespace Ogama.Modules.SlideshowDesign
         }
       }
     }
+
+   
 
     #endregion //WINDOWSEVENTHANDLER
 

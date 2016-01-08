@@ -11,16 +11,16 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
-///------------------------------
-///He-arc
-///Claudia Gheorghe
-///Add members to <see cref="SubjectData"/>
-///         Glasses;
-///         Light;
-///         Ambiance;
-///         Langue;
-///          Type
-///          ---------------------------------------------------
+//------------------------------
+//He-arc
+//Claudia Gheorghe
+//Add members to <see cref="SubjectData"/>
+//         Glasses;
+//         Light;
+//         Ambiance;
+//         Langue;
+//          Type
+//---------------------------------------------------
 
 
 

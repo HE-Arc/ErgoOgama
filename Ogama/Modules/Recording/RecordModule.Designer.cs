@@ -229,6 +229,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label108 = new System.Windows.Forms.Label();
             this.tabEtape3Calib = new System.Windows.Forms.TabPage();
+            this.label105 = new System.Windows.Forms.Label();
             this.label114 = new System.Windows.Forms.Label();
             this.tabEtape3Accept = new System.Windows.Forms.TabPage();
             this.label115 = new System.Windows.Forms.Label();
@@ -3211,9 +3212,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label_info_test.AutoSize = true;
             this.label_info_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_info_test.Location = new System.Drawing.Point(77, 43);
+            this.label_info_test.Location = new System.Drawing.Point(77, 56);
             this.label_info_test.Name = "label_info_test";
-            this.label_info_test.Size = new System.Drawing.Size(664, 114);
+            this.label_info_test.Size = new System.Drawing.Size(664, 150);
             this.label_info_test.TabIndex = 13;
             this.label_info_test.Text = resources.GetString("label_info_test.Text");
             this.label_info_test.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3263,7 +3264,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::Ogama.Properties.Resources.EyeTribeClibOk;
-            this.pictureBox2.Location = new System.Drawing.Point(299, 76);
+            this.pictureBox2.Location = new System.Drawing.Point(291, 81);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(202, 124);
             this.pictureBox2.TabIndex = 1;
@@ -3276,7 +3277,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label108.AutoSize = true;
             this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label108.Location = new System.Drawing.Point(62, 4);
+            this.label108.Location = new System.Drawing.Point(62, 11);
             this.label108.Name = "label108";
             this.label108.Size = new System.Drawing.Size(673, 60);
             this.label108.TabIndex = 0;
@@ -3285,6 +3286,7 @@
             // 
             // tabEtape3Calib
             // 
+            this.tabEtape3Calib.Controls.Add(this.label105);
             this.tabEtape3Calib.Controls.Add(this.label114);
             this.tabEtape3Calib.Location = new System.Drawing.Point(4, 22);
             this.tabEtape3Calib.Name = "tabEtape3Calib";
@@ -3293,6 +3295,19 @@
             this.tabEtape3Calib.Text = "Etape 3 : Calibration";
             this.tabEtape3Calib.UseVisualStyleBackColor = true;
             // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label105.Location = new System.Drawing.Point(194, 64);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(414, 80);
+            this.label105.TabIndex = 1;
+            this.label105.Text = "Le système doit être calibré par rapport à vos yeux.\r\n\r\nUn point rouge apparaitra" +
+    " sur l\'écran : sans bouger la tête\r\nni le buste, suivez des yeux le déplacement " +
+    "de ce point.";
+            this.label105.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label114
             // 
             this.label114.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3300,13 +3315,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label114.AutoSize = true;
             this.label114.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label114.Location = new System.Drawing.Point(215, 70);
+            this.label114.Location = new System.Drawing.Point(105, 64);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(414, 80);
+            this.label114.Size = new System.Drawing.Size(0, 20);
             this.label114.TabIndex = 0;
-            this.label114.Text = "Le système doit être calibré par rapport à vos yeux.\r\n\r\nUn point rouge apparaitra" +
-    " sur l’écran : sans bouger la tête\r\n ni le buste, suivez des yeux le déplacement" +
-    " de ce point.\r\n";
             this.label114.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabEtape3Accept
@@ -3326,12 +3338,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(58, 42);
+            this.label115.Location = new System.Drawing.Point(68, 30);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(627, 180);
+            this.label115.Size = new System.Drawing.Size(693, 220);
             this.label115.TabIndex = 0;
             this.label115.Text = resources.GetString("label115.Text");
-            this.label115.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label115.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabEtape4Lance
             // 
@@ -3351,11 +3363,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label116.AutoSize = true;
             this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label116.Location = new System.Drawing.Point(174, 78);
+            this.label116.Location = new System.Drawing.Point(172, 67);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(447, 20);
+            this.label116.Size = new System.Drawing.Size(492, 140);
             this.label116.TabIndex = 0;
-            this.label116.Text = "L’installation et la calibration du test sont maintenant terminés.\r\n";
+            this.label116.Text = resources.GetString("label116.Text");
             this.label116.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox21
@@ -7486,5 +7498,6 @@
     private Label label114;
     private Label label115;
     private Label label116;
+    private Label label105;
   }
 }

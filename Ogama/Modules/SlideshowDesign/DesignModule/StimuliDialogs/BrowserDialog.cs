@@ -162,8 +162,13 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
 
 
 
-    //HE-Arc
+    
     /// <summary>
+    /// HE-Arc
+    /// ---------------------
+    /// Reformats the url into a filename with max length of 100.
+    /// + delete anchors and replace url=scc-network.ch with swisscreativecenter.ch  
+    /// ----------------------
     /// Reformats the url into a filename with max length of 100.
     /// </summary>
     /// <param name="url">The url to be converted</param>
@@ -193,19 +198,15 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
 
         if (safe.Contains(toBeReplace))
         {
-            Console.Out.WriteLine("original "+safe);
             string newsafe=safe.Replace(toBeReplace, sccSite);
-            safe = newsafe;
-            //Console.Out.WriteLine("modif " + safe);
+            safe = newsafe;            
         }     
         
         //delete anchors from a site name
         if(safe.Contains("#"))
         {
-            //Console.Out.WriteLine("original anchor" + safe);
             int diezeIndex= safe.IndexOf("#", StringComparison.Ordinal);
-            safe = safe.Remove(diezeIndex);
-            Console.Out.WriteLine("modif anchor " + safe);
+            safe = safe.Remove(diezeIndex);            
         }
 
         // trim out illegal characters
@@ -225,9 +226,6 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
         //Console.Out.WriteLine("return="+safe);
         return safe;
     }
-
-
-
 
     //ORIGINAL METHODE
     ///// <summary>

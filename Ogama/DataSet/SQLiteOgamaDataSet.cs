@@ -12,13 +12,13 @@
 // <email>adrian@ogama.net</email>
 
 
-///----------------------------------------------------------
-///He-arc
-///Claudia Gheorghe
-///Modified classes : SubjectDataTable and SubjectRow
-///Add columnGlasses;
-///       columnRoomLight;
-///       columnRoomAmbiance;
+//----------------------------------------------------------
+//He-arc
+//Claudia Gheorghe
+//Modified classes : SubjectDataTable and SubjectRow
+//Add columnGlasses;
+//       columnRoomLight;
+//       columnRoomAmbiance;
 //        columnLangue;
 //        columnSubjectType;
 

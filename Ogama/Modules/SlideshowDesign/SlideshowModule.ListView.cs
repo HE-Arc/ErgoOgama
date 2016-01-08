@@ -60,7 +60,12 @@ namespace Ogama.Modules.SlideshowDesign
 
       if (treeNode is BrowserTreeNode)
       {
-        this.OpenBrowserDesignerForm(treeNode as BrowserTreeNode);
+        //check if is a website or a survey
+        BrowserTreeNode browserNode = treeNode as BrowserTreeNode;
+        if (browserNode.Category == "Survey")
+            this.OpenSurveyForm(browserNode);
+        else
+            this.OpenBrowserDesignerForm(treeNode as BrowserTreeNode);
       }
       else
       {
@@ -71,11 +76,11 @@ namespace Ogama.Modules.SlideshowDesign
           if (currentSlide.IsDesktopSlide)
           {
             this.OpenDesktopDesignForm(treeNode, currentSlide);
-          }
-          else
+          }              
+          else if(currentSlide.Category != "Survey")
           {
-            this.OpenSlideDesignForm(treeNode, currentSlide);
-          }
+              this.OpenSlideDesignForm(treeNode, currentSlide);
+          }          
         }
         else
         {

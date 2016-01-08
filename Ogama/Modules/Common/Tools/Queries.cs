@@ -10,11 +10,11 @@
 // </copyright>
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
-///--------------------------------------------------------------
-/// He-Arc
-/// Claudia Gheorghe
-/// add methode GetTrialMouseResponseEvents() to get a liste of all the Response Type Events 
-/// ------------------------------------------------------
+//--------------------------------------------------------------
+// He-Arc
+// Claudia Gheorghe
+// add methode GetTrialMouseResponseEvents() to get a liste of all the Response Type Events 
+// ------------------------------------------------------
 
 
 namespace Ogama.Modules.Common.Tools
