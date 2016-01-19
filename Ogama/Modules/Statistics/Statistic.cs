@@ -907,7 +907,6 @@ namespace Ogama.Modules.Statistics
 
     /// ------------------------------------------------------------------
     /// He-Arc
-    /// Claudia
     /// add relative time column = (sum of all fixation in AOI/Group) / trail duration *100
     /// -----------------------------------------------
     /// <summary>

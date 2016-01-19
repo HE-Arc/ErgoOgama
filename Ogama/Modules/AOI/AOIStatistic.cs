@@ -84,8 +84,9 @@ namespace Ogama.Modules.AOI
     private long firstHitTimeAfterBeeingOutside;
 
     /// <summary>
+    ///-------------------------------
     /// He-Arc
-    /// Claudia Gheorghe
+    ///-------------------------------
     /// The sum of all fixation durations at the aoi in ms / total duration of the trail *100
     /// </summary>
     private int relativeTime;

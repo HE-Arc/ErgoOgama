@@ -98,8 +98,7 @@ namespace Ogama.Modules.Recording.Dialogs
 
     /// <summary>
     /// ----------------------------------------------
-    /// He-arc
-    /// Claudia
+    /// He-arc    
     /// The category is no longer available in form. 
     /// --------------------------------------------------
     /// Gets the category as entered in the text box.     

@@ -1658,7 +1658,7 @@ namespace Ogama.Modules.Recording
                 // IOExcception is thrown if the file is in use by another process.
                 // Check the number of attempts to ensure no infinite loop
                 attempts++;
-                if (attempts > 20)
+                if (attempts > 30)
                 {
                   // Too many attempts,cannot Open File, break
                   MessageBox.Show("Wait Time did not was enough");

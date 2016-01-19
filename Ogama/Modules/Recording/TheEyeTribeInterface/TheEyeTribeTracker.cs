@@ -184,8 +184,7 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       
 
     /// ------------------------------------------------
-    /// He-Arc
-    /// Claudia
+    /// He-Arc    /// 
     /// new constructor with name="trackerNextButton" Button as parameter
     /// ---------------------------------------------------------- 
     /// <summary>

@@ -80,7 +80,6 @@ namespace Ogama.Modules.Statistics.Variables
     SaccadeVelocity,
 
     /// <summary>
-    /// He-arc Claudia
     /// Calculate the percentage of complete fixation time on Aoi or Group relative to total trail time    /// 
     /// </summary>
     RelativeTime,

@@ -59,7 +59,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
             this.nudTime.Value = SlideDesignModule.SLIDEDURATIONINS;
             if (this.lsbStopConditions.Items.Count == 0)
             {
-                this.lsbStopConditions.Items.Add(new KeyStopCondition(Keys.Space, false, null));
+                this.lsbStopConditions.Items.Add(new KeyStopCondition(Keys.X, false, null));
             }
             surveyUrlBase = getBaseUrlForGoogleForm(urlText.Text);
         }

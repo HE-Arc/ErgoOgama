@@ -159,8 +159,7 @@ namespace Ogama.Modules.Recording.TrackerBase
 
 
     /// --------------------------------------------------------
-    /// He-Arc
-    /// Claudia
+    /// He-Arc    
     /// new constractor with name="trackerNextEtape" button as parameter
     /// --------------------------------------------------------
     /// <summary>
