@@ -561,7 +561,7 @@
             this.btnHelp});
             this.tosStimuli.Location = global::Ogama.Properties.Settings.Default.SCRToolbarLocation;
             this.tosStimuli.Name = "tosStimuli";
-            this.tosStimuli.Size = new System.Drawing.Size(450, 25);
+            this.tosStimuli.Size = new System.Drawing.Size(481, 25);
             this.tosStimuli.TabIndex = 0;
             // 
             // btnInstruction
@@ -662,7 +662,7 @@
             this.btnSurvey.Name = "btnSurvey";
             this.btnSurvey.Size = new System.Drawing.Size(23, 22);
             this.btnSurvey.Text = "Add a post-test survey";
-            this.btnSurvey.Click += new System.EventHandler(this.btnSurvey_Click);
+            this.btnSurvey.Click += new System.EventHandler(this.btnAddFolder_Click);
             // 
             // toolStripSeparator1
             // 

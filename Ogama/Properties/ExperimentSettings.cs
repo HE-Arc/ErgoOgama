@@ -10,6 +10,13 @@
 // </copyright>
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
+//-----------------------------------------
+//He-arc
+//Claudia Gheorghe
+//Add methodes: 
+//  - DashboardDatabasePath() -> path of db on disk
+//  - DashboardDbConnectionString() -> used to connect to db
+//---------------------------
 
 namespace Ogama.Properties
 {
@@ -36,6 +43,9 @@ namespace Ogama.Properties
     // Defining Constants                                                        //
     ///////////////////////////////////////////////////////////////////////////////
     #region CONSTANTS
+
+
+      public const string DASHBOARD_DB_NAME = "dashboard";
     #endregion //CONSTANTS
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -454,6 +464,18 @@ namespace Ogama.Properties
       get { return this.CreateDatabasePath(); }
     }
 
+    ///--------------------
+    ///He-Arc
+    ///------------
+    /// <summary>
+    /// Gets full file path for the database dashboard folder
+    /// </summary>
+    /// <value>A <see cref="string"/> with the path to the database files.</value>
+    public string DashboardDatabasePath
+    {
+        get { return Path.Combine(this.CreateDatabasePath(), DASHBOARD_DB_NAME + ".db"); }
+    }
+
     /// <summary>
     /// Gets full file path for the database mdf file.
     /// </summary>
@@ -498,6 +520,21 @@ namespace Ogama.Properties
     public string DatabaseConnectionString
     {
       get { return this.CreateDatabaseConnectionString(); }
+    }
+
+    ///--------------------
+    ///He-Arc
+    ///------------
+    /// <summary>
+    /// Gets the dashboard database connection string
+    /// </summary>
+    public string DashboardDbConnectionString
+    {
+        get 
+        {
+            string dashConnection = @"Data Source=" + this.DashboardDatabasePath;
+            return dashConnection; 
+        }
     }
 
     ///// <summary>

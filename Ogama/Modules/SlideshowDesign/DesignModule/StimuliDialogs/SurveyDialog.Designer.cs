@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.surveyPage = new System.Windows.Forms.WebBrowser();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.urlText = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -46,6 +45,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txbLiveForm = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txbCategory = new System.Windows.Forms.TextBox();
             this.txbName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -58,23 +58,11 @@
             this.nudTime = new System.Windows.Forms.NumericUpDown();
             this.rdbTime = new System.Windows.Forms.RadioButton();
             this.rdbKey = new System.Windows.Forms.RadioButton();
-            this.txbCategory = new System.Windows.Forms.TextBox();
+            this.surveyPage = new System.Windows.Forms.WebBrowser();
             this.groupBox1.SuspendLayout();
             this.grpImageProperties.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTime)).BeginInit();
             this.SuspendLayout();
-            // 
-            // surveyPage
-            // 
-            this.surveyPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.surveyPage.Location = new System.Drawing.Point(379, 253);
-            this.surveyPage.MinimumSize = new System.Drawing.Size(20, 20);
-            this.surveyPage.Name = "surveyPage";
-            this.surveyPage.Size = new System.Drawing.Size(360, 252);
-            this.surveyPage.TabIndex = 1;
-            this.surveyPage.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // urlText
             // 
@@ -220,6 +208,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Name and category ...";
             // 
+            // txbCategory
+            // 
+            this.txbCategory.Enabled = false;
+            this.txbCategory.Location = new System.Drawing.Point(99, 50);
+            this.txbCategory.Name = "txbCategory";
+            this.txbCategory.Size = new System.Drawing.Size(143, 20);
+            this.txbCategory.TabIndex = 34;
+            this.txbCategory.Text = "Survey";
+            // 
             // txbName
             // 
             this.txbName.Location = new System.Drawing.Point(99, 19);
@@ -358,14 +355,18 @@
             this.rdbKey.Text = "Key";
             this.rdbKey.UseVisualStyleBackColor = true;
             // 
-            // txbCategory
+            // surveyPage
             // 
-            this.txbCategory.Enabled = false;
-            this.txbCategory.Location = new System.Drawing.Point(99, 50);
-            this.txbCategory.Name = "txbCategory";
-            this.txbCategory.Size = new System.Drawing.Size(143, 20);
-            this.txbCategory.TabIndex = 34;
-            this.txbCategory.Text = "Survey";
+            this.surveyPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.surveyPage.Location = new System.Drawing.Point(374, 280);
+            this.surveyPage.MinimumSize = new System.Drawing.Size(20, 20);
+            this.surveyPage.Name = "surveyPage";
+            this.surveyPage.Size = new System.Drawing.Size(360, 252);
+            this.surveyPage.TabIndex = 1;
+            this.surveyPage.Url = new System.Uri("https://docs.google.com/forms/d/1XK-adfK8aNynVqpPKqW0y3CrORo8p09igYLSpQguON0/edit" +
+        "", System.UriKind.Absolute);
             // 
             // SurveyDialog
             // 
@@ -403,7 +404,6 @@
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser surveyPage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox urlText;
         private System.Windows.Forms.Button btnCancel;
@@ -433,6 +433,7 @@
         private System.Windows.Forms.RadioButton rdbTime;
         private System.Windows.Forms.RadioButton rdbKey;
         private System.Windows.Forms.TextBox txbCategory;
+        private System.Windows.Forms.WebBrowser surveyPage;
 
     }
 }

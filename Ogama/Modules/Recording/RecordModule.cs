@@ -114,6 +114,8 @@ namespace Ogama.Modules.Recording
     /// </summary>
     private const int NUMWRITINGTHREADS = 5;
 
+      
+
     #endregion
 
     #region Static Fields
@@ -557,7 +559,7 @@ namespace Ogama.Modules.Recording
                                          this.currentTracker.Subject.SubjectName
                                          + "Rawdata"
                                      };
-
+          
         // Start presentation in a separate thread,
         if (this.StartPresentation())
         {
@@ -778,7 +780,7 @@ namespace Ogama.Modules.Recording
       this.screenCaptureProperties = new ScreenCaptureProperties(
         "OgamaCapture",
         string.Empty,
-        "Microsoft Video 1",
+        "MJPEG Compressor",
         string.Empty,
         10,
         Document.ActiveDocument.PresentationSize,
@@ -2620,7 +2622,7 @@ namespace Ogama.Modules.Recording
         {
           mode |= CaptureMode.Audio;
 
-          // Only set filname when recording is choosen
+          // Only set filename when recording is choosen
           this.webcamPreview.Properties.Filename = userVideoFilename;
         }
 

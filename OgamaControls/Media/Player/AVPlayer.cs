@@ -519,6 +519,7 @@ namespace OgamaControls
       this.graphBuilder = (IGraphBuilder)new FilterGraph();
       this.captureGraphBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
       this.vmr9 = new VideoMixingRenderer9();
+     
       this.vmrConfig = this.vmr9 as IVMRFilterConfig9;
 
       // Attach the filter graph to the capture graph
@@ -541,9 +542,9 @@ namespace OgamaControls
       hr = this.captureGraphBuilder.RenderStream(null, null, fileSourceFilter, null, vmr9 as IBaseFilter);
       DsError.ThrowExceptionForHR(hr);
 
-      //// Have the graph builder construct its the appropriate graph automatically
-      //hr = this.graphBuilder.RenderFile(filename, null);
-      //DsError.ThrowExceptionForHR(hr);
+      // Have the graph builder construct its the appropriate graph automatically
+      hr = this.graphBuilder.RenderFile(filename, null);
+      DsError.ThrowExceptionForHR(hr);
 
       // QueryInterface for DirectShow interfaces
       this.mediaControl = (IMediaControl)this.graphBuilder;

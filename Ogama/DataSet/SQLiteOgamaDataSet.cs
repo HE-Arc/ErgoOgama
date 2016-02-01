@@ -76,7 +76,7 @@ namespace Ogama.DataSet
     private RawdataDataTable tableRawdata;
 
     /// <summary>
-    /// The table ao is
+    /// The table aois
     /// </summary>
     private AOIsDataTable tableAOIs;
 
@@ -1526,10 +1526,29 @@ namespace Ogama.DataSet
       /// </summary>
       private DataColumn columnComments;
 
+      /// <summary>
+      /// The column glasses
+      /// </summary>
       private DataColumn columnGlasses;
+
+      /// <summary>
+      /// The column room light
+      /// </summary>
       private DataColumn columnRoomLight;
+
+      /// <summary>
+      /// The column room Ambiance
+      /// </summary>
       private DataColumn columnRoomAmbiance;
+
+      /// <summary>
+      /// The column langue
+      /// </summary>
       private DataColumn columnLangue;
+
+      /// <summary>
+      /// The column subject type
+      /// </summary>
       private DataColumn columnSubjectType;
 
 

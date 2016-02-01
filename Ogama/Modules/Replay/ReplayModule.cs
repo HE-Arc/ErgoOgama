@@ -11,6 +11,7 @@
 // <author>Adrian Voßkühler</author>
 // <email>adrian@ogama.net</email>
 
+
 namespace Ogama.Modules.Replay
 {
   using System;
@@ -156,6 +157,7 @@ namespace Ogama.Modules.Replay
       this.InitializeDataBindings();
       this.InitAccelerators();
       this.InitializeCustomElements();
+        
     }
 
     #endregion //CONSTRUCTION
@@ -296,6 +298,7 @@ namespace Ogama.Modules.Replay
       this.pnlCanvas.Resize += new EventHandler(this.pnlCanvas_Resize);
       this.videoFramePusher = new VideoFramePusher();
       this.videoFramePusher.VideoFrameAvailable += new BitmapEventHandler(this.videoFramePusher_VideoFrameAvailable);
+      
     }
 
     /// <summary>
@@ -1296,7 +1299,7 @@ namespace Ogama.Modules.Replay
           this.videoFramePusher.Start();
           // AsyncHelper.FireAndForget(new MethodInvoker(this.videoFramePusher.Start));
         }
-
+        
         // Start sound
         if (this.btnEnableAudio.Checked)
         {

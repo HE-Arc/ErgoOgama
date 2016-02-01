@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DirectShowLib;
 using System.Diagnostics;
 
+
 namespace OgamaControls
 {
   using GTHardware.Cameras.DirectShow;
@@ -497,6 +498,8 @@ namespace OgamaControls
 
       
       //error inssuficient system resources  because the cameras[0] arg is always the eyetracker
+
+
       if (DirectShowDevices.Instance.Cameras.Count > 0)
       {
           this.properties.VideoInputDevice = DirectShowDevices.Instance.Cameras[0];
