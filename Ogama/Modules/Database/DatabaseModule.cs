@@ -40,6 +40,7 @@ namespace Ogama.Modules.Database
   /// <see cref="SQLiteOgamaDataSet.GazeFixationsDataTable"/>
   /// <see cref="SQLiteOgamaDataSet.MouseFixationsDataTable"/>
   /// <see cref="SQLiteOgamaDataSet.ShapeGroupsDataTable"/>
+  /// <see cref="SQLiteOgamaDataSet.CalibrationsDataTable"/>
   /// The user can edit and revise the tables.
   /// </summary>
   /// <remarks>This module is intended to give the option
@@ -150,6 +151,7 @@ namespace Ogama.Modules.Database
       this.bsoRawdata = new BindingSource();
 
       base.InitializeDataBindings();
+      
 
       this.dgvRawData.DataSource = this.bsoRawdata;
 
@@ -172,6 +174,11 @@ namespace Ogama.Modules.Database
       this.SetDataGridViewColumnsToReadOnlyStyle(
         this.dgvSubjects,
         new string[] { "colSubjectsID", "colSubjectsSubjectName" });
+
+      // Set read only data grid view styles.
+      this.SetDataGridViewColumnsToReadOnlyStyle(
+        this.dgvCalibrations,
+        new string[] { "colCalibrationsID", "colCalibrationsSubjectName" });
 
       string[] columnArray = new string[] 
       { 
@@ -1467,7 +1474,9 @@ namespace Ogama.Modules.Database
 
       ////int affectedRows=Document.ActiveDocument.DocDataSet.TrialsAdapter.Update((OgamaDataSet.TrialsDataTable)trialView.Table);
 
-      ////// Reduce SearchRects
+      ////// Reduce 
+        
+    
       ////using (SqlConnection connection = new SqlConnection(Document.ActiveDocument.ExperimentSettings.ConnectionString))
       ////{
       ////  connection.Open();

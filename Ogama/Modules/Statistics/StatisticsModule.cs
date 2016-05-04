@@ -37,6 +37,8 @@ namespace Ogama.Modules.Statistics
   using VectorGraphics.Elements;
   using VectorGraphics.Elements.ElementCollections;
 
+  using System.Data.SQLite;
+
   /// <summary>
   /// Inherits <see cref="FormWithInterface"/>
   ///   This class is the statistics module. 
@@ -126,6 +128,7 @@ namespace Ogama.Modules.Statistics
       this.InitAccelerators();
       this.InitializeDataBindings();
       this.InitializeCustomElements();
+        
     }
 
     #endregion
@@ -1509,7 +1512,7 @@ namespace Ogama.Modules.Statistics
 
         // number of row and columns
         int aoiCount = aoiTable.Rows.Count;
-        int subjectsCheckedCount= checkedSubjects.Count;
+        int subjectsCheckedCount = checkedSubjects.Count;
 
         List<string[]> resultPath= new List<string[]>();
         var groupIndexAssignment = new Dictionary<string, int>();
@@ -1534,7 +1537,6 @@ namespace Ogama.Modules.Statistics
             listAllHittedAoisParUser.Clear();                      
             if (checkedSubjects.Contains(subjectName))
             {
-
                 checkedSubjectsIdOrdonateList.Add(subjectName);
                 pathAoi = string.Empty;
                 pathCategoryAoi = string.Empty;               
@@ -1567,7 +1569,7 @@ namespace Ogama.Modules.Statistics
                             string strPtList = row["ShapePts"].ToString();
                             string aoiType = row["ShapeType"].ToString();
                             string aoiName = row["ShapeName"].ToString();
-                            string shapeGroup = row["ShapeGroup"].ToString();
+                            string shapeGroup = row["ShapeGroup"].ToString();                            
                             VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);                  
                             trialAOIs.Add(aoi);
                         }
@@ -1578,7 +1580,7 @@ namespace Ogama.Modules.Statistics
                         //Console.WriteLine("path aoi test " + hittedAOIParTrail[0]);
                         //Console.WriteLine("path actegory aoi test " + hittedAOIParTrail[1]);      
                         listAllHittedAoisParUser.Add(hittedAOIParTrail);
-                        pathAoi += hittedAOIParTrail[0] + "->";
+                        pathAoi += hittedAOIParTrail[0] + "(" + trialID + ")->";
                         pathCategoryAoi += hittedAOIParTrail[1] + "->";
 
                     }                  
@@ -1684,6 +1686,7 @@ namespace Ogama.Modules.Statistics
           this.tolerance);
 
         DataTable subjectsTable = Document.ActiveDocument.DocDataSet.SubjectsAdapter.GetData();
+        
         using (var subjectView = new DataView(subjectsTable))
         {
           subjectView.Sort = "SubjectName ASC";
@@ -1810,8 +1813,7 @@ namespace Ogama.Modules.Statistics
       }
     }
 
-    /// <
-    /// mary>
+    /// <summary>
     /// This method extracts the AOI groups from the AOI data table.
     /// </summary>
     private void GenerateAOIGroups()
@@ -3218,6 +3220,14 @@ namespace Ogama.Modules.Statistics
     }
 
     #endregion
+
+    private void btnExportToDashboard_Click(object sender, EventArgs e)
+    {
+        DashboardDataSet db = new DashboardDataSet();
+       
+    } 
+ 
+   
 
    
 

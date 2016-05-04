@@ -3143,11 +3143,11 @@
             // 
             this.tbpEyeTribe.Controls.Add(this.panel14);
             this.tbpEyeTribe.ImageKey = "TheEyeTribe";
-            this.tbpEyeTribe.Location = new System.Drawing.Point(4, 22);
+            this.tbpEyeTribe.Location = new System.Drawing.Point(4, 23);
             this.tbpEyeTribe.Margin = new System.Windows.Forms.Padding(2);
             this.tbpEyeTribe.Name = "tbpEyeTribe";
             this.tbpEyeTribe.Padding = new System.Windows.Forms.Padding(2);
-            this.tbpEyeTribe.Size = new System.Drawing.Size(192, 74);
+            this.tbpEyeTribe.Size = new System.Drawing.Size(842, 576);
             this.tbpEyeTribe.TabIndex = 15;
             this.tbpEyeTribe.Text = "The Eye Tribe";
             this.tbpEyeTribe.UseVisualStyleBackColor = true;
@@ -3165,7 +3165,7 @@
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel14.Location = new System.Drawing.Point(2, 2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(188, 70);
+            this.panel14.Size = new System.Drawing.Size(838, 572);
             this.panel14.TabIndex = 12;
             // 
             // btnNext
@@ -3191,7 +3191,7 @@
             this.tabTestSteps.Location = new System.Drawing.Point(7, 197);
             this.tabTestSteps.Name = "tabTestSteps";
             this.tabTestSteps.SelectedIndex = 0;
-            this.tabTestSteps.Size = new System.Drawing.Size(180, 322);
+            this.tabTestSteps.Size = new System.Drawing.Size(830, 322);
             this.tabTestSteps.TabIndex = 22;
             // 
             // tabEtape1Instal
@@ -3200,7 +3200,7 @@
             this.tabEtape1Instal.Location = new System.Drawing.Point(4, 22);
             this.tabEtape1Instal.Name = "tabEtape1Instal";
             this.tabEtape1Instal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEtape1Instal.Size = new System.Drawing.Size(172, 296);
+            this.tabEtape1Instal.Size = new System.Drawing.Size(822, 296);
             this.tabEtape1Instal.TabIndex = 2;
             this.tabEtape1Instal.Text = "Etape 1 : Installation";
             this.tabEtape1Instal.UseVisualStyleBackColor = true;
@@ -3266,7 +3266,7 @@
             this.pictureBox2.Image = global::Ogama.Properties.Resources.EyeTribeClibOk;
             this.pictureBox2.Location = new System.Drawing.Point(291, 81);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(202, 124);
+            this.pictureBox2.Size = new System.Drawing.Size(650, 124);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 

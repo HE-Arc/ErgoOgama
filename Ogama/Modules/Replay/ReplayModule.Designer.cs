@@ -590,7 +590,7 @@ namespace Ogama.Modules.Replay
             this.tosTrial.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tosTrial.Location = global::Ogama.Properties.Settings.Default.RPLTrialToolbarLocation;
             this.tosTrial.Name = "tosTrial";
-            this.tosTrial.Size = new System.Drawing.Size(650, 25);
+            this.tosTrial.Size = new System.Drawing.Size(619, 25);
             this.tosTrial.TabIndex = 0;
             // 
             // cbbSubject

@@ -610,6 +610,13 @@ namespace Ogama.Modules.AOI
                 usedStyleGroup = VGStyleGroup.AOI_SEARCHRECT;
                 usedAlignment = this.SearchRectTextAlignment;
                 break;
+             case "Mandatory":
+                usedPen = this.MandatoryPen;
+                usedFont = this.MandatoryFont;
+                usedFontColor = this.MandatoryFontColor;
+                usedStyleGroup = VGStyleGroup.AOI_MANDATORY;
+                usedAlignment = this.MandatoryTextAlignment;
+                break;
               default:
                 usedPen = this.DefaultPen;
                 usedFont = this.DefaultFonts;
@@ -1031,11 +1038,22 @@ namespace Ogama.Modules.AOI
         this.ArrowFontColor = Properties.Settings.Default.AOIArrowFontColor;
         this.ArrowBrush = new SolidBrush(Color.FromArgb(128, Properties.Settings.Default.AOIArrowBrushColor));
 
+        var mandatoryPen = new Pen(
+          Properties.Settings.Default.AOIMandatoryColor,
+          Properties.Settings.Default.AOIMandatoryWidth);
+        mandatoryPen.DashStyle = Properties.Settings.Default.AOIMandatoryStyle;
+        mandatoryPen.LineJoin = LineJoin.Miter;
+
+        var mandatoryFont = (Font)Properties.Settings.Default.AOISearchRectFont.Clone();
+        var mandatoryFontColor = Properties.Settings.Default.AOISearchRectFontColor;
+
         var defaultTextAlignment =
           (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOIDefaultTextAlignment);
         var targetTextAlignment =
           (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOITargetTextAlignment);
         var searchRectTextAlignment =
+          (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOISearchRectTextAlignment);
+        var mandatoryTextAlignment =
           (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOISearchRectTextAlignment);
         this.BubbleTextAlignment =
           (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOIBubbleTextAlignment);
@@ -1060,7 +1078,11 @@ namespace Ogama.Modules.AOI
           searchRectFontColor, 
           targetTextAlignment, 
           defaultTextAlignment, 
-          searchRectTextAlignment);
+          searchRectTextAlignment, 
+          mandatoryPen,
+          mandatoryFont,
+          mandatoryFontColor,
+          mandatoryTextAlignment);
       }
     }
 

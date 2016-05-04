@@ -2420,15 +2420,19 @@ namespace Ogama.Modules.Recording
         if (!Queries.WriteSubjectToDataSet(this.currentTracker.Subject))
         {
           throw new DataException("The new subject information could not be written into the dataset.");
-        }
-        
-          
+        }  
 
         // Save trial information to dataset
         if (!Queries.WriteTrialsDataListToDataSet(this.trialDataList))
         {
           throw new DataException("The new trials table could not be written into the dataset.");
         }
+        // Save Calibrations 
+        if(!Queries.WriteCalibrationDataToDataSet(currentTracker.Calibrations))
+        {
+            throw new DataException("The new calibrations table could not be written into the dataset.");
+        }        
+
 
         // Save trial event information to dataset
         if (!Queries.WriteTrialEventsToDataSet(this.trialEventList))
@@ -2443,6 +2447,9 @@ namespace Ogama.Modules.Recording
         Document.ActiveDocument.DocDataSet.TrialsAdapter.Update(Document.ActiveDocument.DocDataSet.Trials);
         Document.ActiveDocument.DocDataSet.SubjectsAdapter.Update(Document.ActiveDocument.DocDataSet.Subjects);
 
+        
+        int res= Document.ActiveDocument.DocDataSet.CalibrationsAdapter.Fill(Document.ActiveDocument.DocDataSet.Calibrations);
+        System.Console.WriteLine(res);
         Document.ActiveDocument.DocDataSet.AcceptChanges();
         Document.ActiveDocument.DocDataSet.CreateRawDataAdapters();
 
@@ -2831,11 +2838,6 @@ namespace Ogama.Modules.Recording
 
     private void removeEtapeTabs()
     {
-        //this.btnEyeTribeConnect.Visible = false;
-        //this.btnEyeTribeSubject.Visible = false;
-        //this.txbEyeTribeSubject.Visible = false;
-        //this.btnEyeTribeCalibrate.Visible = false;
-        //this.btnEyeTribeRecord.Visible = false;
         this.tabTestSteps.TabPages.Remove(tabEtape2Config);
         this.tabTestSteps.TabPages.Remove(tabEtape3Pre);
         this.tabTestSteps.TabPages.Remove(tabEtape3Calib);

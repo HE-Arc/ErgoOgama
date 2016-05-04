@@ -1828,6 +1828,48 @@ SELECT ID, SubjectName, TrialSequence, Time, PupilDiaX, PupilDiaY, GazePosX, Gaz
       return true;
     }
 
+    public static bool WriteCalibrationDataToDataSet(List<CalibrationsData> calibrationsList)
+    {
+        // Notify start loading data into the dataset.
+        Document.ActiveDocument.DocDataSet.Calibrations.BeginLoadData();
+        try
+        {
+            foreach(CalibrationsData calib in calibrationsList)
+            {
+                //Insert data into calibration table
+                SQLiteOgamaDataSet.CalibrationsRow workCalibrationData;
+                workCalibrationData = Document.ActiveDocument.DocDataSet.Calibrations.NewCalibrationsRow();
+                
+                workCalibrationData.SubjectName = calib.SubjectName;
+                workCalibrationData.Accuracy = calib.Accuracy;
+                workCalibrationData.AccuracyLeft = calib.AccuracyLeft;
+                workCalibrationData.AccuracyRight = calib.AccuracyRight;
+
+                System.Console.WriteLine(workCalibrationData.SubjectName);
+                System.Console.WriteLine(workCalibrationData.Accuracy);
+                System.Console.WriteLine(workCalibrationData.AccuracyLeft);
+                System.Console.WriteLine(workCalibrationData.AccuracyRight);
+                Document.ActiveDocument.DocDataSet.Calibrations.AddCalibrationsRow(workCalibrationData);
+
+                
+            }
+        }
+        catch(Exception ex)
+        {
+            ExceptionMethods.HandleException(ex);
+            System.Console.WriteLine("Calibration save error");
+            return false;
+        }
+        finally
+        {
+            // Notify the end of loading data into the dataset.
+            Document.ActiveDocument.DocDataSet.Calibrations.EndLoadData();
+        }
+     
+        return true;
+
+    }
+
     /// <summary>
     /// This method writes a new <see cref="List{TrialEventsData}"/> information
     /// to the trial events data table of the dataset.

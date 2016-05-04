@@ -35,6 +35,18 @@ namespace Ogama.Modules.Database
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseModule));
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
+            this.colSubjectsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsHandedness = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubjectsComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGlasses = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAmbiance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLanguage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsCopy = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +125,8 @@ namespace Ogama.Modules.Database
             this.dgvShapeGroups = new System.Windows.Forms.DataGridView();
             this.colShapeGroupsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colShapeGroupsShapeGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbpCalibrations = new System.Windows.Forms.TabPage();
+            this.dgvCalibrations = new System.Windows.Forms.DataGridView();
             this.imlTabs = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
@@ -127,18 +141,73 @@ namespace Ogama.Modules.Database
             this.btnSpecial = new System.Windows.Forms.ToolStripButton();
             this.sfdExport = new System.Windows.Forms.SaveFileDialog();
             this.bgwExport = new System.ComponentModel.BackgroundWorker();
-            this.colSubjectsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsHandedness = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubjectsComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGlasses = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAmbiance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLanguage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn43 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn44 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn45 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn46 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn47 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn56 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn57 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn58 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn59 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn60 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn62 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn63 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn64 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn65 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bsoSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsTrials)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ogamaDataSet)).BeginInit();
@@ -155,6 +224,7 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             this.cmsDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).BeginInit();
@@ -180,6 +250,8 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.dgvAOIs)).BeginInit();
             this.tbpShapeGroups.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeGroups)).BeginInit();
+            this.tbpCalibrations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCalibrations)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -214,13 +286,110 @@ namespace Ogama.Modules.Database
             this.dgvSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSubjects.Location = new System.Drawing.Point(3, 3);
             this.dgvSubjects.Name = "dgvSubjects";
-            this.dgvSubjects.Size = new System.Drawing.Size(964, 291);
+            this.dgvSubjects.Size = new System.Drawing.Size(1151, 360);
             this.dgvSubjects.TabIndex = 0;
             this.toolTip1.SetToolTip(this.dgvSubjects, "Select a row to filter the data in the preceding tables.\r\nRight click for a conte" +
         "xt menu.");
             this.dgvSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSubjects_DataError);
             this.dgvSubjects.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubjects_RowEnter);
             this.dgvSubjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSubjects_UserDeletingRow);
+            // 
+            // colSubjectsID
+            // 
+            this.colSubjectsID.DataPropertyName = "ID";
+            this.colSubjectsID.HeaderText = "ID";
+            this.colSubjectsID.MinimumWidth = 30;
+            this.colSubjectsID.Name = "colSubjectsID";
+            this.colSubjectsID.ReadOnly = true;
+            this.colSubjectsID.Width = 60;
+            // 
+            // colSubjectsSubjectName
+            // 
+            this.colSubjectsSubjectName.DataPropertyName = "SubjectName";
+            this.colSubjectsSubjectName.HeaderText = "SubjectName";
+            this.colSubjectsSubjectName.MinimumWidth = 30;
+            this.colSubjectsSubjectName.Name = "colSubjectsSubjectName";
+            this.colSubjectsSubjectName.Width = 80;
+            // 
+            // colSubjectsCategory
+            // 
+            this.colSubjectsCategory.DataPropertyName = "Category";
+            this.colSubjectsCategory.HeaderText = "Category";
+            this.colSubjectsCategory.MinimumWidth = 30;
+            this.colSubjectsCategory.Name = "colSubjectsCategory";
+            this.colSubjectsCategory.Width = 60;
+            // 
+            // colSubjectsAge
+            // 
+            this.colSubjectsAge.DataPropertyName = "Age";
+            this.colSubjectsAge.HeaderText = "Age";
+            this.colSubjectsAge.MinimumWidth = 30;
+            this.colSubjectsAge.Name = "colSubjectsAge";
+            this.colSubjectsAge.Width = 40;
+            // 
+            // colSubjectsSex
+            // 
+            this.colSubjectsSex.DataPropertyName = "Sex";
+            this.colSubjectsSex.HeaderText = "Sex";
+            this.colSubjectsSex.MinimumWidth = 30;
+            this.colSubjectsSex.Name = "colSubjectsSex";
+            this.colSubjectsSex.Width = 40;
+            // 
+            // colSubjectsHandedness
+            // 
+            this.colSubjectsHandedness.DataPropertyName = "Handedness";
+            this.colSubjectsHandedness.HeaderText = "Handedness";
+            this.colSubjectsHandedness.MinimumWidth = 30;
+            this.colSubjectsHandedness.Name = "colSubjectsHandedness";
+            this.colSubjectsHandedness.Width = 80;
+            // 
+            // colSubjectsComments
+            // 
+            this.colSubjectsComments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colSubjectsComments.DataPropertyName = "Comments";
+            this.colSubjectsComments.HeaderText = "Comments";
+            this.colSubjectsComments.MinimumWidth = 30;
+            this.colSubjectsComments.Name = "colSubjectsComments";
+            // 
+            // colGlasses
+            // 
+            this.colGlasses.DataPropertyName = "Glasses";
+            this.colGlasses.HeaderText = "Glasses";
+            this.colGlasses.MinimumWidth = 30;
+            this.colGlasses.Name = "colGlasses";
+            this.colGlasses.ReadOnly = true;
+            // 
+            // colLight
+            // 
+            this.colLight.DataPropertyName = "Light";
+            this.colLight.HeaderText = "Room Light";
+            this.colLight.MinimumWidth = 40;
+            this.colLight.Name = "colLight";
+            this.colLight.ReadOnly = true;
+            // 
+            // colAmbiance
+            // 
+            this.colAmbiance.DataPropertyName = "Ambiance";
+            this.colAmbiance.HeaderText = "Room Ambiance";
+            this.colAmbiance.MinimumWidth = 40;
+            this.colAmbiance.Name = "colAmbiance";
+            this.colAmbiance.ReadOnly = true;
+            // 
+            // colLanguage
+            // 
+            this.colLanguage.DataPropertyName = "Language";
+            this.colLanguage.HeaderText = "Language";
+            this.colLanguage.MinimumWidth = 50;
+            this.colLanguage.Name = "colLanguage";
+            this.colLanguage.ReadOnly = true;
+            // 
+            // colType
+            // 
+            this.colType.DataPropertyName = "Type";
+            this.colType.HeaderText = "SubjectType";
+            this.colType.MinimumWidth = 50;
+            this.colType.Name = "colType";
+            this.colType.ReadOnly = true;
             // 
             // cmsDataGridView
             // 
@@ -262,7 +431,7 @@ namespace Ogama.Modules.Database
             this.dgvRawData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRawData.Location = new System.Drawing.Point(3, 3);
             this.dgvRawData.Name = "dgvRawData";
-            this.dgvRawData.Size = new System.Drawing.Size(650, 291);
+            this.dgvRawData.Size = new System.Drawing.Size(1151, 360);
             this.dgvRawData.TabIndex = 2;
             this.toolTip1.SetToolTip(this.dgvRawData, "This table displays only the data of the selected trial or subject depending on f" +
         "ilter mode.\r\nRight click for a context menu.");
@@ -289,7 +458,7 @@ namespace Ogama.Modules.Database
             this.dgvTrials.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTrials.Location = new System.Drawing.Point(3, 3);
             this.dgvTrials.Name = "dgvTrials";
-            this.dgvTrials.Size = new System.Drawing.Size(650, 291);
+            this.dgvTrials.Size = new System.Drawing.Size(1151, 360);
             this.dgvTrials.TabIndex = 3;
             this.toolTip1.SetToolTip(this.dgvTrials, "Select trial row to filter the data of the preceding tables.\r\nRight click for a c" +
         "ontext menu.");
@@ -375,11 +544,11 @@ namespace Ogama.Modules.Database
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tacTables);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(978, 324);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1165, 393);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(978, 349);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1165, 418);
             this.toolStripContainer1.TabIndex = 3;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -399,12 +568,13 @@ namespace Ogama.Modules.Database
             this.tacTables.Controls.Add(this.tbpMouseFixations);
             this.tacTables.Controls.Add(this.tbpAOI);
             this.tacTables.Controls.Add(this.tbpShapeGroups);
+            this.tacTables.Controls.Add(this.tbpCalibrations);
             this.tacTables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tacTables.ImageList = this.imlTabs;
             this.tacTables.Location = new System.Drawing.Point(0, 0);
             this.tacTables.Name = "tacTables";
             this.tacTables.SelectedIndex = 0;
-            this.tacTables.Size = new System.Drawing.Size(978, 324);
+            this.tacTables.Size = new System.Drawing.Size(1165, 393);
             this.tacTables.TabIndex = 1;
             // 
             // tbpSubjects
@@ -414,7 +584,7 @@ namespace Ogama.Modules.Database
             this.tbpSubjects.Location = new System.Drawing.Point(4, 23);
             this.tbpSubjects.Name = "tbpSubjects";
             this.tbpSubjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpSubjects.Size = new System.Drawing.Size(970, 297);
+            this.tbpSubjects.Size = new System.Drawing.Size(1157, 366);
             this.tbpSubjects.TabIndex = 0;
             this.tbpSubjects.Text = "Subjects";
             this.tbpSubjects.UseVisualStyleBackColor = true;
@@ -426,7 +596,7 @@ namespace Ogama.Modules.Database
             this.tbpSubjectParameters.Location = new System.Drawing.Point(4, 23);
             this.tbpSubjectParameters.Name = "tbpSubjectParameters";
             this.tbpSubjectParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpSubjectParameters.Size = new System.Drawing.Size(656, 297);
+            this.tbpSubjectParameters.Size = new System.Drawing.Size(1157, 366);
             this.tbpSubjectParameters.TabIndex = 8;
             this.tbpSubjectParameters.Text = "Subject parameters";
             this.tbpSubjectParameters.UseVisualStyleBackColor = true;
@@ -444,7 +614,7 @@ namespace Ogama.Modules.Database
             this.dgvSubjectParameters.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSubjectParameters.Location = new System.Drawing.Point(3, 3);
             this.dgvSubjectParameters.Name = "dgvSubjectParameters";
-            this.dgvSubjectParameters.Size = new System.Drawing.Size(650, 291);
+            this.dgvSubjectParameters.Size = new System.Drawing.Size(1151, 360);
             this.dgvSubjectParameters.TabIndex = 0;
             // 
             // colSubjectParametersID
@@ -490,7 +660,7 @@ namespace Ogama.Modules.Database
             this.tbpParams.Location = new System.Drawing.Point(4, 23);
             this.tbpParams.Name = "tbpParams";
             this.tbpParams.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpParams.Size = new System.Drawing.Size(656, 297);
+            this.tbpParams.Size = new System.Drawing.Size(1157, 366);
             this.tbpParams.TabIndex = 9;
             this.tbpParams.Text = "CustomParams";
             this.tbpParams.UseVisualStyleBackColor = true;
@@ -507,7 +677,7 @@ namespace Ogama.Modules.Database
             this.dgvParams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvParams.Location = new System.Drawing.Point(3, 3);
             this.dgvParams.Name = "dgvParams";
-            this.dgvParams.Size = new System.Drawing.Size(650, 291);
+            this.dgvParams.Size = new System.Drawing.Size(1151, 360);
             this.dgvParams.TabIndex = 0;
             // 
             // colParamsID
@@ -537,7 +707,7 @@ namespace Ogama.Modules.Database
             this.tbpTrials.Location = new System.Drawing.Point(4, 23);
             this.tbpTrials.Name = "tbpTrials";
             this.tbpTrials.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpTrials.Size = new System.Drawing.Size(656, 297);
+            this.tbpTrials.Size = new System.Drawing.Size(1157, 366);
             this.tbpTrials.TabIndex = 1;
             this.tbpTrials.Text = "Trials";
             this.tbpTrials.UseVisualStyleBackColor = true;
@@ -549,7 +719,7 @@ namespace Ogama.Modules.Database
             this.tbpTrialEvents.Location = new System.Drawing.Point(4, 23);
             this.tbpTrialEvents.Name = "tbpTrialEvents";
             this.tbpTrialEvents.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpTrialEvents.Size = new System.Drawing.Size(656, 297);
+            this.tbpTrialEvents.Size = new System.Drawing.Size(1157, 366);
             this.tbpTrialEvents.TabIndex = 5;
             this.tbpTrialEvents.Text = "Trial Events";
             this.tbpTrialEvents.UseVisualStyleBackColor = true;
@@ -573,7 +743,7 @@ namespace Ogama.Modules.Database
             this.dgvTrialEvents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTrialEvents.Location = new System.Drawing.Point(3, 3);
             this.dgvTrialEvents.Name = "dgvTrialEvents";
-            this.dgvTrialEvents.Size = new System.Drawing.Size(650, 291);
+            this.dgvTrialEvents.Size = new System.Drawing.Size(1151, 360);
             this.dgvTrialEvents.TabIndex = 0;
             this.dgvTrialEvents.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
@@ -649,7 +819,7 @@ namespace Ogama.Modules.Database
             this.tbpRawdata.Location = new System.Drawing.Point(4, 23);
             this.tbpRawdata.Name = "tbpRawdata";
             this.tbpRawdata.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpRawdata.Size = new System.Drawing.Size(656, 297);
+            this.tbpRawdata.Size = new System.Drawing.Size(1157, 366);
             this.tbpRawdata.TabIndex = 2;
             this.tbpRawdata.Text = "Raw data";
             this.tbpRawdata.UseVisualStyleBackColor = true;
@@ -661,7 +831,7 @@ namespace Ogama.Modules.Database
             this.tbpGazeFixations.Location = new System.Drawing.Point(4, 23);
             this.tbpGazeFixations.Name = "tbpGazeFixations";
             this.tbpGazeFixations.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpGazeFixations.Size = new System.Drawing.Size(656, 297);
+            this.tbpGazeFixations.Size = new System.Drawing.Size(1157, 366);
             this.tbpGazeFixations.TabIndex = 3;
             this.tbpGazeFixations.Text = "Gaze Fixations";
             this.tbpGazeFixations.UseVisualStyleBackColor = true;
@@ -686,7 +856,7 @@ namespace Ogama.Modules.Database
             this.dgvGazeFixations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvGazeFixations.Location = new System.Drawing.Point(3, 3);
             this.dgvGazeFixations.Name = "dgvGazeFixations";
-            this.dgvGazeFixations.Size = new System.Drawing.Size(650, 291);
+            this.dgvGazeFixations.Size = new System.Drawing.Size(1151, 360);
             this.dgvGazeFixations.TabIndex = 0;
             this.dgvGazeFixations.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
@@ -770,7 +940,7 @@ namespace Ogama.Modules.Database
             this.tbpMouseFixations.Location = new System.Drawing.Point(4, 23);
             this.tbpMouseFixations.Name = "tbpMouseFixations";
             this.tbpMouseFixations.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpMouseFixations.Size = new System.Drawing.Size(656, 297);
+            this.tbpMouseFixations.Size = new System.Drawing.Size(1157, 366);
             this.tbpMouseFixations.TabIndex = 7;
             this.tbpMouseFixations.Text = "Mouse Fixations";
             this.tbpMouseFixations.UseVisualStyleBackColor = true;
@@ -795,7 +965,7 @@ namespace Ogama.Modules.Database
             this.dgvMouseFixations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMouseFixations.Location = new System.Drawing.Point(3, 3);
             this.dgvMouseFixations.Name = "dgvMouseFixations";
-            this.dgvMouseFixations.Size = new System.Drawing.Size(650, 291);
+            this.dgvMouseFixations.Size = new System.Drawing.Size(1151, 360);
             this.dgvMouseFixations.TabIndex = 0;
             this.dgvMouseFixations.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
@@ -879,7 +1049,7 @@ namespace Ogama.Modules.Database
             this.tbpAOI.Location = new System.Drawing.Point(4, 23);
             this.tbpAOI.Name = "tbpAOI";
             this.tbpAOI.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpAOI.Size = new System.Drawing.Size(656, 297);
+            this.tbpAOI.Size = new System.Drawing.Size(1157, 366);
             this.tbpAOI.TabIndex = 4;
             this.tbpAOI.Text = "Areas of Interest";
             this.tbpAOI.UseVisualStyleBackColor = true;
@@ -902,7 +1072,7 @@ namespace Ogama.Modules.Database
             this.dgvAOIs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAOIs.Location = new System.Drawing.Point(3, 3);
             this.dgvAOIs.Name = "dgvAOIs";
-            this.dgvAOIs.Size = new System.Drawing.Size(650, 291);
+            this.dgvAOIs.Size = new System.Drawing.Size(1151, 360);
             this.dgvAOIs.TabIndex = 0;
             this.dgvAOIs.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
@@ -983,7 +1153,7 @@ namespace Ogama.Modules.Database
             this.tbpShapeGroups.Location = new System.Drawing.Point(4, 23);
             this.tbpShapeGroups.Name = "tbpShapeGroups";
             this.tbpShapeGroups.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpShapeGroups.Size = new System.Drawing.Size(656, 297);
+            this.tbpShapeGroups.Size = new System.Drawing.Size(1157, 366);
             this.tbpShapeGroups.TabIndex = 6;
             this.tbpShapeGroups.Text = "Shape Groups";
             this.tbpShapeGroups.UseVisualStyleBackColor = true;
@@ -1000,7 +1170,7 @@ namespace Ogama.Modules.Database
             this.dgvShapeGroups.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvShapeGroups.Location = new System.Drawing.Point(3, 3);
             this.dgvShapeGroups.Name = "dgvShapeGroups";
-            this.dgvShapeGroups.Size = new System.Drawing.Size(650, 291);
+            this.dgvShapeGroups.Size = new System.Drawing.Size(1151, 360);
             this.dgvShapeGroups.TabIndex = 0;
             this.dgvShapeGroups.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
@@ -1020,6 +1190,26 @@ namespace Ogama.Modules.Database
             this.colShapeGroupsShapeGroup.HeaderText = "ShapeGroup";
             this.colShapeGroupsShapeGroup.MinimumWidth = 30;
             this.colShapeGroupsShapeGroup.Name = "colShapeGroupsShapeGroup";
+            // 
+            // tbpCalibrations
+            // 
+            this.tbpCalibrations.Controls.Add(this.dgvCalibrations);
+            this.tbpCalibrations.Location = new System.Drawing.Point(4, 23);
+            this.tbpCalibrations.Name = "tbpCalibrations";
+            this.tbpCalibrations.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpCalibrations.Size = new System.Drawing.Size(1157, 366);
+            this.tbpCalibrations.TabIndex = 10;
+            this.tbpCalibrations.Text = "Calibrations";
+            this.tbpCalibrations.UseVisualStyleBackColor = true;
+            // 
+            // dgvCalibrations
+            // 
+            this.dgvCalibrations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCalibrations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCalibrations.Location = new System.Drawing.Point(3, 3);
+            this.dgvCalibrations.Name = "dgvCalibrations";
+            this.dgvCalibrations.Size = new System.Drawing.Size(1151, 360);
+            this.dgvCalibrations.TabIndex = 0;
             // 
             // imlTabs
             // 
@@ -1161,108 +1351,553 @@ namespace Ogama.Modules.Database
             this.bgwExport.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwExport_ProgressChanged);
             this.bgwExport.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwExport_RunWorkerCompleted);
             // 
-            // colSubjectsID
+            // dataGridViewTextBoxColumn1
             // 
-            this.colSubjectsID.DataPropertyName = "ID";
-            this.colSubjectsID.HeaderText = "ID";
-            this.colSubjectsID.MinimumWidth = 30;
-            this.colSubjectsID.Name = "colSubjectsID";
-            this.colSubjectsID.ReadOnly = true;
-            this.colSubjectsID.Width = 60;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 60;
             // 
-            // colSubjectsSubjectName
+            // dataGridViewTextBoxColumn2
             // 
-            this.colSubjectsSubjectName.DataPropertyName = "SubjectName";
-            this.colSubjectsSubjectName.HeaderText = "SubjectName";
-            this.colSubjectsSubjectName.MinimumWidth = 30;
-            this.colSubjectsSubjectName.Name = "colSubjectsSubjectName";
-            this.colSubjectsSubjectName.Width = 80;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn2.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 80;
             // 
-            // colSubjectsCategory
+            // dataGridViewTextBoxColumn3
             // 
-            this.colSubjectsCategory.DataPropertyName = "Category";
-            this.colSubjectsCategory.HeaderText = "Category";
-            this.colSubjectsCategory.MinimumWidth = 30;
-            this.colSubjectsCategory.Name = "colSubjectsCategory";
-            this.colSubjectsCategory.Width = 60;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Category";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Category";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 60;
             // 
-            // colSubjectsAge
+            // dataGridViewTextBoxColumn4
             // 
-            this.colSubjectsAge.DataPropertyName = "Age";
-            this.colSubjectsAge.HeaderText = "Age";
-            this.colSubjectsAge.MinimumWidth = 30;
-            this.colSubjectsAge.Name = "colSubjectsAge";
-            this.colSubjectsAge.Width = 40;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Age";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Age";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 40;
             // 
-            // colSubjectsSex
+            // dataGridViewTextBoxColumn5
             // 
-            this.colSubjectsSex.DataPropertyName = "Sex";
-            this.colSubjectsSex.HeaderText = "Sex";
-            this.colSubjectsSex.MinimumWidth = 30;
-            this.colSubjectsSex.Name = "colSubjectsSex";
-            this.colSubjectsSex.Width = 40;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Sex";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Sex";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 40;
             // 
-            // colSubjectsHandedness
+            // dataGridViewTextBoxColumn6
             // 
-            this.colSubjectsHandedness.DataPropertyName = "Handedness";
-            this.colSubjectsHandedness.HeaderText = "Handedness";
-            this.colSubjectsHandedness.MinimumWidth = 30;
-            this.colSubjectsHandedness.Name = "colSubjectsHandedness";
-            this.colSubjectsHandedness.Width = 80;
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Handedness";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Handedness";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 80;
             // 
-            // colSubjectsComments
+            // dataGridViewTextBoxColumn7
             // 
-            this.colSubjectsComments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colSubjectsComments.DataPropertyName = "Comments";
-            this.colSubjectsComments.HeaderText = "Comments";
-            this.colSubjectsComments.MinimumWidth = 30;
-            this.colSubjectsComments.Name = "colSubjectsComments";
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Comments";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Comments";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
-            // colGlasses
+            // dataGridViewTextBoxColumn8
             // 
-            this.colGlasses.DataPropertyName = "Glasses";
-            this.colGlasses.HeaderText = "Glasses";
-            this.colGlasses.MinimumWidth = 30;
-            this.colGlasses.Name = "colGlasses";
-            this.colGlasses.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Glasses";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Glasses";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
-            // colLight
+            // dataGridViewTextBoxColumn9
             // 
-            this.colLight.DataPropertyName = "Light";
-            this.colLight.HeaderText = "Room Light";
-            this.colLight.MinimumWidth = 40;
-            this.colLight.Name = "colLight";
-            this.colLight.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Light";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Room Light";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
-            // colAmbiance
+            // dataGridViewTextBoxColumn10
             // 
-            this.colAmbiance.DataPropertyName = "Ambiance";
-            this.colAmbiance.HeaderText = "Room Ambiance";
-            this.colAmbiance.MinimumWidth = 40;
-            this.colAmbiance.Name = "colAmbiance";
-            this.colAmbiance.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Ambiance";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Room Ambiance";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
             // 
-            // colLanguage
+            // dataGridViewTextBoxColumn11
             // 
-            this.colLanguage.DataPropertyName = "Language";
-            this.colLanguage.HeaderText = "Language";
-            this.colLanguage.MinimumWidth = 50;
-            this.colLanguage.Name = "colLanguage";
-            this.colLanguage.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "Language";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Language";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
-            // colType
+            // dataGridViewTextBoxColumn12
             // 
-            this.colType.DataPropertyName = "Type";
-            this.colType.HeaderText = "SubjectType";
-            this.colType.MinimumWidth = 50;
-            this.colType.Name = "colType";
-            this.colType.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "Type";
+            this.dataGridViewTextBoxColumn12.HeaderText = "SubjectType";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn13.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn13.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            this.dataGridViewTextBoxColumn13.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn14.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn14.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            // 
+            // dataGridViewComboBoxColumn1
+            // 
+            this.dataGridViewComboBoxColumn1.DataPropertyName = "Param";
+            this.dataGridViewComboBoxColumn1.DataSource = this.bsoParams;
+            this.dataGridViewComboBoxColumn1.DisplayMember = "Param";
+            this.dataGridViewComboBoxColumn1.HeaderText = "Param";
+            this.dataGridViewComboBoxColumn1.MinimumWidth = 80;
+            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+            this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn1.ValueMember = "Param";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "ParamValue";
+            this.dataGridViewTextBoxColumn15.HeaderText = "ParamValue";
+            this.dataGridViewTextBoxColumn15.MinimumWidth = 60;
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn16.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "Param";
+            this.dataGridViewTextBoxColumn17.HeaderText = "Param";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn18.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn18.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn19.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn19.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.ReadOnly = true;
+            this.dataGridViewTextBoxColumn19.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            this.dataGridViewTextBoxColumn20.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn20.HeaderText = "Subjectname";
+            this.dataGridViewTextBoxColumn20.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            this.dataGridViewTextBoxColumn20.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn21
+            // 
+            this.dataGridViewTextBoxColumn21.DataPropertyName = "TrialSequence";
+            this.dataGridViewTextBoxColumn21.HeaderText = "Sequence";
+            this.dataGridViewTextBoxColumn21.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            this.dataGridViewTextBoxColumn21.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn22
+            // 
+            this.dataGridViewTextBoxColumn22.DataPropertyName = "TrialID";
+            this.dataGridViewTextBoxColumn22.HeaderText = "TrialID";
+            this.dataGridViewTextBoxColumn22.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            this.dataGridViewTextBoxColumn22.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn23
+            // 
+            this.dataGridViewTextBoxColumn23.DataPropertyName = "TrialName";
+            this.dataGridViewTextBoxColumn23.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn23.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            this.dataGridViewTextBoxColumn23.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn24
+            // 
+            this.dataGridViewTextBoxColumn24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn24.DataPropertyName = "Category";
+            this.dataGridViewTextBoxColumn24.HeaderText = "Category";
+            this.dataGridViewTextBoxColumn24.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
+            // 
+            // dataGridViewTextBoxColumn25
+            // 
+            this.dataGridViewTextBoxColumn25.DataPropertyName = "TrialStartTime";
+            this.dataGridViewTextBoxColumn25.HeaderText = "StartTime";
+            this.dataGridViewTextBoxColumn25.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dataGridViewTextBoxColumn25.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn26
+            // 
+            this.dataGridViewTextBoxColumn26.DataPropertyName = "Duration";
+            this.dataGridViewTextBoxColumn26.HeaderText = "Duration";
+            this.dataGridViewTextBoxColumn26.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn27
+            // 
+            this.dataGridViewTextBoxColumn27.DataPropertyName = "EliminateData";
+            this.dataGridViewTextBoxColumn27.HeaderText = "Eliminate";
+            this.dataGridViewTextBoxColumn27.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            this.dataGridViewTextBoxColumn27.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn28
+            // 
+            this.dataGridViewTextBoxColumn28.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn28.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn28.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
+            this.dataGridViewTextBoxColumn28.ReadOnly = true;
+            this.dataGridViewTextBoxColumn28.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn29
+            // 
+            this.dataGridViewTextBoxColumn29.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn29.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn29.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
+            this.dataGridViewTextBoxColumn29.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn30
+            // 
+            this.dataGridViewTextBoxColumn30.DataPropertyName = "TrialSequence";
+            this.dataGridViewTextBoxColumn30.HeaderText = "TrialSequence";
+            this.dataGridViewTextBoxColumn30.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dataGridViewTextBoxColumn30.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn31
+            // 
+            this.dataGridViewTextBoxColumn31.DataPropertyName = "EventID";
+            this.dataGridViewTextBoxColumn31.HeaderText = "EventID";
+            this.dataGridViewTextBoxColumn31.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn31.Name = "dataGridViewTextBoxColumn31";
+            this.dataGridViewTextBoxColumn31.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn32
+            // 
+            this.dataGridViewTextBoxColumn32.DataPropertyName = "EventTime";
+            this.dataGridViewTextBoxColumn32.HeaderText = "EventTime";
+            this.dataGridViewTextBoxColumn32.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn32.Name = "dataGridViewTextBoxColumn32";
+            this.dataGridViewTextBoxColumn32.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn33
+            // 
+            this.dataGridViewTextBoxColumn33.DataPropertyName = "EventType";
+            this.dataGridViewTextBoxColumn33.HeaderText = "EventType";
+            this.dataGridViewTextBoxColumn33.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn33.Name = "dataGridViewTextBoxColumn33";
+            this.dataGridViewTextBoxColumn33.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn34
+            // 
+            this.dataGridViewTextBoxColumn34.DataPropertyName = "EventTask";
+            this.dataGridViewTextBoxColumn34.HeaderText = "EventTask";
+            this.dataGridViewTextBoxColumn34.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn34.Name = "dataGridViewTextBoxColumn34";
+            this.dataGridViewTextBoxColumn34.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn35
+            // 
+            this.dataGridViewTextBoxColumn35.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn35.DataPropertyName = "EventParam";
+            this.dataGridViewTextBoxColumn35.HeaderText = "EventParam";
+            this.dataGridViewTextBoxColumn35.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
+            // 
+            // dataGridViewTextBoxColumn36
+            // 
+            this.dataGridViewTextBoxColumn36.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn36.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn36.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn36.Name = "dataGridViewTextBoxColumn36";
+            this.dataGridViewTextBoxColumn36.ReadOnly = true;
+            this.dataGridViewTextBoxColumn36.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn37
+            // 
+            this.dataGridViewTextBoxColumn37.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn37.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn37.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn37.Name = "dataGridViewTextBoxColumn37";
+            this.dataGridViewTextBoxColumn37.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn38
+            // 
+            this.dataGridViewTextBoxColumn38.DataPropertyName = "TrialID";
+            this.dataGridViewTextBoxColumn38.HeaderText = "TrialID";
+            this.dataGridViewTextBoxColumn38.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn38.Name = "dataGridViewTextBoxColumn38";
+            this.dataGridViewTextBoxColumn38.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn39
+            // 
+            this.dataGridViewTextBoxColumn39.DataPropertyName = "TrialSequence";
+            this.dataGridViewTextBoxColumn39.HeaderText = "TrialSequence";
+            this.dataGridViewTextBoxColumn39.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn39.Name = "dataGridViewTextBoxColumn39";
+            this.dataGridViewTextBoxColumn39.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn40
+            // 
+            this.dataGridViewTextBoxColumn40.DataPropertyName = "CountInTrial";
+            this.dataGridViewTextBoxColumn40.HeaderText = "CountInTrial";
+            this.dataGridViewTextBoxColumn40.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn40.Name = "dataGridViewTextBoxColumn40";
+            this.dataGridViewTextBoxColumn40.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn41
+            // 
+            this.dataGridViewTextBoxColumn41.DataPropertyName = "StartTime";
+            this.dataGridViewTextBoxColumn41.HeaderText = "StartTime";
+            this.dataGridViewTextBoxColumn41.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn41.Name = "dataGridViewTextBoxColumn41";
+            this.dataGridViewTextBoxColumn41.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn42
+            // 
+            this.dataGridViewTextBoxColumn42.DataPropertyName = "Length";
+            this.dataGridViewTextBoxColumn42.HeaderText = "Length";
+            this.dataGridViewTextBoxColumn42.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn42.Name = "dataGridViewTextBoxColumn42";
+            this.dataGridViewTextBoxColumn42.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn43
+            // 
+            this.dataGridViewTextBoxColumn43.DataPropertyName = "PosX";
+            this.dataGridViewTextBoxColumn43.HeaderText = "PosX";
+            this.dataGridViewTextBoxColumn43.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn43.Name = "dataGridViewTextBoxColumn43";
+            this.dataGridViewTextBoxColumn43.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn44
+            // 
+            this.dataGridViewTextBoxColumn44.DataPropertyName = "PosY";
+            this.dataGridViewTextBoxColumn44.HeaderText = "PosY";
+            this.dataGridViewTextBoxColumn44.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn44.Name = "dataGridViewTextBoxColumn44";
+            this.dataGridViewTextBoxColumn44.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn45
+            // 
+            this.dataGridViewTextBoxColumn45.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn45.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn45.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn45.Name = "dataGridViewTextBoxColumn45";
+            this.dataGridViewTextBoxColumn45.ReadOnly = true;
+            this.dataGridViewTextBoxColumn45.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn46
+            // 
+            this.dataGridViewTextBoxColumn46.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn46.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn46.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn46.Name = "dataGridViewTextBoxColumn46";
+            this.dataGridViewTextBoxColumn46.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn47
+            // 
+            this.dataGridViewTextBoxColumn47.DataPropertyName = "TrialID";
+            this.dataGridViewTextBoxColumn47.HeaderText = "TrialID";
+            this.dataGridViewTextBoxColumn47.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn47.Name = "dataGridViewTextBoxColumn47";
+            this.dataGridViewTextBoxColumn47.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn48
+            // 
+            this.dataGridViewTextBoxColumn48.DataPropertyName = "TrialSequence";
+            this.dataGridViewTextBoxColumn48.HeaderText = "TrialSequence";
+            this.dataGridViewTextBoxColumn48.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn48.Name = "dataGridViewTextBoxColumn48";
+            this.dataGridViewTextBoxColumn48.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn49
+            // 
+            this.dataGridViewTextBoxColumn49.DataPropertyName = "CountInTrial";
+            this.dataGridViewTextBoxColumn49.HeaderText = "CountInTrial";
+            this.dataGridViewTextBoxColumn49.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn49.Name = "dataGridViewTextBoxColumn49";
+            this.dataGridViewTextBoxColumn49.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn50
+            // 
+            this.dataGridViewTextBoxColumn50.DataPropertyName = "StartTime";
+            this.dataGridViewTextBoxColumn50.HeaderText = "StartTime";
+            this.dataGridViewTextBoxColumn50.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn50.Name = "dataGridViewTextBoxColumn50";
+            this.dataGridViewTextBoxColumn50.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn51
+            // 
+            this.dataGridViewTextBoxColumn51.DataPropertyName = "Length";
+            this.dataGridViewTextBoxColumn51.HeaderText = "Length";
+            this.dataGridViewTextBoxColumn51.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
+            this.dataGridViewTextBoxColumn51.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn52
+            // 
+            this.dataGridViewTextBoxColumn52.DataPropertyName = "PosX";
+            this.dataGridViewTextBoxColumn52.HeaderText = "PosX";
+            this.dataGridViewTextBoxColumn52.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn52.Name = "dataGridViewTextBoxColumn52";
+            this.dataGridViewTextBoxColumn52.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn53
+            // 
+            this.dataGridViewTextBoxColumn53.DataPropertyName = "PosY";
+            this.dataGridViewTextBoxColumn53.HeaderText = "PosY";
+            this.dataGridViewTextBoxColumn53.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn53.Name = "dataGridViewTextBoxColumn53";
+            this.dataGridViewTextBoxColumn53.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn54
+            // 
+            this.dataGridViewTextBoxColumn54.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn54.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn54.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn54.Name = "dataGridViewTextBoxColumn54";
+            this.dataGridViewTextBoxColumn54.ReadOnly = true;
+            this.dataGridViewTextBoxColumn54.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn55
+            // 
+            this.dataGridViewTextBoxColumn55.DataPropertyName = "TrialID";
+            this.dataGridViewTextBoxColumn55.HeaderText = "TrialID";
+            this.dataGridViewTextBoxColumn55.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn55.Name = "dataGridViewTextBoxColumn55";
+            this.dataGridViewTextBoxColumn55.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn56
+            // 
+            this.dataGridViewTextBoxColumn56.DataPropertyName = "SlideNr";
+            this.dataGridViewTextBoxColumn56.HeaderText = "SlideNr";
+            this.dataGridViewTextBoxColumn56.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn56.Name = "dataGridViewTextBoxColumn56";
+            this.dataGridViewTextBoxColumn56.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn57
+            // 
+            this.dataGridViewTextBoxColumn57.DataPropertyName = "ShapeName";
+            this.dataGridViewTextBoxColumn57.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn57.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn57.Name = "dataGridViewTextBoxColumn57";
+            this.dataGridViewTextBoxColumn57.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn58
+            // 
+            this.dataGridViewTextBoxColumn58.DataPropertyName = "ShapeType";
+            this.dataGridViewTextBoxColumn58.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn58.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn58.Name = "dataGridViewTextBoxColumn58";
+            this.dataGridViewTextBoxColumn58.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn59
+            // 
+            this.dataGridViewTextBoxColumn59.DataPropertyName = "ShapeNumPts";
+            this.dataGridViewTextBoxColumn59.HeaderText = "NumPts";
+            this.dataGridViewTextBoxColumn59.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn59.Name = "dataGridViewTextBoxColumn59";
+            this.dataGridViewTextBoxColumn59.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn60
+            // 
+            this.dataGridViewTextBoxColumn60.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn60.DataPropertyName = "ShapePts";
+            this.dataGridViewTextBoxColumn60.HeaderText = "Points";
+            this.dataGridViewTextBoxColumn60.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn60.Name = "dataGridViewTextBoxColumn60";
+            // 
+            // dataGridViewComboBoxColumn2
+            // 
+            this.dataGridViewComboBoxColumn2.DataPropertyName = "ShapeGroup";
+            this.dataGridViewComboBoxColumn2.DataSource = this.bsoShapeGroups;
+            this.dataGridViewComboBoxColumn2.DisplayMember = "ShapeGroup";
+            this.dataGridViewComboBoxColumn2.HeaderText = "Group";
+            this.dataGridViewComboBoxColumn2.MinimumWidth = 30;
+            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
+            this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn2.ValueMember = "ShapeGroup";
+            this.dataGridViewComboBoxColumn2.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn61
+            // 
+            this.dataGridViewTextBoxColumn61.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn61.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn61.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
+            this.dataGridViewTextBoxColumn61.ReadOnly = true;
+            this.dataGridViewTextBoxColumn61.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn62
+            // 
+            this.dataGridViewTextBoxColumn62.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn62.DataPropertyName = "ShapeGroup";
+            this.dataGridViewTextBoxColumn62.HeaderText = "ShapeGroup";
+            this.dataGridViewTextBoxColumn62.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn62.Name = "dataGridViewTextBoxColumn62";
+            // 
+            // dataGridViewTextBoxColumn63
+            // 
+            this.dataGridViewTextBoxColumn63.DataPropertyName = "SubjectName";
+            this.dataGridViewTextBoxColumn63.HeaderText = "SubjectName";
+            this.dataGridViewTextBoxColumn63.Name = "dataGridViewTextBoxColumn63";
+            // 
+            // dataGridViewTextBoxColumn64
+            // 
+            this.dataGridViewTextBoxColumn64.DataPropertyName = "Accuracy";
+            this.dataGridViewTextBoxColumn64.HeaderText = "Accuracy";
+            this.dataGridViewTextBoxColumn64.Name = "dataGridViewTextBoxColumn64";
+            // 
+            // dataGridViewTextBoxColumn65
+            // 
+            this.dataGridViewTextBoxColumn65.DataPropertyName = "AccuracyLeft";
+            this.dataGridViewTextBoxColumn65.HeaderText = "AccuracyLeft";
+            this.dataGridViewTextBoxColumn65.Name = "dataGridViewTextBoxColumn65";
             // 
             // DatabaseModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 349);
+            this.ClientSize = new System.Drawing.Size(1165, 418);
             this.Controls.Add(this.toolStripContainer1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::Ogama.Properties.Settings.Default, "DatabaseModuleLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1289,6 +1924,7 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             this.cmsDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).EndInit();
@@ -1316,6 +1952,8 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.dgvAOIs)).EndInit();
             this.tbpShapeGroups.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeGroups)).EndInit();
+            this.tbpCalibrations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCalibrations)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1429,5 +2067,77 @@ namespace Ogama.Modules.Database
     private DataGridViewTextBoxColumn colAmbiance;
     private DataGridViewTextBoxColumn colLanguage;
     private DataGridViewTextBoxColumn colType;
+    private TabPage tbpCalibrations;
+    private DataGridView dgvCalibrations;
+    private DataGridViewTextBoxColumn subjectNameDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn accuracyDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn accuracyLeftDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+    private DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn23;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn31;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn32;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn33;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn34;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn35;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn36;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn37;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn38;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn39;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn40;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn41;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn42;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn43;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn44;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn45;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn46;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn47;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn48;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn49;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn50;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn51;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn52;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn53;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn54;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn55;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn56;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn57;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn58;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn59;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn60;
+    private DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn61;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn62;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn63;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn64;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn65;
   }
 }

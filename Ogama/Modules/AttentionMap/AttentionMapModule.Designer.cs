@@ -35,8 +35,8 @@ namespace Ogama.Modules.AttentionMap
     {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AttentionMapModule));
-            OgamaControls.Gradient gradient1 = new OgamaControls.Gradient();
-            System.Drawing.Drawing2D.ColorBlend colorBlend1 = new System.Drawing.Drawing2D.ColorBlend();
+            OgamaControls.Gradient gradient2 = new OgamaControls.Gradient();
+            System.Drawing.Drawing2D.ColorBlend colorBlend2 = new System.Drawing.Drawing2D.ColorBlend();
             this.bgwCalcMap = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.trvSubjects = new OgamaControls.CheckboxTreeView(this.components);
@@ -154,15 +154,15 @@ namespace Ogama.Modules.AttentionMap
             // 
             // gradientControl
             // 
-            colorBlend1.Colors = new System.Drawing.Color[] {
+            colorBlend2.Colors = new System.Drawing.Color[] {
         System.Drawing.Color.Transparent,
         System.Drawing.Color.Transparent};
-            colorBlend1.Positions = new float[] {
+            colorBlend2.Positions = new float[] {
         0F,
         1F};
-            gradient1.ColorBlend = colorBlend1;
-            gradient1.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.gradientControl.Gradient = gradient1;
+            gradient2.ColorBlend = colorBlend2;
+            gradient2.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.gradientControl.Gradient = gradient2;
             this.gradientControl.Location = new System.Drawing.Point(0, 0);
             this.gradientControl.Name = "gradientControl";
             this.gradientControl.Size = new System.Drawing.Size(660, 86);
@@ -584,7 +584,7 @@ namespace Ogama.Modules.AttentionMap
             this.toolStripNumericUpDown1});
             this.tosCalculation.Location = global::Ogama.Properties.Settings.Default.ATMCalculateToolbarLocation;
             this.tosCalculation.Name = "tosCalculation";
-            this.tosCalculation.Size = new System.Drawing.Size(192, 25);
+            this.tosCalculation.Size = new System.Drawing.Size(327, 25);
             this.tosCalculation.TabIndex = 1;
             // 
             // btnStartCalculation

@@ -44,8 +44,10 @@ namespace Ogama.Properties
     ///////////////////////////////////////////////////////////////////////////////
     #region CONSTANTS
 
-
-      public const string DASHBOARD_DB_NAME = "dashboard";
+    /// <summary>
+    /// Constant saving the dashboard database name 
+    /// </summary>
+    public const string DASHBOARD_DB_NAME = "dashboard";
     #endregion //CONSTANTS
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -473,7 +475,10 @@ namespace Ogama.Properties
     /// <value>A <see cref="string"/> with the path to the database files.</value>
     public string DashboardDatabasePath
     {
-        get { return Path.Combine(this.CreateDatabasePath(), DASHBOARD_DB_NAME + ".db"); }
+        get {
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "OgamaExperiments");
+                return Path.Combine(path, DASHBOARD_DB_NAME + ".db");
+            }
     }
 
     /// <summary>
@@ -532,7 +537,7 @@ namespace Ogama.Properties
     {
         get 
         {
-            string dashConnection = @"Data Source=" + this.DashboardDatabasePath;
+            string dashConnection = @"Data Source=" + this.DashboardDatabasePath+";foreign keys=true;";            
             return dashConnection; 
         }
     }
@@ -666,6 +671,7 @@ namespace Ogama.Properties
           /* Use the Deserialize method to restore the object's state with
           data from the XML document. */
           settings = (ExperimentSettings)serializer.Deserialize(fs);
+           
         }
 
         return settings;

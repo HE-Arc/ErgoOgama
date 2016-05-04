@@ -125,5 +125,11 @@ namespace VectorGraphics.Elements
     /// All modules. ActiveX elements.
     /// </summary>
     ACTIVEX = 524288,
+
+
+    /// <summary>
+    /// Areas of interest module. Search rectangle elements.
+    /// </summary>
+    AOI_MANDATORY = 1048576,
   }
 }

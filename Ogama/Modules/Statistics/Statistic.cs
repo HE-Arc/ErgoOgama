@@ -226,7 +226,7 @@ namespace Ogama.Modules.Statistics
       foreach (VGElement aoiElement in aoiCollection)
       {
         // Check for intersection between newPath and Clicklist or Fixationlist
-        PointF searchPoint = new PointF(
+          PointF searchPoint = new PointF(
           Convert.ToSingle(fixationRow["PosX"]),
           Convert.ToSingle(fixationRow["PosY"]));
 

@@ -265,6 +265,7 @@ namespace Ogama.DataSet
     /// </exception>
     public void Insert(object[] paramValues)
     {
+     
       if (paramValues.Length != this.sqliteParameters.Count)
       {
         throw new Exception("The values array count must be equal to the count of the number of parameters.");

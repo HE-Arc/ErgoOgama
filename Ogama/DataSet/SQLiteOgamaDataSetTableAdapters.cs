@@ -14454,6 +14454,976 @@ SELECT ID, Param, Description FROM Params WHERE (ID = @ID)";
 
     #endregion
   }
+
+
+  /// <summary>
+  ///   Represents the connection and commands used to retrieve and save data.
+  /// </summary>
+    public class SQLiteTadCalibrations : Component
+    {
+
+        #region Fields
+
+        /// <summary>
+        ///   The _adapter
+        /// </summary>
+        private SQLiteDataAdapter _adapter;
+
+        /// <summary>
+        ///   The _command collection
+        /// </summary>
+        private SQLiteCommand[] _commandCollection;
+
+        /// <summary>
+        ///   The _connection
+        /// </summary>
+        private SQLiteConnection _connection;
+
+        #endregion
+
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref="SQLiteTadCalibrations" /> class.
+        /// </summary>
+        public SQLiteTadCalibrations()
+        {
+          this.ClearBeforeFill = true;
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether [clear before fill].
+        /// </summary>
+        /// <value><c>true</c> if [clear before fill]; otherwise, <c>false</c>.</value>
+        public bool ClearBeforeFill { get; set; }
+
+        #endregion
+
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the connection.
+        /// </summary>
+        /// <value>The connection.</value>
+        internal SQLiteConnection Connection
+        {
+            get
+            {
+                if (this._connection == null)
+                {
+                    this.InitConnection();
+                }
+
+                return this._connection;
+            }
+
+            set
+            {
+                this._connection = value;
+                if (this.Adapter.InsertCommand != null)
+                {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+
+                if (this.Adapter.DeleteCommand != null)
+                {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+
+                if (this.Adapter.UpdateCommand != null)
+                {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+
+                for (int i = 0; i < this.CommandCollection.Length; i = (i + 1))
+                {
+                    if ((this.CommandCollection[i] != null))
+                    {
+                        this.CommandCollection[i].Connection = value;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///   Gets the command collection.
+        /// </summary>
+        /// <value>The command collection.</value>
+        protected SQLiteCommand[] CommandCollection
+        {
+            get
+            {
+                if (this._commandCollection == null)
+                {
+                    this.InitCommandCollection();
+                }
+
+                return this._commandCollection;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the adapter.
+        /// </summary>
+        /// <value>The adapter.</value>
+        private SQLiteDataAdapter Adapter
+        {
+            get
+            {
+                if (this._adapter == null)
+                {
+                    this.InitAdapter();
+                }
+
+                return this._adapter;
+            }
+        }
+
+        #endregion
+
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Deletes the specified original_ subject id.
+        /// </summary>
+        /// <param name="Original_SubjectName">
+        /// Name of the original_ subject.
+        /// </param>
+        /// <param name="Original_Accuracy">
+        /// The original_ accuracy identifier.
+        /// </param>
+        /// <param name="Original_AccuracyLeft">
+        /// The original_ accuracyleft sequence.
+        /// </param>
+        /// <param name="Original_AccuracyRight">
+        /// The original_ accuracyright in trial.
+        /// <param name="Original_ID">
+        /// The original_ identifier.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Original_SubjectName
+        /// </exception>
+        [DataObjectMethodAttribute(DataObjectMethodType.Delete,
+         true)]
+        public virtual int Delete(
+          string Original_SubjectName,
+          double Original_Accuracy,
+          double Original_AccuracyLeft,
+          double Original_AccuracyRight,
+          long Original_ID)
+        {
+            if (Original_SubjectName == null)
+            {
+                throw new ArgumentNullException("Original_SubjectName");
+            }
+
+            this.Adapter.DeleteCommand.Parameters[0].Value = Original_SubjectName;
+            this.Adapter.DeleteCommand.Parameters[1].Value = Original_Accuracy;
+            this.Adapter.DeleteCommand.Parameters[2].Value = Original_AccuracyLeft;
+            this.Adapter.DeleteCommand.Parameters[3].Value = Original_AccuracyRight;
+            this.Adapter.DeleteCommand.Parameters[4].Value = Original_ID;
+            ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if ((this.Adapter.DeleteCommand.Connection.State & ConnectionState.Open)
+                 != ConnectionState.Open)
+            {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+
+            try
+            {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally
+            {
+                if (previousConnectionState == ConnectionState.Closed)
+                {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        ///   Deletes all.
+        /// </summary>
+        /// <returns>System.Int32.</returns>
+        [DataObjectMethodAttribute(DataObjectMethodType.Delete,
+         false)]
+        public virtual int DeleteAll()
+        {
+            SQLiteCommand command = this.CommandCollection[1];
+            ConnectionState previousConnectionState = command.Connection.State;
+            if ((command.Connection.State & ConnectionState.Open)
+                 != ConnectionState.Open)
+            {
+                command.Connection.Open();
+            }
+
+            int returnValue;
+            try
+            {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (previousConnectionState == ConnectionState.Closed)
+                {
+                    command.Connection.Close();
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Deletes the by subject.
+        /// </summary>
+        /// <param name="Original_SubjectName">
+        /// Name of the original_ subject.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Original_SubjectName
+        /// </exception>
+        [DataObjectMethodAttribute(DataObjectMethodType.Delete,
+         false)]
+        public virtual int DeleteBySubject(string Original_SubjectName)
+        {
+            SQLiteCommand command = this.CommandCollection[2];
+            if (Original_SubjectName == null)
+            {
+                throw new ArgumentNullException("Original_SubjectName");
+            }
+
+            command.Parameters[0].Value = Original_SubjectName;
+            ConnectionState previousConnectionState = command.Connection.State;
+            if ((command.Connection.State & ConnectionState.Open) != ConnectionState.Open)
+            {
+                command.Connection.Open();
+            }
+
+            int returnValue;
+            try
+            {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (previousConnectionState == ConnectionState.Closed)
+                {
+                    command.Connection.Close();
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Fills the specified data table.
+        /// </summary>
+        /// <param name="dataTable">
+        /// The data table.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        [DataObjectMethodAttribute(DataObjectMethodType.Fill,
+         true)]
+        public virtual int Fill(SQLiteOgamaDataSet.CalibrationsDataTable dataTable)
+        {
+            this.Adapter.SelectCommand = this.CommandCollection[0];           
+            int returnValue=0;
+            for (int i = 0; i < dataTable.Count; i++)
+            {                
+                returnValue = this.Insert(dataTable[i].SubjectName, dataTable[i].Accuracy, dataTable[i].AccuracyLeft, dataTable[i].AccuracyRight);
+            }
+            return returnValue;
+        }
+
+        /// <summary>
+        ///   Gets the data.
+        /// </summary>
+        /// <returns>SQLiteOgamaDataSet.MouseFixationsDataTable.</returns>
+        [DataObjectMethodAttribute(DataObjectMethodType.Select,
+         true)]
+        public virtual SQLiteOgamaDataSet.CalibrationsDataTable GetData()
+        {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            var dataTable = new SQLiteOgamaDataSet.CalibrationsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+
+        /// <summary>
+        /// Gets the data by subject.
+        /// </summary>
+        /// <param name="Param1">
+        /// The param1.
+        /// </param>
+        /// <returns>
+        /// SQLiteOgamaDataSet.MouseFixationsDataTable.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Param1
+        /// </exception>
+        [DataObjectMethodAttribute(DataObjectMethodType.Select,
+         false)]
+        public virtual SQLiteOgamaDataSet.CalibrationsDataTable GetDataBySubject(string Param1)
+        {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if (Param1 == null)
+            {
+                throw new ArgumentNullException("Param1");
+            }
+
+            this.Adapter.SelectCommand.Parameters[0].Value = Param1;
+            var dataTable = new SQLiteOgamaDataSet.CalibrationsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }       
+       
+        /// <summary>
+        /// Inserts the specified calibration.
+        /// </summary>
+        /// <param name="SubjectName">
+        /// Id of the subject.
+        /// </param>
+        /// <param name="Accuracy">
+        /// The trial identifier.
+        /// </param>
+        /// <param name="AccuracyLeft">
+        /// The accuracyleft .
+        /// </param>
+        /// <param name="AccuracyRight">
+        /// The accuracyleft.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// SubjectName
+        /// </exception>
+        [DataObjectMethodAttribute(DataObjectMethodType.Insert,
+         true)]
+        public virtual int Insert(
+          string SubjectName,
+          double Accuracy,
+          double AccuracyLeft,
+          double AccuracyRight)
+        {
+            if (SubjectName == null)
+            {
+                throw new ArgumentNullException("SubjectName");
+            }
+
+            this.Adapter.InsertCommand.Parameters[0].Value = SubjectName;
+            this.Adapter.InsertCommand.Parameters[1].Value = Accuracy;
+            this.Adapter.InsertCommand.Parameters[2].Value = AccuracyLeft;
+            this.Adapter.InsertCommand.Parameters[3].Value = AccuracyRight;
+
+            ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if ((this.Adapter.InsertCommand.Connection.State & ConnectionState.Open)
+                 != ConnectionState.Open)
+            {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+
+            try
+            {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally
+            {
+                if (previousConnectionState == ConnectionState.Closed)
+                {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified data table.
+        /// </summary>
+        /// <param name="dataTable">
+        /// The data table.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        public virtual int Update(SQLiteOgamaDataSet.CalibrationsDataTable dataTable)
+        {
+            
+            return this.Adapter.Update(dataTable);
+        }
+
+        /// <summary>
+        /// Updates the specified data set.
+        /// </summary>
+        /// <param name="dataSet">
+        /// The data set.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        public virtual int Update(SQLiteOgamaDataSet dataSet)
+        {
+            return this.Adapter.Update(dataSet, "Calibrations");
+        }
+
+        /// <summary>
+        /// Updates the specified data row.
+        /// </summary>
+        /// <param name="dataRow">
+        /// The data row.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        public virtual int Update(DataRow dataRow)
+        {
+            return this.Adapter.Update(new[] { dataRow });
+        }
+
+        /// <summary>
+        /// Updates the specified data rows.
+        /// </summary>
+        /// <param name="dataRows">
+        /// The data rows.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        public virtual int Update(DataRow[] dataRows)
+        {
+            return this.Adapter.Update(dataRows);
+        }
+
+        /// <summary>
+        /// Updates the specified calibration.
+        /// </summary>
+        /// <param name="SubjectName">
+        /// Id of the subject.
+        /// </param>
+        /// <param name="Accuracy">
+        /// The accuracy identifier.
+        /// </param>
+        /// <param name="AccuracyLeft">
+        /// The accuracyleft sequence.
+        /// </param>
+        /// <param name="AccuracyRight">
+        /// The accuracyright in trial.
+        /// </param>
+        /// <param name="Original_SubjectName">
+        /// Name of the original_ subject.
+        /// </param>
+        /// <param name="Original_Accuracy">
+        /// The original_ accuracy identifier.
+        /// </param>
+        /// <param name="Original_AcccuracyLeft">
+        /// The original_ accuracyleft sequence.
+        /// </param>
+        /// <param name="Original_AccuracyRight">
+        /// The original_ accuracyright in trial.
+        /// <param name="Original_ID">
+        /// The original_ identifier.
+        /// </param>
+        /// <param name="ID">
+        /// The identifier.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        ///
+        /// </exception>
+        [DataObjectMethodAttribute(DataObjectMethodType.Update,
+         true)]
+        public virtual int Update(
+          string SubjectName,
+          double Accuracy,
+          double AccuracyLeft,
+          double AccuracyRight,
+          string Original_SubjectName,
+          double Original_Accuracy,
+          double Original_AccuracyLeft,
+          double Original_AccuracyRight,
+          long Original_ID,
+          long ID)
+        {
+            if (SubjectName == null)
+            {
+                throw new ArgumentNullException("SubjectName");
+            }
+
+            this.Adapter.UpdateCommand.Parameters[0].Value = SubjectName;
+            this.Adapter.UpdateCommand.Parameters[1].Value = Accuracy;
+            this.Adapter.UpdateCommand.Parameters[2].Value = AccuracyLeft;
+            this.Adapter.UpdateCommand.Parameters[3].Value = AccuracyRight;
+            
+
+            if (Original_SubjectName == null)
+            {
+                throw new ArgumentNullException("Original_SubjectName");
+            }
+
+            this.Adapter.UpdateCommand.Parameters[4].Value = Original_SubjectName;
+            this.Adapter.UpdateCommand.Parameters[5].Value = Original_Accuracy;
+            this.Adapter.UpdateCommand.Parameters[6].Value = Original_AccuracyLeft;
+            this.Adapter.UpdateCommand.Parameters[7].Value = Original_AccuracyRight;           
+
+            this.Adapter.UpdateCommand.Parameters[8].Value = Original_ID;
+            this.Adapter.UpdateCommand.Parameters[9].Value = ID;
+            ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if ((this.Adapter.UpdateCommand.Connection.State & ConnectionState.Open)
+                 != ConnectionState.Open)
+            {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+
+            try
+            {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally
+            {
+                if (previousConnectionState == ConnectionState.Closed)
+                {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified subject name.
+        /// </summary>
+        /// <param name="SubjectName">
+        /// Id of the subject.
+        /// </param>
+        /// <param name="Accuracy">
+        /// The accuracy.
+        /// </param>
+        /// <param name="AccuracyLeft">
+        /// The accuracyleft.
+        /// </param>
+        /// <param name="AccuracyRight">
+        /// The accuracy right.
+        /// </param>
+        /// <param name="Original_SubjectName">
+        /// Name of the original_ subject.
+        /// </param>
+        /// <param name="Original_Accuracy">
+        /// The original_ accuracy identifier.
+        /// </param>
+        /// <param name="Original_AccuracyLeft">
+        /// The original_ accuracyleft sequence.
+        /// </param>
+        /// <param name="Original_AccuracyRight">
+        /// The original_ accuracyright in trial.
+        /// </param>
+        /// <param name="Original_ID">
+        /// The original_ identifier.
+        /// </param>
+        /// <returns>
+        /// System.Int32.
+        /// </returns>
+        [DataObjectMethodAttribute(DataObjectMethodType.Update,
+         true)]
+        public virtual int Update(
+          string SubjectName,
+          double Accuracy,
+          double AccuracyLeft,
+          double AccuracyRight,
+          string Original_SubjectName,
+          double Original_Accuracy,
+          double Original_AccuracyLeft,
+          double Original_AccuracyRight,    
+          long Original_ID)
+        {
+            return this.Update(
+              SubjectName,
+              Accuracy,
+              AccuracyLeft,
+              AccuracyRight,              
+              Original_SubjectName,
+              Original_Accuracy,
+              Original_AccuracyLeft,
+              Original_AccuracyRight,
+              Original_ID);
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the adapter.
+        /// </summary>
+        private void InitAdapter()
+        {
+            this._adapter = new SQLiteDataAdapter();
+            var tableMapping = new DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Calibrations";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("SubjectName", "SubjectName");
+            tableMapping.ColumnMappings.Add("Accuracy", "Accuracy");
+            tableMapping.ColumnMappings.Add("AccuracyLeft", "AccuracyLeft");
+            tableMapping.ColumnMappings.Add("AccuracyRight", "AccuracyRight");            
+            this._adapter.TableMappings.Add(tableMapping);
+
+            this._adapter.DeleteCommand = new SQLiteCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText =
+              @"DELETE FROM [Calibrations] WHERE (([SubjectName] = @Original_SubjectName) AND ([Accuracy] = @Original_Accuracy) AND ([AccuracyLeft] = @Original_AccuracyLeft) AND ([AccuracyRight] = @Original_AccuracyRight)) AND ([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandType = CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_SubjectName",
+                DbType.String,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.DeleteCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_Accuracy",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "Accuracy",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.DeleteCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_AccuracyLeft",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyLeft",
+                DataRowVersion.Original,
+                false,
+                null));
+           this._adapter.DeleteCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_AccuracyRight",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyRight",
+                DataRowVersion.Original,
+                false,
+                null));           
+            this._adapter.DeleteCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_ID",
+                DbType.Int64,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "ID",
+                DataRowVersion.Original,
+                false,
+                null));
+
+            this._adapter.InsertCommand = new SQLiteCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText =
+              @"INSERT INTO [Calibrations] ([SubjectName], [Accuracy], [AccuracyLeft], [AccuracyRight]) VALUES (@SubjectName, @Accuracy, @AccuracyLeft, @AccuracyRight);
+SELECT SubjectName, Accuracy, AccuracyLeft, AccuracyRight, ID FROM Calibrations WHERE (ID = last_insert_rowid())";
+            this._adapter.InsertCommand.CommandType = CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@SubjectName",
+                DbType.String,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.InsertCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Accuracy",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "Accuracy",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.InsertCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@AccuracyLeft",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyLeft",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.InsertCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@AccuracyRight",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyRight",
+                DataRowVersion.Current,
+                false,
+                null));
+            
+            this._adapter.UpdateCommand = new SQLiteCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText =
+              @"UPDATE [Calibrations] SET [SubjectName] = @SubjectName, [Accuracy] = @Accuracy, [AccuracyLeft] = @AccuracyLeft, [AccuracyRight] = @AccuracyRight WHERE (([SubjectName] = @Original_SubjectName) AND ([Accuracy] = @Original_Accuracy) AND ([AccuracyLeft] = @Original_AccuracyLeft) AND ([AccuracyRight] = @Original_AccuracyRight) AND ([ID] = @Original_ID));
+SELECT SubjectName, Accuracy, AccuracyLeft, AccuracyRight WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandType = CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@SubjectName",
+                DbType.String,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Accuracy",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "Accuracy",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@AccuracyLeft",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyLeft",
+                DataRowVersion.Current,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@AccuracyRight",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyRight",
+                DataRowVersion.Current,
+                false,
+                null));          
+            
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_SubjectName",
+                DbType.String,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_Accuracy",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "Accuracy",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_AccuracyLeft",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyLeft",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@IsNull_AccuracyRight",
+                DbType.Double,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "AccuracyRight",
+                DataRowVersion.Original,
+                true,
+                null));            
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@Original_ID",
+                DbType.Int64,
+                0,
+                ParameterDirection.Input,
+                0,
+                0,
+                "ID",
+                DataRowVersion.Original,
+                false,
+                null));
+            this._adapter.UpdateCommand.Parameters.Add(
+              new SQLiteParameter(
+                "@ID",
+                DbType.Int64,
+                8,
+                ParameterDirection.Input,
+                0,
+                0,
+                "ID",
+                DataRowVersion.Current,
+                false,
+                null));
+        }
+
+        /// <summary>
+        ///   Initializes the command collection.
+        /// </summary>
+        private void InitCommandCollection()
+        {
+            this._commandCollection = new SQLiteCommand[5];
+
+            //[0] Select command
+            this._commandCollection[0] = new SQLiteCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText =
+              "SELECT ID, SubjectName, Accuracy, AccuracyLeft, AccuracyRight"
+              + "  FROM Calibrations";
+            this._commandCollection[0].CommandType = CommandType.Text;
+             //[1] Delete all
+            this._commandCollection[1] = new SQLiteCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "DELETE FROM [Calibrations]";
+            this._commandCollection[1].CommandType = CommandType.Text;
+            //[2] Delete where SubjectName
+            this._commandCollection[2] = new SQLiteCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText =
+              "DELETE FROM Calibrations\r\nWHERE     (SubjectName = @Original_SubjectName)";
+            this._commandCollection[2].CommandType = CommandType.Text;
+            this._commandCollection[2].Parameters.Add(
+              new SQLiteParameter(
+                "@Original_SubjectName",
+                DbType.String,
+                50,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Original,
+                false,
+                null));
+            //[3] Select where SubjectName
+            this._commandCollection[3] = new SQLiteCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText =
+              "SELECT ID,SubjectName, Accuracy, AccuracyLeft, AccuracyRight"
+              + " FROM Calibrations WHERE (SubjectName = @Param1)";
+            this._commandCollection[3].CommandType = CommandType.Text;
+            this._commandCollection[3].Parameters.Add(
+              new SQLiteParameter(
+                "@Param1",
+                DbType.String,
+                50,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Current,
+                false,
+                null));
+
+            this._commandCollection[4] = new SQLiteCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText =
+                "UPDATE    Calibrations \r\nSET              \r\nWHERE     (SubjectName = @SubjectName);   ";
+            this._commandCollection[4].CommandType = CommandType.Text;
+            this._commandCollection[4].Parameters.Add(
+              new SQLiteParameter(
+                "@SubjectName",
+                DbType.String,
+                50,
+                ParameterDirection.Input,
+                0,
+                0,
+                "SubjectName",
+                DataRowVersion.Current,
+                false,
+                null));            
+        }
+
+        /// <summary>
+        ///   Initializes the connection.
+        /// </summary>
+        private void InitConnection()
+        {
+            this._connection = new SQLiteConnection();
+            this._connection.ConnectionString =
+            global::Ogama.Properties.Settings.Default.OgamaDatabaseTemplateConnectionString;
+        }
+
+        #endregion
+    }
 }
 
 #pragma warning restore 1591

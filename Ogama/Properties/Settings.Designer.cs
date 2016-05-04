@@ -1719,5 +1719,41 @@ namespace Ogama.Properties {
                 this["OgamaScreenCaptureSettingsPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maroon")]
+        public global::System.Drawing.Color AOIMandatoryColor {
+            get {
+                return ((global::System.Drawing.Color)(this["AOIMandatoryColor"]));
+            }
+            set {
+                this["AOIMandatoryColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Solid")]
+        public global::System.Drawing.Drawing2D.DashStyle AOIMandatoryStyle {
+            get {
+                return ((global::System.Drawing.Drawing2D.DashStyle)(this["AOIMandatoryStyle"]));
+            }
+            set {
+                this["AOIMandatoryStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public float AOIMandatoryWidth {
+            get {
+                return ((float)(this["AOIMandatoryWidth"]));
+            }
+            set {
+                this["AOIMandatoryWidth"] = value;
+            }
+        }
     }
 }

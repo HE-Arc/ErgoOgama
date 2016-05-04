@@ -215,6 +215,10 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
         searchRectPen.DashStyle = Properties.Settings.Default.AOISearchRectStyle;
         searchRectPen.LineJoin = LineJoin.Miter;
 
+        Pen mandatoryPen = new Pen(Properties.Settings.Default.AOIMandatoryColor, Properties.Settings.Default.AOIMandatoryWidth);
+        mandatoryPen.DashStyle = Properties.Settings.Default.AOIMandatoryStyle;
+        mandatoryPen.LineJoin = LineJoin.Miter;
+
         Font targetFont = (Font)Properties.Settings.Default.AOITargetFont.Clone();
         Color targetFontColor = Properties.Settings.Default.AOITargetFontColor;
 
@@ -224,9 +228,13 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
         Font searchRectFont = (Font)Properties.Settings.Default.AOISearchRectFont.Clone();
         Color searchRectFontColor = Properties.Settings.Default.AOISearchRectFontColor;
 
+        Font mandatoryFont = (Font)Properties.Settings.Default.AOISearchRectFont.Clone();
+        Color mandatoryFontColor = Properties.Settings.Default.AOISearchRectFontColor;
+
         VGAlignment defaultTextAlignment = (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOIDefaultTextAlignment);
         VGAlignment targetTextAlignment = (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOITargetTextAlignment);
         VGAlignment searchRectTextAlignment = (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOISearchRectTextAlignment);
+        VGAlignment mandatoryTextAlignment = (VGAlignment)Enum.Parse(typeof(VGAlignment), Properties.Settings.Default.AOISearchRectTextAlignment);
 
         this.InitializeElements(
           targetPen,
@@ -241,7 +249,11 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
           searchRectFontColor,
           targetTextAlignment,
           defaultTextAlignment,
-          searchRectTextAlignment);
+          searchRectTextAlignment,
+          mandatoryPen, 
+          mandatoryFont,
+          mandatoryFontColor,
+          mandatoryTextAlignment);
       }
     }
 

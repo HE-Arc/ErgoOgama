@@ -292,6 +292,7 @@
     </Compile>
     <Compile Include="Modules\AttentionMap\GradientExtensions.cs" />
     <Compile Include="Modules\Common\CustomEventArgs\TrackStatusDataChangedEventArgs.cs" />
+    <Compile Include="Modules\Common\Tools\DashboardQuery.cs" />
     <Compile Include="Modules\Recording\ASLInterface\HowToActivateAsl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -815,6 +816,7 @@
       <DependentUpon>SlideshowModule.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\Statistics\DashboardDataSet.cs" />
     <Compile Include="Modules\Statistics\DescriptiveResult.cs" />
     <Compile Include="Modules\Statistics\Descriptive.cs" />
     <Compile Include="Modules\Statistics\Variables\MouseVariable.cs" />
@@ -1243,6 +1245,9 @@
       <DependentUpon>AOIModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataSet\SQLiteOgamaDataSet.resx">
+      <DependentUpon>SQLiteOgamaDataSet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExceptionHandling\InformationDialog.resx">
       <DependentUpon>InformationDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1279,9 +1284,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Recording\MirametrixInterface\HowToActivateMirametrix.resx">
       <DependentUpon>HowToActivateMirametrix.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Recording\GazepointInterface\HowToActivateGazepoint.resx">
       <DependentUpon>HowToActivateGazepoint.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Recording\SmartEyeInterface\HowToActivateSmartEye.resx">
       <DependentUpon>HowToActivateSmartEye.cs</DependentUpon>
@@ -2180,6 +2187,9 @@
       <Isolated>False</Isolated>
       <Private>True</Private>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

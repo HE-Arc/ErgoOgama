@@ -55,6 +55,8 @@ namespace Ogama.Modules.Recording.Presenter
     public static void DoScreenshot(WebBrowserNavigatingEventArgs navigatingArgs, string filename)
     {
       newTargetUrl = navigatingArgs.Url;
+
+      
       newScreenshotFilename = filename;
 
       var tempBrowser = new WebBrowser();

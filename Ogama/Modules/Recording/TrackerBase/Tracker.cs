@@ -21,6 +21,7 @@ namespace Ogama.Modules.Recording.TrackerBase
   using System.Windows.Forms;
   using System.Xml;
   using System.Xml.Serialization;
+  using System.Collections.Generic;
 
   using Ogama.ExceptionHandling;
   using Ogama.Modules.Common.CustomEventArgs;
@@ -92,6 +93,11 @@ namespace Ogama.Modules.Recording.TrackerBase
     ///   Saves the <see cref="SubjectsData" /> of the current subject.
     /// </summary>
     private SubjectsData subject;
+
+    /// <summary>
+    /// Saves the list of calibrationData of the current subject
+    /// </summary>
+    private List<CalibrationsData> calibrationsList;
 
     
 
@@ -174,6 +180,9 @@ namespace Ogama.Modules.Recording.TrackerBase
       // Create new empty subject
       this.subject = new SubjectsData();
 
+     //Create new empty list of calibrations
+      this.calibrationsList = new List<CalibrationsData>();
+
       
 
       // Wire button events.
@@ -246,6 +255,17 @@ namespace Ogama.Modules.Recording.TrackerBase
       {
         return this.subject;
       }
+    }
+
+    /// <summary>
+    /// Gets the <see cref=" CalibarationData"/> of the current subject
+    /// </summary>
+    public List<CalibrationsData> Calibrations
+    {
+        get 
+        {
+            return this.calibrationsList;
+        }
     }
 
     #endregion
@@ -578,8 +598,7 @@ namespace Ogama.Modules.Recording.TrackerBase
       if (this.OpenSubjectDialog(ref subjectName))
       {
         this.subjectNameTextBox.Text = subjectName;
-        this.subject.SubjectName = subjectName;
-       
+        this.subject.SubjectName = subjectName;       
 
         if (this.calibrateButton != null)
         {

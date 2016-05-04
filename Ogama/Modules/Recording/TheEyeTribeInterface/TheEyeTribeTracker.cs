@@ -31,6 +31,7 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
   using Ogama.Modules.Common.Tools;
   using Ogama.Modules.Recording.Dialogs;
   using Ogama.Modules.Recording.TrackerBase;
+  using Ogama.Modules.ImportExport.Common;
 
   using TETControls.Calibration;
   using TETControls.TrackBox;
@@ -55,6 +56,7 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
     ///   tracking.
     /// </summary>
     private TheEyeTribeTrackStatusDialog dlgTrackStatus;
+  
 
     /// <summary>
     ///   The is tracking.
@@ -784,11 +786,25 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       {
         this.theEyeTribeCalibrationResultPanel.Initialize(result);
         this.ShowCalibPlot();
+
+        //Add CalibrationData to the list
+        CalibrationsData newCalibration = new CalibrationsData();
+        System.Console.WriteLine(base.Subject.SubjectName);
+        newCalibration.SubjectName = base.Subject.SubjectName;
+        System.Console.WriteLine(result.AverageErrorDegree);
+        newCalibration.Accuracy = result.AverageErrorDegree;
+        System.Console.WriteLine(result.AverageErrorDegreeLeft);
+        newCalibration.AccuracyLeft = result.AverageErrorDegreeLeft;
+        System.Console.WriteLine(result.AverageErrorDegreeLeft);
+        newCalibration.AccuracyRight = result.AverageErrorDegreeRight;
+        base.Calibrations.Add(newCalibration);
       }
       else
       {
         MessageBox.Show("Not enough data to create a calibration (or calibration aborted).");
       }
+
+      
     }
 
 

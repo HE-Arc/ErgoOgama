@@ -226,6 +226,7 @@ namespace Ogama.Modules.Statistics
             this.btnSelectAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnHelp = new System.Windows.Forms.ToolStripButton();
+            this.btnExportToDashboard = new System.Windows.Forms.ToolStripButton();
             this.tbpMetaTransitions = new System.Windows.Forms.TabPage();
             this.tscTransitions = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -254,6 +255,7 @@ namespace Ogama.Modules.Statistics
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnTransitionsExportTable = new System.Windows.Forms.ToolStripButton();
             this.bgwCalculateTransitions = new System.ComponentModel.BackgroundWorker();
+            this.bgwDashboard = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.bsoSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsTrials)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ogamaDataSet)).BeginInit();
@@ -2589,7 +2591,8 @@ namespace Ogama.Modules.Statistics
             this.btnExport,
             this.btnSelectAll,
             this.toolStripSeparator3,
-            this.btnHelp});
+            this.btnHelp,
+            this.btnExportToDashboard});
             this.tosStandard.Location = new System.Drawing.Point(0, 0);
             this.tosStandard.Name = "tosStandard";
             this.tosStandard.Padding = new System.Windows.Forms.Padding(0);
@@ -2656,6 +2659,18 @@ namespace Ogama.Modules.Statistics
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(23, 22);
             this.btnHelp.Text = "Show Help";
+            // 
+            // btnExportToDashboard
+            // 
+            this.btnExportToDashboard.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnExportToDashboard.Image = ((System.Drawing.Image)(resources.GetObject("btnExportToDashboard.Image")));
+            this.btnExportToDashboard.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExportToDashboard.Name = "btnExportToDashboard";
+            this.btnExportToDashboard.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.btnExportToDashboard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnExportToDashboard.Size = new System.Drawing.Size(173, 22);
+            this.btnExportToDashboard.Text = "Send data to Dashboard";
+            this.btnExportToDashboard.Click += new System.EventHandler(this.btnExportToDashboard_Click);
             // 
             // tbpMetaTransitions
             // 
@@ -3349,5 +3364,7 @@ namespace Ogama.Modules.Statistics
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     private System.Windows.Forms.RadioButton rdbGazeRelativeTime;
     private System.Windows.Forms.CheckBox chbClicksUrlPath;
+    private System.Windows.Forms.ToolStripButton btnExportToDashboard;
+    private System.ComponentModel.BackgroundWorker bgwDashboard;
   }
 }

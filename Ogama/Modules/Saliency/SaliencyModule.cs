@@ -153,7 +153,9 @@ namespace Ogama.Modules.Saliency
     #region PUBLICMETHODS
 
     /// <summary>
-    /// This method parses the .png files in the SaliencyCalculation
+    /// This method parses the 
+    /// 
+    /// files in the SaliencyCalculation
     /// path of the <see cref="Settings.SaliencyCalculationPath"/>.
     /// Each channel image is added to the channel listview.
     /// Each saliency map is added to the saliency map listview.

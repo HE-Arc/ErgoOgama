@@ -296,8 +296,8 @@ namespace Ogama.Modules.Recording.Presenter
       var height = Document.ActiveDocument.ExperimentSettings.HeightStimulusScreen;
 
       this.preparedSlideOne.DrawingSurface = this.context.Allocate(
-        this.panelOne.CreateGraphics(),
-        new Rectangle(0, 0, width, height));
+      this.panelOne.CreateGraphics(),
+      new Rectangle(0, 0, width, height));
       this.panelOne.DrawingSurface = this.preparedSlideOne.DrawingSurface;
 
       this.preparedSlideTwo = new SlidePresentationContainer();
@@ -1494,6 +1494,7 @@ namespace Ogama.Modules.Recording.Presenter
       var parameters = (object[])data;
 
       // WebsiteScreenshot.Instance.Navigate((WebBrowserNavigatingEventArgs)data);
+      //Console.WriteLine("-------------------" + (string)parameters[1]);
       WebsiteScreenshot.DoScreenshot((WebBrowserNavigatingEventArgs)parameters[0], (string)parameters[1]);
     }
 
@@ -2248,9 +2249,7 @@ namespace Ogama.Modules.Recording.Presenter
           var documentsSlideshow = Document.ActiveDocument.ExperimentSettings.SlideShow;
 
           // Make screenshot of newly navigated web page in 
-          // separate thread, if it is not already there.
-
-           
+          // separate thread, if it is not already there.          
             var screenshotFilename = BrowserDialog.GetFilenameFromUrl(e.Url);
 
           // WebsiteScreenshot.Instance.ScreenshotFilename = screenshotFilename;

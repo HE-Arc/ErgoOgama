@@ -98,7 +98,6 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
     protected override void OnPaintBackground(PaintEventArgs pevent)
     {
       base.OnPaintBackground(pevent);
-
       pevent.Graphics.Clear(SystemColors.ControlLightLight);
     }
 
@@ -204,7 +203,7 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
     private string RatingFunction(CalibrationResult result)
     {
       var accuracy = result.AverageErrorDegree;
-
+      
       if (accuracy < 0.5)
       {
         return "Quality: Perfect";
@@ -228,6 +227,10 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       return "Quality: Redo";
     }
 
+
+       
+     
+
     /// <summary>
     ///   Extracts the calibration points from the result.
     /// </summary>
@@ -238,9 +241,10 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
       foreach (CalibrationPoint plotItem in this.calibrationResult.Calibpoints)
       {
         var p = new PointF((float)plotItem.Coordinates.X, (float)plotItem.Coordinates.Y);
-
+        
         if (!this.calibrationPoints.Contains(p))
         {
+          System.Console.WriteLine(p);
           this.calibrationPoints.Add(p);
         }
       }

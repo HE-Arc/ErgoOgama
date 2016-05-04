@@ -109,6 +109,10 @@ namespace VectorGraphics.Canvas
     /// Pen for shapes with column "Group" set to "SearchRect".
     /// </summary>
     private Pen searchRectPen;
+    /// <summary>
+    /// Pen for shapes with column "Group" set to "Mandatory".
+    /// </summary>
+    private Pen mandatoryPen;
 
     /// <summary>
     /// Pen for shapes with column "Group" set to "Target".
@@ -131,6 +135,11 @@ namespace VectorGraphics.Canvas
     private Font searchRectFont;
 
     /// <summary>
+    /// Font for shapes with column "Group" set to "Mandatory".
+    /// </summary>
+    private Font mandatoryFont;
+
+    /// <summary>
     /// Font for shapes with column "Group" set to "Target".
     /// </summary>
     private Font targetFont;
@@ -144,6 +153,11 @@ namespace VectorGraphics.Canvas
     /// Brush for shapes with column "Group" set to "SearchRect".
     /// </summary>
     private Color searchRectFontColor;
+
+    /// <summary>
+    /// Brush for shapes with column "Group" set to "Mandatory".
+    /// </summary>
+    private Color mandatoryFontColor;
 
     /// <summary>
     /// Brush for shapes with column "Group" set to "Target".
@@ -169,6 +183,8 @@ namespace VectorGraphics.Canvas
     /// VGAlignment for shapes with column "Group" set to "Target".
     /// </summary>
     private VGAlignment targetTextAlignment;
+
+    private VGAlignment mandatoryTextAlignment; 
 
     /// <summary>
     /// Saves the current index of the element that 
@@ -308,6 +324,14 @@ namespace VectorGraphics.Canvas
       get { return this.searchRectPen; }
     }
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public Pen MandatoryPen
+    {
+        get { return this.mandatoryPen; }
+    }
+
+
     /// <summary>
     /// Gets or sets pen for currently edited shapes.
     /// </summary>
@@ -367,6 +391,13 @@ namespace VectorGraphics.Canvas
       get { return this.searchRectFont; }
     }
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public Font MandatoryFont
+    {
+        get { return this.mandatoryFont; }
+    }
+
     /// <summary>
     /// Gets color for search rectangle shapes.
     /// </summary>
@@ -376,6 +407,14 @@ namespace VectorGraphics.Canvas
     public Color SearchRectFontColor
     {
       get { return this.searchRectFontColor; }
+    }
+
+
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public Color MandatoryFontColor
+    {
+        get { return this.mandatoryFontColor; }
     }
 
     /// <summary>
@@ -433,6 +472,12 @@ namespace VectorGraphics.Canvas
       get { return this.searchRectTextAlignment; }
     }
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public VGAlignment MandatoryTextAlignment
+    {
+        get { return this.mandatoryTextAlignment; }
+    }
     /// <summary>
     /// Gets or sets the current selected element.
     /// </summary>
@@ -904,6 +949,9 @@ namespace VectorGraphics.Canvas
         case VGStyleGroup.AOI_SEARCHRECT:
           this.searchRectPen = e.Pen;
           break;
+        case VGStyleGroup.AOI_MANDATORY:
+          this.mandatoryPen = e.Pen;
+          break;
         default:
           this.defaultPen = e.Pen;
           break;
@@ -942,6 +990,10 @@ namespace VectorGraphics.Canvas
         case VGStyleGroup.AOI_SEARCHRECT:
           this.searchRectFont = e.Font;
           this.searchRectFontColor = e.FontColor;
+          break;
+        case VGStyleGroup.AOI_MANDATORY:
+          this.mandatoryFont = e.Font;
+          this.mandatoryFontColor = e.FontColor;
           break;
         default:
           this.defaultFont = e.Font;
@@ -1523,7 +1575,7 @@ namespace VectorGraphics.Canvas
     /// <summary>
     /// Overrides should initialize the drawing elements of this <see cref="PictureModifiable"/>
     /// by calling the <c>Properties.Settings.Default</c> values with
-    /// <see cref="InitializeElements(Pen,Pen,Pen,Pen,Font,Color,Font,Color,Font,Color, VGAlignment,VGAlignment,VGAlignment)"/>.
+    /// <see cref="InitializeElements(Pen,Pen,Pen,Pen,Font,Color,Font,Color,Font,Color, VGAlignment,VGAlignment,VGAlignment, Pen, Font, Color, VGAligment)"/>.
     /// </summary>
     protected abstract void InitializePictureDefaultElements();
 
@@ -1556,7 +1608,11 @@ namespace VectorGraphics.Canvas
       Color searchRectFontColor,
       VGAlignment targetTextAlignment,
       VGAlignment defaultTextAlignment,
-      VGAlignment searchRectTextAlignment)
+      VGAlignment searchRectTextAlignment,
+      Pen mandatoryPen,
+      Font mandatoryFont,
+      Color mandatoryFontColor,
+      VGAlignment mandatoryTextAligment)
     {
       this.targetPen = targetPen;
       this.targetFont = targetFont;
@@ -1571,6 +1627,12 @@ namespace VectorGraphics.Canvas
       this.targetTextAlignment = targetTextAlignment;
       this.defaultTextAlignment = defaultTextAlignment;
       this.searchRectTextAlignment = searchRectTextAlignment;
+
+      this.mandatoryPen = mandatoryPen;
+      this.mandatoryFont = mandatoryFont;
+      this.mandatoryFontColor = mandatoryFontColor;
+      this.mandatoryTextAlignment = mandatoryTextAligment;
+
     }
 
     /// <summary>

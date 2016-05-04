@@ -101,6 +101,11 @@ namespace Ogama.DataSet
     private ParamsDataTable tableParams;
 
     /// <summary>
+    /// The table subjects
+    /// </summary>
+    private CalibrationsDataTable tableCalibrations;
+
+    /// <summary>
     /// The relation f k_ subjects_ subject parameters
     /// </summary>
     private DataRelation relationFK_Subjects_SubjectParameters;
@@ -136,9 +141,16 @@ namespace Ogama.DataSet
     private DataRelation relationTrials_MouseFixations;
 
     /// <summary>
+    /// The relation trials_ mouse fixations
+    /// </summary>
+    private DataRelation relationSubjects_Calibrations;
+
+    /// <summary>
     /// The _schema serialization mode
     /// </summary>
     private SchemaSerializationMode _schemaSerializationMode = SchemaSerializationMode.IncludeSchema;
+
+   
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SQLiteOgamaDataSet"/> class.
@@ -213,6 +225,10 @@ namespace Ogama.DataSet
         if ((ds.Tables["Params"] != null))
         {
           base.Tables.Add(new ParamsDataTable(ds.Tables["Params"]));
+        }
+        if((ds.Tables["Calibrations"]!= null))
+        {
+            base.Tables.Add(new CalibrationsDataTable(ds.Tables["Calibrations"]));
         }
         this.DataSetName = ds.DataSetName;
         this.Prefix = ds.Prefix;
@@ -391,6 +407,17 @@ namespace Ogama.DataSet
       {
         return base.Relations;
       }
+    }
+
+    /// <summary>
+    /// Get the calibrations
+    /// </summary>
+    public CalibrationsDataTable Calibrations
+    {
+        get
+        {
+            return this.tableCalibrations;
+        }
     }
 
     /// <summary>
@@ -623,6 +650,15 @@ namespace Ogama.DataSet
           this.tableParams.InitVars();
         }
       }
+      this.tableCalibrations = ((CalibrationsDataTable)(base.Tables["Calibrations"]));
+      if(initTable == true)
+      {
+          if((this.tableCalibrations != null))
+          {
+              this.tableCalibrations.InitVars();
+          }
+      }
+
       this.relationFK_Subjects_SubjectParameters = this.Relations["FK_Subjects_SubjectParameters"];
       this.relationFK_Subjects_Trials = this.Relations["FK_Subjects_Trials"];
       this.relationFK_Trials_Events = this.Relations["FK_Trials_Events"];
@@ -630,6 +666,7 @@ namespace Ogama.DataSet
       this.relationShapeGroups_AOIs = this.Relations["ShapeGroups_AOIs"];
       this.relationTrials_GazeFixations = this.Relations["Trials_GazeFixations"];
       this.relationTrials_MouseFixations = this.Relations["Trials_MouseFixations"];
+      this.relationSubjects_Calibrations = this.Relations["FK_Subjects_Calibrations"];
     }
 
 
@@ -664,6 +701,9 @@ namespace Ogama.DataSet
       base.Tables.Add(this.tableMouseFixations);
       this.tableParams = new ParamsDataTable();
       base.Tables.Add(this.tableParams);
+      this.tableCalibrations = new CalibrationsDataTable();
+      base.Tables.Add(this.tableCalibrations);
+
       ForeignKeyConstraint fkc;
       fkc = new ForeignKeyConstraint("Params_SubjectParameters", new DataColumn[] {
                         this.tableParams.ParamColumn}, new DataColumn[] {
@@ -686,6 +726,14 @@ namespace Ogama.DataSet
       fkc.AcceptRejectRule = AcceptRejectRule.Cascade;
       fkc.DeleteRule = Rule.Cascade;
       fkc.UpdateRule = Rule.Cascade;
+
+      fkc = new ForeignKeyConstraint("FK_Subjects_Calibrations", new DataColumn[] {this.tableSubjects.SubjectNameColumn }, new DataColumn[] {this.tableCalibrations.SubjectNameColumn });
+      this.tableCalibrations.Constraints.Add(fkc);
+      fkc.AcceptRejectRule = AcceptRejectRule.Cascade;
+      fkc.DeleteRule = Rule.Cascade;
+      fkc.UpdateRule = Rule.Cascade;
+
+
       this.relationFK_Subjects_SubjectParameters = new DataRelation("FK_Subjects_SubjectParameters", new DataColumn[] {
                         this.tableSubjects.SubjectNameColumn}, new DataColumn[] {
                         this.tableSubjectParameters.SubjectNameColumn}, false);
@@ -720,6 +768,13 @@ namespace Ogama.DataSet
                         this.tableMouseFixations.SubjectNameColumn,
                         this.tableMouseFixations.TrialSequenceColumn}, false);
       this.Relations.Add(this.relationTrials_MouseFixations);
+
+      this.relationSubjects_Calibrations = new DataRelation("FK_Subjects_Calibrations",
+                                new DataColumn[] { this.tableSubjects.SubjectNameColumn },
+                                new DataColumn[] { this.tableCalibrations.SubjectNameColumn }, false);
+      this.Relations.Add(this.relationSubjects_Calibrations);
+
+
     }
 
 
@@ -924,6 +979,14 @@ namespace Ogama.DataSet
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
     public delegate void SubjectsRowChangeEventHandler(object sender, SubjectsRowChangeEvent e);
+
+
+    /// <summary>
+    /// Delegate CalibrationRowChangeEventHandler
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The e.</param>
+    public delegate void CalibartionRowChangeEventHandler(object sender, CalibrationsRowChangeEvent e);
 
 
     /// <summary>
@@ -6731,6 +6794,401 @@ namespace Ogama.DataSet
       }
     }
 
+
+
+    /// <summary>
+    /// Represents the strongly named DataTable class.
+    /// </summary>
+    [global::System.Serializable()]
+    [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+    public partial class CalibrationsDataTable : TypedTableBase<CalibrationsRow>
+    {
+
+        /// <summary>
+        /// The column identifier
+        /// </summary>
+        private DataColumn columnID;
+
+        /// <summary>
+        /// The column identifier
+        /// </summary>
+        private DataColumn columnSubjectName;
+
+        /// <summary>
+        /// The column identifier
+        /// </summary>
+        private DataColumn columnAccuracy;
+
+        /// <summary>
+        /// The column identifier
+        /// </summary>
+        private DataColumn columnAccuracyLeft;
+
+        /// <summary>
+        /// The column identifier
+        /// </summary>
+        private DataColumn columnAccuracyRight;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalibrationsDataTable"/> class.
+        /// </summary>
+        public CalibrationsDataTable()
+        {
+            this.TableName = "Calibrations";
+            this.BeginInit();
+            this.InitClass();
+            this.EndInit();
+        }
+
+        /// <summary>
+        /// Initializes the class.
+        /// </summary>
+        private void InitClass()
+        {
+            this.columnID = new DataColumn("ID", typeof(long), null, MappingType.Element);
+            base.Columns.Add(this.columnID);
+            this.columnSubjectName = new DataColumn("SubjectName", typeof(string), null, MappingType.Element);
+            base.Columns.Add(this.columnSubjectName);
+            this.columnAccuracy = new DataColumn("Accuracy", typeof(double), null, MappingType.Element);
+            base.Columns.Add(this.columnAccuracy);
+            this.columnAccuracyLeft = new DataColumn("AccuracyLeft", typeof(double), null, MappingType.Element);
+            base.Columns.Add(this.columnAccuracyLeft);
+            this.columnAccuracyRight = new DataColumn("AccuracyRight", typeof(double), null, MappingType.Element);
+            base.Columns.Add(this.columnAccuracyRight);
+            this.Constraints.Add(new UniqueConstraint("Constraint1", new DataColumn[] {
+                                this.columnID}, true));
+            this.columnID.AutoIncrement = true;
+            this.columnID.AutoIncrementSeed = 1;
+            this.columnID.AllowDBNull = false;
+            this.columnID.ReadOnly = true;
+            this.columnID.Unique = true;
+            this.columnSubjectName.AllowDBNull = false;
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalibrationDataTable"/> class.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        internal CalibrationsDataTable(DataTable table)
+        {
+            this.TableName = table.TableName;
+            if ((table.CaseSensitive != table.DataSet.CaseSensitive))
+            {
+                this.CaseSensitive = table.CaseSensitive;
+            }
+            if ((table.Locale.ToString() != table.DataSet.Locale.ToString()))
+            {
+                this.Locale = table.Locale;
+            }
+            if ((table.Namespace != table.DataSet.Namespace))
+            {
+                this.Namespace = table.Namespace;
+            }
+            this.Prefix = table.Prefix;
+            this.MinimumCapacity = table.MinimumCapacity;
+        }
+
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalibrationDataTable"/> class.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        protected CalibrationsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) :
+        base(info, context)
+        {
+            this.InitVars();
+        }
+
+        /// <summary>
+        /// Initializes the vars.
+        /// </summary>
+        internal void InitVars()
+        {
+            this.columnID = base.Columns["ID"];
+            this.columnSubjectName = base.Columns["SubjectName"];
+            this.columnAccuracy = base.Columns["Accuracy"];
+            this.columnAccuracyLeft = base.Columns["AccuracyLeft"];
+            this.columnAccuracyRight = base.Columns["AccuracyRight"];
+        }
+
+        /// <summary>
+        /// Gets the identifier column.
+        /// </summary>
+        /// <value>The identifier column.</value>
+        public DataColumn IDColumn
+        {
+            get
+            {
+                return this.columnID;
+            }
+        }
+
+        /// <summary>
+        /// Gets the subject identifier column.
+        /// </summary>
+        /// <value>The identifier column.</value>
+        public DataColumn SubjectNameColumn
+        {
+            get
+            {
+                return this.columnSubjectName;
+            }
+        }
+
+        /// <summary>
+        /// Gets the identifier column. (Mean accuracy for all points in degrees of visual angle)
+        /// </summary>
+        /// <value>The identifier column.</value>
+        public DataColumn AccuracyColumn
+        {
+            get
+            {
+                return this.columnAccuracy;
+            }
+        }
+
+        /// <summary>
+        /// Gets the identifier column. (average error degree left eye)
+        /// </summary>
+        /// <value>The identifier column.</value>
+        public DataColumn AccuracyLeftColumn
+        {
+            get
+            {
+                return this.columnAccuracyLeft;
+            }
+        }
+
+        /// <summary>
+        /// Gets the identifier column. (average error degree left eye)
+        /// </summary>
+        /// <value>The identifier column.</value>
+        public DataColumn AccuracyRightColumn
+        {
+            get
+            {
+                return this.columnAccuracyRight;
+            }
+        }
+
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
+        public int Count
+        {
+            get
+            {
+                return this.Rows.Count;
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the <see cref="CalibrationRow"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns>SubjectsRow.</returns>
+        public CalibrationsRow this[int index]
+        {
+            get
+            {
+                return ((CalibrationsRow)(this.Rows[index]));
+            }
+        }
+
+        /// <summary>
+        /// Occurs when [calibration row changing].
+        /// </summary>
+        public event CalibartionRowChangeEventHandler CalibrationsRowChanging;
+
+
+        /// <summary>
+        /// Occurs when [subjects row changed].
+        /// </summary>
+        public event CalibartionRowChangeEventHandler CalibrationsRowChanged;
+
+
+        /// <summary>
+        /// Occurs when [subjects row deleting].
+        /// </summary>
+        public event CalibartionRowChangeEventHandler CalibrationsRowDeleting;
+
+
+        /// <summary>
+        /// Occurs when [subjects row deleted].
+        /// </summary>
+        public event CalibartionRowChangeEventHandler CalibrationsRowDeleted;
+
+        /// <summary>
+        /// Adds the subjects row.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        public void AddCalibrationsRow(CalibrationsRow row)
+        {
+            this.Rows.Add(row);
+        }
+
+        /// <summary>
+        /// Adds the calibration row.
+        /// </summary>
+        /// <param name="SubjectName">ID of the subject.</param>
+        /// <param name="Accuracy">The accuracy.</param>
+        /// <param name="AccuracyLeft">The age.</param>
+        /// <param name="AccuracyRight">The sex.</param>        
+        /// <returns>CalibrationsRow.</returns>
+        public CalibrationsRow AddCalibrationsRow(string SubjectName, double Accuracy, double AccuracyLeft, double AccuracyRight)
+        {
+            CalibrationsRow rowCalibrationsRow = ((CalibrationsRow)(this.NewRow()));
+            object[] columnValuesArray = new object[] {
+                        null,
+                        SubjectName,
+                        Accuracy,
+                        AccuracyLeft,
+                        AccuracyRight};
+            rowCalibrationsRow.ItemArray = columnValuesArray;
+            this.Rows.Add(rowCalibrationsRow);
+            return rowCalibrationsRow;
+        }
+
+        /// <summary>
+        /// Finds the by identifier.
+        /// </summary>
+        /// <param name="ID">The identifier.</param>
+        /// <returns>CalibrationsRow.</returns>
+        public CalibrationsRow FindByID(long ID)
+        {
+            return ((CalibrationsRow)(this.Rows.Find(new object[] {
+                            ID})));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override DataTable Clone()
+        {
+            CalibrationsDataTable cln = ((CalibrationsDataTable)(base.Clone()));
+            cln.InitVars();
+            return cln;
+        }
+
+
+
+        /// <summary>
+        /// Creates a new instance of <see cref="T:System.Data.DataTable" />.
+        /// </summary>
+        /// <returns>The new expression.</returns>
+        protected override DataTable CreateInstance()
+        {
+            return new CalibrationsDataTable();
+        }
+
+        /// <summary>
+        /// News the calibration row.
+        /// </summary>
+        /// <returns>SubjectsRow.</returns>
+        public CalibrationsRow NewCalibrationsRow()
+        {
+            return ((CalibrationsRow)(this.NewRow()));
+        }
+
+        /// <summary>
+        /// Creates a new row from an existing row.
+        /// </summary>
+        /// <param name="builder">A <see cref="T:System.Data.DataRowBuilder" /> object.</param>
+        /// <returns>A <see cref="T:System.Data.DataRow" /> derived class.</returns>
+        protected override DataRow NewRowFromBuilder(DataRowBuilder builder)
+        {
+            return new CalibrationsRow(builder);
+        }
+
+        /// <summary>
+        /// Gets the row type.
+        /// </summary>
+        /// <returns>Returns the type of the <see cref="T:System.Data.DataRow" />.</returns>
+        protected override global::System.Type GetRowType()
+        {
+            return typeof(CalibrationsRow);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Data.DataTable.RowChanged" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Data.DataRowChangeEventArgs" /> that contains the event data.</param>
+        protected override void OnRowChanged(DataRowChangeEventArgs e)
+        {
+            base.OnRowChanged(e);
+            if ((this.CalibrationsRowChanged != null))
+            {
+                this.CalibrationsRowChanged(this, new CalibrationsRowChangeEvent(((CalibrationsRow)(e.Row)), e.Action));
+            }
+        }
+
+
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Data.DataTable.RowChanging" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Data.DataRowChangeEventArgs" /> that contains the event data.</param>
+        protected override void OnRowChanging(DataRowChangeEventArgs e)
+        {
+            base.OnRowChanging(e);
+            if ((this.CalibrationsRowChanging != null))
+            {
+                this.CalibrationsRowChanging(this, new CalibrationsRowChangeEvent(((CalibrationsRow)(e.Row)), e.Action));
+            }
+        }
+
+
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Data.DataTable.RowDeleted" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Data.DataRowChangeEventArgs" /> that contains the event data.</param>
+        protected override void OnRowDeleted(DataRowChangeEventArgs e)
+        {
+            base.OnRowDeleted(e);
+            if ((this.CalibrationsRowDeleted != null))
+            {
+                this.CalibrationsRowDeleted(this, new CalibrationsRowChangeEvent(((CalibrationsRow)(e.Row)), e.Action));
+            }
+        }
+
+
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Data.DataTable.RowDeleting" /> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Data.DataRowChangeEventArgs" /> that contains the event data.</param>
+        protected override void OnRowDeleting(DataRowChangeEventArgs e)
+        {
+            base.OnRowDeleting(e);
+            if ((this.CalibrationsRowDeleting != null))
+            {
+                this.CalibrationsRowDeleting(this, new CalibrationsRowChangeEvent(((CalibrationsRow)(e.Row)), e.Action));
+            }
+        }
+
+
+
+        /// <summary>
+        /// Removes the subjects row.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        public void RemoveCalibrationsRow(CalibrationsRow row)
+        {
+            this.Rows.Remove(row);
+        }
+
+
+
+
+    }
+
     /// <summary>
     /// Represents strongly named DataRow class.
     /// </summary>
@@ -7297,6 +7755,208 @@ namespace Ogama.DataSet
         }
       }
     }
+
+
+    /// <summary>
+    /// Represents strongly named DataRow class.
+    /// </summary>
+    public partial class CalibrationsRow : DataRow
+    { 
+        /// <summary>
+        /// The table calibrations
+        /// </summary>
+        private CalibrationsDataTable tableCalibrations;
+
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalibrationsRow"/> class.
+        /// </summary>
+        /// <param name="rb">The rb.</param>
+        internal CalibrationsRow(DataRowBuilder rb) :
+            base(rb)
+        {
+            this.tableCalibrations = ((CalibrationsDataTable)(this.Table));
+        }
+
+
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public long ID
+        {
+            get
+            {
+                return ((long)(this[this.tableCalibrations.IDColumn]));
+            }
+            set
+            {
+                this[this.tableCalibrations.IDColumn] = value;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets or sets the id of the subject.
+        /// </summary>
+        /// <value>The name of the subject.</value>
+        public string SubjectName
+        {
+            get
+            {
+                return ((string)(this[this.tableCalibrations.SubjectNameColumn]));
+            }
+            set
+            {
+                this[this.tableCalibrations.SubjectNameColumn] = value;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets or sets the accuracy.
+        /// </summary>
+        /// <value>The category.</value>
+        /// <exception cref="System.Data.StrongTypingException">The value for column \'Accuracy\' in table \'Calibrations\' is DBNull.</exception>
+        public double Accuracy
+        {
+            get
+            {
+                try
+                {
+                    return ((double)(this[this.tableCalibrations.AccuracyColumn]));
+                }
+                catch (global::System.InvalidCastException e)
+                {
+                throw new StrongTypingException("The value for column \'Accuracy\' in table \'Calibrations\' is DBNull.", e);
+                }
+            }
+            set
+            {
+                this[this.tableCalibrations.AccuracyColumn] = value;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets or sets the Accuracy for the left eye (average error degree left eye).
+        /// </summary>
+        /// <value>The age.</value>
+        /// <exception cref="System.Data.StrongTypingException">The value for column \'Age\' in table \'Subjects\' is DBNull.</exception>
+        public double AccuracyLeft
+        {
+            get
+            {
+                try
+                {
+                    return ((double)(this[this.tableCalibrations.AccuracyLeftColumn]));
+                }
+                catch (global::System.InvalidCastException e)
+                {
+                    throw new StrongTypingException("The value for column \'AccuracyLeft\' in table \'Calibrations\' is DBNull.", e);
+                }
+            }
+            set
+            {
+                this[this.tableCalibrations.AccuracyLeftColumn] = value;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets or sets the Accuracy for the right eye. (average error degree right eye).
+        /// </summary>
+        /// <value>The sex.</value>
+        /// <exception cref="System.Data.StrongTypingException">The value for column \'AccuracyRight\' in table \'Calibrations\' is DBNull.</exception>
+        public double AccuracyRight
+        {
+            get
+            {
+                try
+                {
+                    return ((double)(this[this.tableCalibrations.AccuracyRightColumn]));
+                }
+                catch (global::System.InvalidCastException e)
+                {
+                    throw new StrongTypingException("The value for column \'AccuracyRight\' in table \'Calibrations\' is DBNull.", e);
+                }
+            }
+            set
+            {
+                this[this.tableCalibrations.AccuracyRightColumn] = value;
+            }
+        } 
+     
+
+        /// <summary>
+        /// Determines whether [is accuracy null].
+        /// </summary>
+        /// <returns><c>true</c> if [is accuracy null]; otherwise, <c>false</c>.</returns>
+        public bool IsAccuracyNull()
+        {
+            return this.IsNull(this.tableCalibrations.AccuracyColumn);
+        }
+
+
+
+        /// <summary>
+        /// Sets the accuracy null.
+        /// </summary>
+        public void SetAccuracyNull()
+        {
+            this[this.tableCalibrations.AccuracyColumn] = global::System.Convert.DBNull;
+        }
+
+
+
+      /// <summary>
+      /// Determines whether [is accuracyleft null].
+      /// </summary>
+      /// <returns><c>true</c> if [is accuracyleft null]; otherwise, <c>false</c>.</returns>
+      public bool IsAccuracyLeftNull()
+      {
+          return this.IsNull(this.tableCalibrations.AccuracyLeftColumn);
+      }
+
+
+
+      /// <summary>
+      /// Sets the age null.
+      /// </summary>
+      public void SetACuracyLeftNull()
+      {
+          this[this.tableCalibrations.AccuracyLeftColumn] = global::System.Convert.DBNull;
+      }
+
+
+
+      /// <summary>
+      /// Determines whether [is accuracyright null].
+      /// </summary>
+      /// <returns><c>true</c> if [is accuracyright null]; otherwise, <c>false</c>.</returns>
+      public bool IsAccuracyRightNull()
+      {
+          return this.IsNull(this.tableCalibrations.AccuracyRightColumn);
+      }
+
+
+
+      /// <summary>
+      /// Sets the sex null.
+      /// </summary>
+      public void SetAccuracyRightNull()
+      {
+          this[this.tableCalibrations.AccuracyRightColumn] = global::System.Convert.DBNull;
+      }         
+    
+    }
+
 
     /// <summary>
     /// Represents strongly named DataRow class.
@@ -9678,7 +10338,6 @@ namespace Ogama.DataSet
     /// <summary>
     /// Row event argument class
     /// </summary>
-
     public class SubjectsRowChangeEvent : global::System.EventArgs
     {
 
@@ -9732,6 +10391,65 @@ namespace Ogama.DataSet
           return this.eventAction;
         }
       }
+    }
+
+
+    /// <summary>
+    /// Row event argument class
+    /// </summary>
+    public class CalibrationsRowChangeEvent : global::System.EventArgs
+    {
+
+        /// <summary>
+        /// The event row
+        /// </summary>
+        private CalibrationsRow eventRow;
+
+        /// <summary>
+        /// The event action
+        /// </summary>
+        private DataRowAction eventAction;
+
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SubjectsRowChangeEvent"/> class.
+        /// </summary>
+        /// <param name="row">The row.</param>
+        /// <param name="action">The action.</param>
+        public CalibrationsRowChangeEvent(CalibrationsRow row, DataRowAction action)
+        {
+            this.eventRow = row;
+            this.eventAction = action;
+        }
+
+
+
+        /// <summary>
+        /// Gets the row.
+        /// </summary>
+        /// <value>The row.</value>
+        public CalibrationsRow Row
+        {
+            get
+            {
+                return this.eventRow;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets the action.
+        /// </summary>
+        /// <value>The action.</value>
+        public DataRowAction Action
+        {
+            get
+            {
+                return this.eventAction;
+            }
+        }
     }
 
     /// <summary>
@@ -10266,6 +10984,11 @@ namespace Ogama.DataSet
     private SQLiteConnection sqlConnection;
 
     /// <summary>
+    /// Holds TableAdapter for CalibrationsTable
+    /// </summary>
+    private SQLiteTadCalibrations tadCalibrations;
+
+    /// <summary>
     /// Holds RawTableAdapterList, can be accessed through SubjectName
     /// </summary>
     private Dictionary<string, SQLiteDataAdapter> rawDataAdapterDict = new Dictionary<string, SQLiteDataAdapter>();
@@ -10407,6 +11130,19 @@ namespace Ogama.DataSet
       get { return this.sqlConnection; }
     }
 
+
+    /// <summary>
+    /// Gets or sets TableAdapter for calibrationsTable
+    /// </summary>
+    /// <value>The calibrations adapter.</value>
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public SQLiteTadCalibrations CalibrationsAdapter
+    {
+        get { return this.tadCalibrations; }
+        set { this.tadCalibrations = value; }
+    }
+
     #endregion //PROPERTIES
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -10482,6 +11218,11 @@ namespace Ogama.DataSet
         this.tadShapeGroups.ClearBeforeFill = true;
         this.tadShapeGroups.Connection = this.sqlConnection;
 
+        //tad
+        this.tadCalibrations = new SQLiteTadCalibrations();
+        this.tadCalibrations.ClearBeforeFill = true;
+        this.tadCalibrations.Connection = this.sqlConnection;
+
         if (!this.UpgradeDatabase(splash))
         {
           return false;
@@ -10497,6 +11238,8 @@ namespace Ogama.DataSet
         this.tadAOIs.Fill(this.AOIs);
         this.tadGazeFixations.Fill(this.GazeFixations);
         this.tadMouseFixations.Fill(this.MouseFixations);
+        this.tadCalibrations.Fill(this.Calibrations);
+
 
         this.CreateRawDataAdapters();
 
@@ -10618,6 +11361,11 @@ namespace Ogama.DataSet
       if (this.tadAOIs != null)
       {
         this.tadAOIs.Dispose();
+      }
+
+      if(this.tadCalibrations != null)
+      {
+          this.tadCalibrations.Dispose();
       }
 
       foreach (SQLiteDataAdapter rawAdapter in this.rawDataAdapterDict.Values)
@@ -10865,6 +11613,12 @@ namespace Ogama.DataSet
         this.AddParamsTable();
         this.UpdateParamsTableWithExistingParams();
       }
+     
+     if(!Queries.TableExists("Calibrations"))
+     {
+         this.AddCalibrationsTable();
+
+     }
 
       return true;
     }
@@ -11140,6 +11894,11 @@ namespace Ogama.DataSet
       if (!shapeGroups.Contains("SearchRect"))
       {
         shapeGroups.Add("SearchRect");
+      }
+
+      if(!shapeGroups.Contains("Mandatory"))
+      {
+          shapeGroups.Add("Mandatory");
       }
 
       // Insert shape groups into database
@@ -11610,6 +12369,19 @@ namespace Ogama.DataSet
         string queryString = "CREATE TABLE [GazeFixations]([ID] [bigint] IDENTITY(1,1) NOT NULL,[SubjectName] [varchar](50) COLLATE Latin1_General_CI_AS NOT NULL,[TrialID] [int] NOT NULL,[TrialSequence] [int] NOT NULL,[CountInTrial] [int] NULL,[StartTime] [bigint] NULL,[Length] [int] NULL,[PosX] [float] NULL,[PosY] [float] NULL,CONSTRAINT [PK_TableGazeFixations] PRIMARY KEY CLUSTERED ( [ID] ASC )WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]) ON [PRIMARY]";
         Queries.ExecuteSQLCommand(queryString);
       }
+    }
+
+    /// <summary>
+    /// This method checks for the table Calibrations in the database
+    /// This table is new in Version 5.1 and is now added to older versions.
+    /// </summary>
+    private void AddCalibrationsTable()
+    {
+        if (!Queries.TableExists("Calibrations"))
+        {
+            string queryString = "CREATE TABLE [Calibrations]([ID] integer PRIMARY KEY AUTOINCREMENT NOT NULL,[SubjectName] [varchar](50) REFERENCES Subjects(SubjectName) ON DELETE CASCADE NOT NULL,[Accuracy] [float] NOT NULL,[AccuracyLeft] [float] NOT NULL,[AccuracyRight] [float] NOT NULL)";
+            Queries.ExecuteSQLCommand(queryString);
+        }
     }
 
     #endregion //METHODS

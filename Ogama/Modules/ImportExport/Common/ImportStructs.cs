@@ -232,6 +232,14 @@ namespace Ogama.Modules.ImportExport.Common
 
   }
 
+ public struct CalibrationsData
+ {
+     public string SubjectName;
+     public double Accuracy;
+     public double AccuracyLeft;
+     public double AccuracyRight;
+ }
+
   
 
   /// <summary>

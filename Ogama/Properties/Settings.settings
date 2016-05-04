@@ -433,5 +433,14 @@
     <Setting Name="OgamaScreenCaptureSettingsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AOIMandatoryColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Maroon</Value>
+    </Setting>
+    <Setting Name="AOIMandatoryStyle" Type="System.Drawing.Drawing2D.DashStyle" Scope="User">
+      <Value Profile="(Default)">Solid</Value>
+    </Setting>
+    <Setting Name="AOIMandatoryWidth" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

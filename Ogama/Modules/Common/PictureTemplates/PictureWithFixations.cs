@@ -759,6 +759,10 @@ namespace Ogama.Modules.Common.PictureTemplates
       Color targetFontColor = Properties.Settings.Default.AOITargetFontColor;
       Color searchRectFontColor = Properties.Settings.Default.AOISearchRectFontColor;
 
+      Pen mandatoryPen = new Pen(Properties.Settings.Default.AOIMandatoryColor, Properties.Settings.Default.AOIMandatoryWidth);
+      Font mandatoryFont = (Font)(Properties.Settings.Default.AOISearchRectFont.Clone());
+      Color mandatoryFontColor = Properties.Settings.Default.AOISearchRectFontColor;
+    
       VGElementCollection aoiList = new VGElementCollection();
       int counter = 0;
 
@@ -786,6 +790,12 @@ namespace Ogama.Modules.Common.PictureTemplates
               usedPen = searchRectPen;
               usedFont = searchRectFont;
               usedFontColor = searchRectFontColor;
+              usedStyleGroup = VGStyleGroup.SCA_GRID_AOI;
+              break;
+            case "Mandatory":
+              usedPen = mandatoryPen;
+              usedFont = mandatoryFont;
+              usedFontColor = mandatoryFontColor;
               usedStyleGroup = VGStyleGroup.SCA_GRID_AOI;
               break;
             default:
