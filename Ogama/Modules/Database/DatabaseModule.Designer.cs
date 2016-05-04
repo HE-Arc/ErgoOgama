@@ -113,20 +113,17 @@ namespace Ogama.Modules.Database
             this.colMouseFixationsPosY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpAOI = new System.Windows.Forms.TabPage();
             this.dgvAOIs = new System.Windows.Forms.DataGridView();
-            this.colAOIsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsTrialID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsSlideNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsShapeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsShapeType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsShapeNumPts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsShapePts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAOIsShapeGroup = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tbpShapeGroups = new System.Windows.Forms.TabPage();
             this.dgvShapeGroups = new System.Windows.Forms.DataGridView();
             this.colShapeGroupsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colShapeGroupsShapeGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpCalibrations = new System.Windows.Forms.TabPage();
             this.dgvCalibrations = new System.Windows.Forms.DataGridView();
+            this.colCalibrationsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCalibrationsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCalibrationsAccuracy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCalibrationsAccuracyLeft = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCalibrationsAccuracyRight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imlTabs = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
@@ -208,6 +205,14 @@ namespace Ogama.Modules.Database
             this.dataGridViewTextBoxColumn63 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn64 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn65 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsTrialID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsSlideNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsShapeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsShapeType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsShapeNumPts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsShapePts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAOIsShapeGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bsoSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsTrials)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ogamaDataSet)).BeginInit();
@@ -224,7 +229,8 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             this.cmsDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).BeginInit();
@@ -1076,76 +1082,6 @@ namespace Ogama.Modules.Database
             this.dgvAOIs.TabIndex = 0;
             this.dgvAOIs.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
-            // colAOIsID
-            // 
-            this.colAOIsID.DataPropertyName = "ID";
-            this.colAOIsID.HeaderText = "ID";
-            this.colAOIsID.MinimumWidth = 30;
-            this.colAOIsID.Name = "colAOIsID";
-            this.colAOIsID.ReadOnly = true;
-            this.colAOIsID.Width = 60;
-            // 
-            // colAOIsTrialID
-            // 
-            this.colAOIsTrialID.DataPropertyName = "TrialID";
-            this.colAOIsTrialID.HeaderText = "TrialID";
-            this.colAOIsTrialID.MinimumWidth = 30;
-            this.colAOIsTrialID.Name = "colAOIsTrialID";
-            this.colAOIsTrialID.Width = 60;
-            // 
-            // colAOIsSlideNr
-            // 
-            this.colAOIsSlideNr.DataPropertyName = "SlideNr";
-            this.colAOIsSlideNr.HeaderText = "SlideNr";
-            this.colAOIsSlideNr.MinimumWidth = 30;
-            this.colAOIsSlideNr.Name = "colAOIsSlideNr";
-            this.colAOIsSlideNr.Width = 60;
-            // 
-            // colAOIsShapeName
-            // 
-            this.colAOIsShapeName.DataPropertyName = "ShapeName";
-            this.colAOIsShapeName.HeaderText = "Name";
-            this.colAOIsShapeName.MinimumWidth = 30;
-            this.colAOIsShapeName.Name = "colAOIsShapeName";
-            this.colAOIsShapeName.Width = 80;
-            // 
-            // colAOIsShapeType
-            // 
-            this.colAOIsShapeType.DataPropertyName = "ShapeType";
-            this.colAOIsShapeType.HeaderText = "Type";
-            this.colAOIsShapeType.MinimumWidth = 30;
-            this.colAOIsShapeType.Name = "colAOIsShapeType";
-            this.colAOIsShapeType.Width = 80;
-            // 
-            // colAOIsShapeNumPts
-            // 
-            this.colAOIsShapeNumPts.DataPropertyName = "ShapeNumPts";
-            this.colAOIsShapeNumPts.HeaderText = "NumPts";
-            this.colAOIsShapeNumPts.MinimumWidth = 30;
-            this.colAOIsShapeNumPts.Name = "colAOIsShapeNumPts";
-            this.colAOIsShapeNumPts.Width = 60;
-            // 
-            // colAOIsShapePts
-            // 
-            this.colAOIsShapePts.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colAOIsShapePts.DataPropertyName = "ShapePts";
-            this.colAOIsShapePts.HeaderText = "Points";
-            this.colAOIsShapePts.MinimumWidth = 30;
-            this.colAOIsShapePts.Name = "colAOIsShapePts";
-            // 
-            // colAOIsShapeGroup
-            // 
-            this.colAOIsShapeGroup.DataPropertyName = "ShapeGroup";
-            this.colAOIsShapeGroup.DataSource = this.bsoShapeGroups;
-            this.colAOIsShapeGroup.DisplayMember = "ShapeGroup";
-            this.colAOIsShapeGroup.HeaderText = "Group";
-            this.colAOIsShapeGroup.MinimumWidth = 30;
-            this.colAOIsShapeGroup.Name = "colAOIsShapeGroup";
-            this.colAOIsShapeGroup.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colAOIsShapeGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colAOIsShapeGroup.ValueMember = "ShapeGroup";
-            this.colAOIsShapeGroup.Width = 80;
-            // 
             // tbpShapeGroups
             // 
             this.tbpShapeGroups.Controls.Add(this.dgvShapeGroups);
@@ -1204,12 +1140,51 @@ namespace Ogama.Modules.Database
             // 
             // dgvCalibrations
             // 
+            this.dgvCalibrations.AutoGenerateColumns = false;
             this.dgvCalibrations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCalibrations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCalibrationsID,
+            this.colCalibrationsSubjectName,
+            this.colCalibrationsAccuracy,
+            this.colCalibrationsAccuracyLeft,
+            this.colCalibrationsAccuracyRight});
+            this.dgvCalibrations.DataSource = this.bsoSubjectsCalibrations;
             this.dgvCalibrations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCalibrations.Location = new System.Drawing.Point(3, 3);
             this.dgvCalibrations.Name = "dgvCalibrations";
             this.dgvCalibrations.Size = new System.Drawing.Size(1151, 360);
             this.dgvCalibrations.TabIndex = 0;
+            // 
+            // colCalibrationsID
+            // 
+            this.colCalibrationsID.DataPropertyName = "ID";
+            this.colCalibrationsID.HeaderText = "ID";
+            this.colCalibrationsID.Name = "colCalibrationsID";
+            this.colCalibrationsID.ReadOnly = true;
+            // 
+            // colCalibrationsSubjectName
+            // 
+            this.colCalibrationsSubjectName.DataPropertyName = "SubjectName";
+            this.colCalibrationsSubjectName.HeaderText = "SubjectName";
+            this.colCalibrationsSubjectName.Name = "colCalibrationsSubjectName";
+            // 
+            // colCalibrationsAccuracy
+            // 
+            this.colCalibrationsAccuracy.DataPropertyName = "Accuracy";
+            this.colCalibrationsAccuracy.HeaderText = "Accuracy";
+            this.colCalibrationsAccuracy.Name = "colCalibrationsAccuracy";
+            // 
+            // colCalibrationsAccuracyLeft
+            // 
+            this.colCalibrationsAccuracyLeft.DataPropertyName = "AccuracyLeft";
+            this.colCalibrationsAccuracyLeft.HeaderText = "AccuracyLeft";
+            this.colCalibrationsAccuracyLeft.Name = "colCalibrationsAccuracyLeft";
+            // 
+            // colCalibrationsAccuracyRight
+            // 
+            this.colCalibrationsAccuracyRight.DataPropertyName = "AccuracyRight";
+            this.colCalibrationsAccuracyRight.HeaderText = "AccuracyRight";
+            this.colCalibrationsAccuracyRight.Name = "colCalibrationsAccuracyRight";
             // 
             // imlTabs
             // 
@@ -1893,6 +1868,55 @@ namespace Ogama.Modules.Database
             this.dataGridViewTextBoxColumn65.HeaderText = "AccuracyLeft";
             this.dataGridViewTextBoxColumn65.Name = "dataGridViewTextBoxColumn65";
             // 
+            // colAOIsID
+            // 
+            this.colAOIsID.DataPropertyName = "ID";
+            this.colAOIsID.HeaderText = "ID";
+            this.colAOIsID.Name = "colAOIsID";
+            this.colAOIsID.ReadOnly = true;
+            // 
+            // colAOIsTrialID
+            // 
+            this.colAOIsTrialID.DataPropertyName = "TrialID";
+            this.colAOIsTrialID.HeaderText = "TrialID";
+            this.colAOIsTrialID.Name = "colAOIsTrialID";
+            // 
+            // colAOIsSlideNr
+            // 
+            this.colAOIsSlideNr.DataPropertyName = "SlideNr";
+            this.colAOIsSlideNr.HeaderText = "SlideNr";
+            this.colAOIsSlideNr.Name = "colAOIsSlideNr";
+            // 
+            // colAOIsShapeName
+            // 
+            this.colAOIsShapeName.DataPropertyName = "ShapeName";
+            this.colAOIsShapeName.HeaderText = "ShapeName";
+            this.colAOIsShapeName.Name = "colAOIsShapeName";
+            // 
+            // colAOIsShapeType
+            // 
+            this.colAOIsShapeType.DataPropertyName = "ShapeType";
+            this.colAOIsShapeType.HeaderText = "ShapeType";
+            this.colAOIsShapeType.Name = "colAOIsShapeType";
+            // 
+            // colAOIsShapeNumPts
+            // 
+            this.colAOIsShapeNumPts.DataPropertyName = "ShapeNumPts";
+            this.colAOIsShapeNumPts.HeaderText = "ShapeNumPts";
+            this.colAOIsShapeNumPts.Name = "colAOIsShapeNumPts";
+            // 
+            // colAOIsShapePts
+            // 
+            this.colAOIsShapePts.DataPropertyName = "ShapePts";
+            this.colAOIsShapePts.HeaderText = "ShapePts";
+            this.colAOIsShapePts.Name = "colAOIsShapePts";
+            // 
+            // colAOIsShapeGroup
+            // 
+            this.colAOIsShapeGroup.DataPropertyName = "ShapeGroup";
+            this.colAOIsShapeGroup.HeaderText = "ShapeGroup";
+            this.colAOIsShapeGroup.Name = "colAOIsShapeGroup";
+            // 
             // DatabaseModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1924,7 +1948,8 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             this.cmsDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).EndInit();
@@ -2032,14 +2057,6 @@ namespace Ogama.Modules.Database
     private DataGridViewTextBoxColumn colMouseFixationsLength;
     private DataGridViewTextBoxColumn colMouseFixationsPosX;
     private DataGridViewTextBoxColumn colMouseFixationsPosY;
-    private DataGridViewTextBoxColumn colAOIsID;
-    private DataGridViewTextBoxColumn colAOIsTrialID;
-    private DataGridViewTextBoxColumn colAOIsSlideNr;
-    private DataGridViewTextBoxColumn colAOIsShapeName;
-    private DataGridViewTextBoxColumn colAOIsShapeType;
-    private DataGridViewTextBoxColumn colAOIsShapeNumPts;
-    private DataGridViewTextBoxColumn colAOIsShapePts;
-    private DataGridViewComboBoxColumn colAOIsShapeGroup;
     private DataGridViewTextBoxColumn colShapeGroupsID;
     private DataGridViewTextBoxColumn colShapeGroupsShapeGroup;
     private TabPage tbpMouseFixations;
@@ -2139,5 +2156,18 @@ namespace Ogama.Modules.Database
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn63;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn64;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn65;
+    private DataGridViewTextBoxColumn colCalibrationsID;
+    private DataGridViewTextBoxColumn colCalibrationsSubjectName;
+    private DataGridViewTextBoxColumn colCalibrationsAccuracy;
+    private DataGridViewTextBoxColumn colCalibrationsAccuracyLeft;
+    private DataGridViewTextBoxColumn colCalibrationsAccuracyRight;
+    private DataGridViewTextBoxColumn colAOIsID;
+    private DataGridViewTextBoxColumn colAOIsTrialID;
+    private DataGridViewTextBoxColumn colAOIsSlideNr;
+    private DataGridViewTextBoxColumn colAOIsShapeName;
+    private DataGridViewTextBoxColumn colAOIsShapeType;
+    private DataGridViewTextBoxColumn colAOIsShapeNumPts;
+    private DataGridViewTextBoxColumn colAOIsShapePts;
+    private DataGridViewTextBoxColumn colAOIsShapeGroup;
   }
 }

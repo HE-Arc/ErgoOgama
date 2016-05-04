@@ -1245,9 +1245,6 @@
       <DependentUpon>AOIModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DataSet\SQLiteOgamaDataSet.resx">
-      <DependentUpon>SQLiteOgamaDataSet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ExceptionHandling\InformationDialog.resx">
       <DependentUpon>InformationDialog.cs</DependentUpon>
       <SubType>Designer</SubType>

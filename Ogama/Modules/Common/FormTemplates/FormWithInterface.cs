@@ -133,7 +133,7 @@ namespace Ogama.Modules.Common.FormTemplates
       this.bsoTrialsGazeFixations.ResetBindings(false);
       this.bsoTrialsMouseFixations.ResetBindings(false);
       this.bsoTrialsAOIs.ResetBindings(false);
-      this.bsoFkSubjectsCalibrations.ResetBindings(false);
+      this.bsoSubjectsCalibrations.ResetBindings(false);
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ namespace Ogama.Modules.Common.FormTemplates
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsGazeFixations).BeginInit();
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsMouseFixations).BeginInit();
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsAOIs).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)this.bsoFkSubjectsCalibrations).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)this.bsoSubjectsCalibrations).BeginInit();
 
         this.bsoSubjects.DataMember = "Subjects";
         this.bsoSubjects.DataSource = Document.ActiveDocument.DocDataSet;
@@ -238,8 +238,8 @@ namespace Ogama.Modules.Common.FormTemplates
         this.bsoTrialsAOIs.DataMember = "Trials_AOIs";
         this.bsoTrialsAOIs.DataSource = this.bsoFKSubjectsTrials;
 
-        this.bsoFkSubjectsCalibrations.DataMember = "FK_Subjects_Calibrations";
-        this.bsoFkSubjectsCalibrations.DataSource = this.bsoSubjects;
+        this.bsoSubjectsCalibrations.DataMember = "FK_Subjects_Calibrations";
+        this.bsoSubjectsCalibrations.DataSource = this.bsoSubjects;
 
         ((System.ComponentModel.ISupportInitialize)this.bsoSubjects).EndInit();
         ((System.ComponentModel.ISupportInitialize)this.bsoSubjectParameters).EndInit();
@@ -258,7 +258,7 @@ namespace Ogama.Modules.Common.FormTemplates
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsGazeFixations).EndInit();
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsMouseFixations).EndInit();
         ((System.ComponentModel.ISupportInitialize)this.bsoTrialsAOIs).EndInit();
-        ((System.ComponentModel.ISupportInitialize)this.bsoFkSubjectsCalibrations).EndInit();
+        ((System.ComponentModel.ISupportInitialize)this.bsoSubjectsCalibrations).EndInit();
       }
     }
 

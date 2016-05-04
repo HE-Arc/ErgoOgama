@@ -51,7 +51,7 @@
             this.bsoTrials = new System.Windows.Forms.BindingSource(this.components);
             this.bsoParams = new System.Windows.Forms.BindingSource(this.components);
             this.bsoCalibrations = new System.Windows.Forms.BindingSource(this.components);
-            this.bsoFkSubjectsCalibrations = new System.Windows.Forms.BindingSource(this.components);
+            this.bsoSubjectsCalibrations = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ogamaDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsTrials)).BeginInit();
@@ -69,7 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoTrials)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).BeginInit();
             this.SuspendLayout();
             // 
             // ogamaDataSet
@@ -171,11 +171,11 @@
             this.bsoCalibrations.DataSource = this.ogamaDataSet;
             this.bsoCalibrations.Sort = "SubjectName ASC";
             // 
-            // bsoFkSubjectsCalibrations
+            // bsoSubjectsCalibrations
             // 
-            this.bsoFkSubjectsCalibrations.AllowNew = false;
-            this.bsoFkSubjectsCalibrations.DataMember = "FK_Subjects_Calibrations";
-            this.bsoFkSubjectsCalibrations.DataSource = this.bsoSubjects;
+            this.bsoSubjectsCalibrations.AllowNew = false;
+            this.bsoSubjectsCalibrations.DataMember = "FK_Subjects_Calibrations";
+            this.bsoSubjectsCalibrations.DataSource = this.bsoSubjects;
             // 
             // FormWithInterface
             // 
@@ -199,7 +199,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoTrials)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoFkSubjectsCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -272,7 +272,7 @@
     /// The <see cref="BindingSource"/> for the Params table.
     /// </summary>
     protected BindingSource bsoParams;
-    protected BindingSource bsoFkSubjectsCalibrations;
+    protected BindingSource bsoSubjectsCalibrations;
     protected BindingSource bsoCalibrations;
   }
 }

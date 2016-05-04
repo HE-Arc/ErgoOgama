@@ -143,7 +143,7 @@ namespace Ogama.DataSet
     /// <summary>
     /// The relation trials_ mouse fixations
     /// </summary>
-    private DataRelation relationSubjects_Calibrations;
+    private DataRelation relationFK_Subjects_Calibrations;
 
     /// <summary>
     /// The _schema serialization mode
@@ -666,7 +666,7 @@ namespace Ogama.DataSet
       this.relationShapeGroups_AOIs = this.Relations["ShapeGroups_AOIs"];
       this.relationTrials_GazeFixations = this.Relations["Trials_GazeFixations"];
       this.relationTrials_MouseFixations = this.Relations["Trials_MouseFixations"];
-      this.relationSubjects_Calibrations = this.Relations["FK_Subjects_Calibrations"];
+      this.relationFK_Subjects_Calibrations = this.Relations["FK_Subjects_Calibrations"];
     }
 
 
@@ -769,10 +769,10 @@ namespace Ogama.DataSet
                         this.tableMouseFixations.TrialSequenceColumn}, false);
       this.Relations.Add(this.relationTrials_MouseFixations);
 
-      this.relationSubjects_Calibrations = new DataRelation("FK_Subjects_Calibrations",
+      this.relationFK_Subjects_Calibrations = new DataRelation("FK_Subjects_Calibrations",
                                 new DataColumn[] { this.tableSubjects.SubjectNameColumn },
                                 new DataColumn[] { this.tableCalibrations.SubjectNameColumn }, false);
-      this.Relations.Add(this.relationSubjects_Calibrations);
+      this.Relations.Add(this.relationFK_Subjects_Calibrations);
 
 
     }
@@ -11218,7 +11218,7 @@ namespace Ogama.DataSet
         this.tadShapeGroups.ClearBeforeFill = true;
         this.tadShapeGroups.Connection = this.sqlConnection;
 
-        //tad
+        //tadCalibrations
         this.tadCalibrations = new SQLiteTadCalibrations();
         this.tadCalibrations.ClearBeforeFill = true;
         this.tadCalibrations.Connection = this.sqlConnection;

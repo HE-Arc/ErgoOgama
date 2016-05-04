@@ -17,16 +17,19 @@ using System.Windows.Forms;
 using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class DashboardDataSet
     {
-        private TestsTable testTable;
-        private TrialsTable trial;
-        private SubjectsTable subject;
-        private TriallSequencesTable sequence;
-        private AOIGroups aoiGroup;
-        private AOIs aoi;
-        private Fixations fixation;        
+        protected TestsTable testTable;
+        protected TrialsTable trial;
+        protected SubjectsTable subject;
+        protected TriallSequencesTable sequence;
+        protected AOIGroupsTable aoiGroup;
+        protected AOIsTable aoi;
+        protected FixationsTable fixation;
+        protected CalibrationsTable calibration;
 
 
         public DashboardDataSet()
@@ -46,9 +49,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             trial = new TrialsTable();
             subject = new SubjectsTable();
             sequence = new TriallSequencesTable();
-            aoiGroup = new AOIGroups();
-            aoi = new AOIs();
-            fixation = new Fixations();
+            aoiGroup = new AOIGroupsTable();
+            aoi = new AOIsTable();
+            fixation = new FixationsTable();
+            calibration = new CalibrationsTable();
            
         }
         public void populateTables()
@@ -620,14 +624,14 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         }
     }
 
-    public class AOIGroups
+    public class AOIGroupsTable
     {
         private string tableName = "aoi_groups";
         private string colName = "name";
         private string colTestId = "test_id";
         SQLiteConnection connection;
 
-        public AOIGroups()
+        public AOIGroupsTable()
         {
             connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
             connection.Open();
@@ -689,7 +693,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
      }
 
-    public class AOIs
+    public class AOIsTable
     {
         private string tableName = "aois";
         private string colTrialId = "trial_id";
@@ -700,7 +704,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         private string colGroup = "aoi_group_id";
         SQLiteConnection connection;
 
-        public AOIs()
+        public AOIsTable()
         {
             connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
             connection.Open();
@@ -803,7 +807,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
     }
 
-    public class Fixations
+    public class FixationsTable
     {
         private string tableName = "fixations";
         private string colSequenceId = "trial_sequence_id";
@@ -816,7 +820,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         /// <summary>
         /// 
         /// </summary>
-        public Fixations()
+        public FixationsTable()
         {
             connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
             connection.Open();
@@ -924,6 +928,66 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
     }
 
-    
+    public class CalibrationsTable
+    {
+        private string tableName = "calibrations";
+        private string colSubjectId = "subject_id";
+        private string colAccuracy = "accuracy";
+        private string colAccuracyLeft = "accuracy_left";
+        private string colAccuracyRight = "accuracy_right";
+
+               private SQLiteConnection connection;
+        /// <summary>
+        /// create table Calibrations 
+        /// </summary>       
+        public CalibrationsTable()
+        {
+            connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
+            connection.Open();
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    command.CommandText = DashboardQuery.CreateTableIfNotExists(tableName);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Create table " +tableName+ " if not exists");
+                    var columnsNames = DashboardQuery.GetExistingColumns(tableName);
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colSubjectId))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colSubjectId, "integer") + " REFERENCES subjects(id) ON DELETE CASCADE";
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colSubjectId+ " and foreign key");               
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colAccuracy))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colAccuracy, "float NOT NULL DEFAULT '0.0'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colAccuracy);
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colAccuracyLeft))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colAccuracyLeft, "float NOT NULL DEFAULT '0.0'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colAccuracyLeft);
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colAccuracyRight))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colAccuracyRight, "varchar(255) NOT NULL DEFAULT '0.0'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colAccuracyRight);
+                    }
+                }
+                transaction.Commit();
+            }
+            connection.Close();
+        }
+
+        
+    }
 
 }
