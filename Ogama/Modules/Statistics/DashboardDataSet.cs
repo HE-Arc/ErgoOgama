@@ -70,6 +70,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             var groupIdslink = aoiGroup.insertData(newTestId);
             aoi.insertData(idsTrialsLink, groupIdslink);
             fixation.insertData(idsTrialsLink);
+            calibration.insertData();
             
         }
 
@@ -987,7 +988,36 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();
         }
 
-        
+        public void insertData()
+        {
+            DataTable originalCalibrations = Document.ActiveDocument.DocDataSet.CalibrationsAdapter.GetData();
+            connection.Open();
+            string columnsString = colSubjectId + ", " + colAccuracy + ", " + colAccuracyLeft + ", " + colAccuracyRight;
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    foreach (DataRow calibration in originalCalibrations.Rows)
+                    {
+                        System.Console.WriteLine(" iid " + calibration["ID"]);
+
+                        //get the subjectId from the dashboard subject table                         
+                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", calibration["SubjectName"].ToString());
+                        int subjectId = Convert.ToInt16(command.ExecuteScalar());
+
+                        string columnsValues = "'" + subjectId.ToString() + "', '" + calibration["Accuracy"].ToString() + "', '" + calibration["AccuracyLeft"].ToString() +
+                                                "', '" + calibration["AccuracyRight"].ToString() + "'";
+                        command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
+                        command.ExecuteNonQuery();                        
+                    }
+                }
+                transaction.Commit();
+            }
+            Console.WriteLine("Insert data into " + tableName);
+            connection.Close();
+            
+        }
     }
 
 }
