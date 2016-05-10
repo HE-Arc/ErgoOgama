@@ -60,7 +60,8 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             string testName = Document.ActiveDocument.ExperimentSettings.Name;
             //delete experiment if it is already in the table 
             testTable.deleteTestIfExists(testName);
-
+            // reset the autoincrement for all the tables
+            this.resetAutoIncrementForAllTables();
             //insert data
             int newTestId = testTable.insertData();  
             DataTable ogamaTrialTable = Document.ActiveDocument.DocDataSet.TrialsAdapter.GetData();
@@ -71,6 +72,42 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             aoi.insertData(idsTrialsLink, groupIdslink);
             fixation.insertData(idsTrialsLink);
             calibration.insertData();
+            
+        }
+
+        protected void resetAutoIncrementForAllTables()
+        {
+            SQLiteConnection connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
+            connection.Open();
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    //command.CommandText = "SELECT MAX(id) FROM [" + testTable.GetTableName() + "]";
+                    //int lastid = Convert.ToInt16(command.ExecuteScalar());
+                    //System.Console.WriteLine(lastid);
+                    //command.CommandText = "UPDATE sqlite_sequence SET seq = " + lastid.ToString() + "  WHERE name='" + tableName + "'"; command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + testTable.TableName + ") WHERE name='" + testTable.TableName + "'"; 
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + trial.TableName + ") WHERE name='" + trial.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + subject.TableName + ") WHERE name='" + subject.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + sequence.TableName + ") WHERE name='" + sequence.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + aoiGroup.TableName + ") WHERE name='" + aoiGroup.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + aoi.TableName + ") WHERE name='" + aoi.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + fixation.TableName + ") WHERE name='" + fixation.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + calibration.TableName + ") WHERE name='" + calibration.TableName + "'";
+                    command.ExecuteNonQuery();
+
+                }
+                transaction.Commit();
+            }
+            connection.Close();
             
         }
 
@@ -145,7 +182,8 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                     {
                         int testIdIfExist = Convert.ToInt32(result);
                         command.CommandText = DashboardQuery.deleteIdFromWhere(tableName, testIdIfExist);
-                        command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();                        
+                        
                     }
                 }
                 transaction.Commit();
@@ -153,6 +191,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();            
         }
 
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
 
         /// <summary>
         /// 
@@ -242,6 +284,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();
         }
 
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
         /// <summary>
         /// trials table 
         /// </summary>
@@ -467,6 +513,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             }
             connection.Close();
         }
+
+
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
         /// <summary>
         /// subjects table
         /// </summary>
@@ -583,6 +635,11 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();
         }
 
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -663,6 +720,11 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                 transaction.Commit();
             }
             connection.Close();
+        }
+
+        public string TableName
+        {
+            get { return this.tableName; }
         }
 
         public Dictionary<int, string> insertData(int testId)
@@ -764,6 +826,11 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                 transaction.Commit();
             }
             connection.Close();
+        }
+
+        public string TableName
+        {
+            get { return this.tableName; }
         }
 
         public int[] insertData(Dictionary<int, int> linkToTrials, Dictionary<int, string> linkToGroups)
@@ -882,6 +949,11 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();
         }
 
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
+
         public Dictionary<int, int> insertData(Dictionary<int, int> linkToTrials)
         {
             DataTable ogamaFixations = Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetData();
@@ -927,6 +999,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             return linkOldIdsToNewIds;
         }
 
+
     }
 
     public class CalibrationsTable
@@ -936,8 +1009,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         private string colAccuracy = "accuracy";
         private string colAccuracyLeft = "accuracy_left";
         private string colAccuracyRight = "accuracy_right";
-
-               private SQLiteConnection connection;
+        private SQLiteConnection connection;
         /// <summary>
         /// create table Calibrations 
         /// </summary>       
@@ -978,7 +1050,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
                     if (!DashboardQuery.CheckColumnNameExits(columnsNames, colAccuracyRight))
                     {
-                        command.CommandText = DashboardQuery.AddColumn(tableName, colAccuracyRight, "varchar(255) NOT NULL DEFAULT '0.0'");
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colAccuracyRight, "float NOT NULL DEFAULT '0.0'");
                         command.ExecuteNonQuery();
                         Console.WriteLine("Add column " + colAccuracyRight);
                     }
@@ -986,6 +1058,11 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                 transaction.Commit();
             }
             connection.Close();
+        }
+
+        public string TableName
+        {
+            get { return this.tableName; }
         }
 
         public void insertData()
@@ -1000,15 +1077,15 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                     command.Transaction = transaction;
                     foreach (DataRow calibration in originalCalibrations.Rows)
                     {
-                        System.Console.WriteLine(" iid " + calibration["ID"]);
-
                         //get the subjectId from the dashboard subject table                         
                         command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", calibration["SubjectName"].ToString());
                         int subjectId = Convert.ToInt16(command.ExecuteScalar());
 
-                        string columnsValues = "'" + subjectId.ToString() + "', '" + calibration["Accuracy"].ToString() + "', '" + calibration["AccuracyLeft"].ToString() +
-                                                "', '" + calibration["AccuracyRight"].ToString() + "'";
+                        string columnsValues = "'" + subjectId.ToString() + "', '" + Convert.ToDouble(calibration["Accuracy"]) + "', '" + calibration["AccuracyLeft"] +
+                                                "', '" + calibration["AccuracyRight"] + "'";
                         command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
+                        //command.CommandText = "INSERT INTO [" + tableName + "] (subject_id, accuracy, accuracy_left, accuracy_right) VALUES (1, 0.26, 0.32, 15.36)";
+                      
                         command.ExecuteNonQuery();                        
                     }
                 }

@@ -217,6 +217,7 @@ namespace Ogama.Modules.Common.Tools
 
         public static string InsertData(string tableName, string columns, string columnsValues)
         {
+            
             string query = "INSERT INTO [" + tableName + "] ("+ columns +") VALUES ("+columnsValues+")" ;            
             return query;
         }
