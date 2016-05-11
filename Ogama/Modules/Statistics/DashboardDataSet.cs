@@ -34,15 +34,20 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
         public DashboardDataSet()
         {
+            
             if (!File.Exists(Document.ActiveDocument.ExperimentSettings.DashboardDatabasePath))
             {
-                DashboardQuery.CreateDBFile(Document.ActiveDocument.ExperimentSettings.DashboardDatabasePath);
-                
+               //if(!File.Exists(Ogama.Properties.ExperimentSettings.DASHBOARD_DB_NAME + ".db"))
+               // {
+               //    System.Console.WriteLine(true);                   
+               // } 
+                DashboardQuery.CreateDBFile(Document.ActiveDocument.ExperimentSettings.DashboardDatabasePath);       
             }
-            createTables();
-            populateTables();
+  
+            //createTables();
+            //populateTables();
         } 
-        private void createTables()
+        public void createTables()
         {
              
             testTable = new TestsTable();

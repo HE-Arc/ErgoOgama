@@ -476,7 +476,7 @@ namespace Ogama.Properties
     public string DashboardDatabasePath
     {
         get {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "OgamaExperiments");
+                var path = Directory.GetParent(this.documentPath).FullName;                
                 return Path.Combine(path, DASHBOARD_DB_NAME + ".db");
             }
     }

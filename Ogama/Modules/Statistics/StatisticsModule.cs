@@ -33,11 +33,13 @@ namespace Ogama.Modules.Statistics
   using Ogama.Modules.Common.FormTemplates;
   using Ogama.Modules.Common.Tools;
   using Ogama.Modules.Statistics.Variables;
+  using Ogama.Modules.Statistics.Dialogs;
 
   using VectorGraphics.Elements;
   using VectorGraphics.Elements.ElementCollections;
 
   using System.Data.SQLite;
+    using Ogama.Modules.Recording.Dialogs;
 
   /// <summary>
   /// Inherits <see cref="FormWithInterface"/>
@@ -3223,7 +3225,18 @@ namespace Ogama.Modules.Statistics
 
     private void btnExportToDashboard_Click(object sender, EventArgs e)
     {
-        DashboardDataSet db = new DashboardDataSet();
+        var saveDlg = new AskSaveDashboardDialog();
+        
+        if ( saveDlg.ShowDialog(this) == DialogResult.OK)
+        {
+            DashboardDataSet db = new DashboardDataSet();
+            db.createTables();
+            db.populateTables();
+            var successDlg = new SavingSuccessDialog();
+            successDlg.ShowDialog();
+        }
+        else { System.Console.WriteLine("error"); }
+        
        
     } 
  

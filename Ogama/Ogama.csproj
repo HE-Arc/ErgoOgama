@@ -819,6 +819,12 @@
     <Compile Include="Modules\Statistics\DashboardDataSet.cs" />
     <Compile Include="Modules\Statistics\DescriptiveResult.cs" />
     <Compile Include="Modules\Statistics\Descriptive.cs" />
+    <Compile Include="Modules\Statistics\Dialogs\AskSaveDashboardDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\Statistics\Dialogs\AskSaveDashboardDialog.Designer.cs">
+      <DependentUpon>AskSaveDashboardDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Statistics\Variables\MouseVariable.cs" />
     <Compile Include="Modules\Statistics\Variables\GazeVariable.cs" />
     <Compile Include="Modules\Statistics\Variables\TrialVariable.cs" />
@@ -1669,6 +1675,9 @@
     <EmbeddedResource Include="Modules\Recording\Presenter\PresenterModule.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PresenterModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Statistics\Dialogs\AskSaveDashboardDialog.resx">
+      <DependentUpon>AskSaveDashboardDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Statistics\StatisticsModule.resx">
       <SubType>Designer</SubType>

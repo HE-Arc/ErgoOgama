@@ -34,6 +34,22 @@ namespace Ogama.Modules.Database
     {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseModule));
+            this.cmsDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsSelect = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsModifyData = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dgvRawData = new System.Windows.Forms.DataGridView();
+            this.dgvTrials = new System.Windows.Forms.DataGridView();
+            this.colTrialsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsTrialSequence = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsTrialID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsTrialName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsTrialStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTrialsEliminateData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
             this.colSubjectsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSubjectsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,22 +63,6 @@ namespace Ogama.Modules.Database
             this.colAmbiance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLanguage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmsDataGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmsSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsModifyData = new System.Windows.Forms.ToolStripMenuItem();
-            this.dgvRawData = new System.Windows.Forms.DataGridView();
-            this.dgvTrials = new System.Windows.Forms.DataGridView();
-            this.colTrialsID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsSubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsTrialSequence = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsTrialID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsTrialName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsTrialStartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTrialsEliminateData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.tacTables = new System.Windows.Forms.TabControl();
             this.tbpSubjects = new System.Windows.Forms.TabPage();
@@ -229,12 +229,12 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).BeginInit();
             this.cmsDataGridView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrials)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -268,134 +268,6 @@ namespace Ogama.Modules.Database
             // bsoFKTrialsEvents
             // 
             this.bsoFKTrialsEvents.Sort = "EventTime";
-            // 
-            // dgvSubjects
-            // 
-            this.dgvSubjects.AllowUserToAddRows = false;
-            this.dgvSubjects.AutoGenerateColumns = false;
-            this.dgvSubjects.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            this.dgvSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colSubjectsID,
-            this.colSubjectsSubjectName,
-            this.colSubjectsCategory,
-            this.colSubjectsAge,
-            this.colSubjectsSex,
-            this.colSubjectsHandedness,
-            this.colSubjectsComments,
-            this.colGlasses,
-            this.colLight,
-            this.colAmbiance,
-            this.colLanguage,
-            this.colType});
-            this.dgvSubjects.ContextMenuStrip = this.cmsDataGridView;
-            this.dgvSubjects.DataSource = this.bsoSubjects;
-            this.dgvSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSubjects.Location = new System.Drawing.Point(3, 3);
-            this.dgvSubjects.Name = "dgvSubjects";
-            this.dgvSubjects.Size = new System.Drawing.Size(1151, 360);
-            this.dgvSubjects.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.dgvSubjects, "Select a row to filter the data in the preceding tables.\r\nRight click for a conte" +
-        "xt menu.");
-            this.dgvSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSubjects_DataError);
-            this.dgvSubjects.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubjects_RowEnter);
-            this.dgvSubjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSubjects_UserDeletingRow);
-            // 
-            // colSubjectsID
-            // 
-            this.colSubjectsID.DataPropertyName = "ID";
-            this.colSubjectsID.HeaderText = "ID";
-            this.colSubjectsID.MinimumWidth = 30;
-            this.colSubjectsID.Name = "colSubjectsID";
-            this.colSubjectsID.ReadOnly = true;
-            this.colSubjectsID.Width = 60;
-            // 
-            // colSubjectsSubjectName
-            // 
-            this.colSubjectsSubjectName.DataPropertyName = "SubjectName";
-            this.colSubjectsSubjectName.HeaderText = "SubjectName";
-            this.colSubjectsSubjectName.MinimumWidth = 30;
-            this.colSubjectsSubjectName.Name = "colSubjectsSubjectName";
-            this.colSubjectsSubjectName.Width = 80;
-            // 
-            // colSubjectsCategory
-            // 
-            this.colSubjectsCategory.DataPropertyName = "Category";
-            this.colSubjectsCategory.HeaderText = "Category";
-            this.colSubjectsCategory.MinimumWidth = 30;
-            this.colSubjectsCategory.Name = "colSubjectsCategory";
-            this.colSubjectsCategory.Width = 60;
-            // 
-            // colSubjectsAge
-            // 
-            this.colSubjectsAge.DataPropertyName = "Age";
-            this.colSubjectsAge.HeaderText = "Age";
-            this.colSubjectsAge.MinimumWidth = 30;
-            this.colSubjectsAge.Name = "colSubjectsAge";
-            this.colSubjectsAge.Width = 40;
-            // 
-            // colSubjectsSex
-            // 
-            this.colSubjectsSex.DataPropertyName = "Sex";
-            this.colSubjectsSex.HeaderText = "Sex";
-            this.colSubjectsSex.MinimumWidth = 30;
-            this.colSubjectsSex.Name = "colSubjectsSex";
-            this.colSubjectsSex.Width = 40;
-            // 
-            // colSubjectsHandedness
-            // 
-            this.colSubjectsHandedness.DataPropertyName = "Handedness";
-            this.colSubjectsHandedness.HeaderText = "Handedness";
-            this.colSubjectsHandedness.MinimumWidth = 30;
-            this.colSubjectsHandedness.Name = "colSubjectsHandedness";
-            this.colSubjectsHandedness.Width = 80;
-            // 
-            // colSubjectsComments
-            // 
-            this.colSubjectsComments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colSubjectsComments.DataPropertyName = "Comments";
-            this.colSubjectsComments.HeaderText = "Comments";
-            this.colSubjectsComments.MinimumWidth = 30;
-            this.colSubjectsComments.Name = "colSubjectsComments";
-            // 
-            // colGlasses
-            // 
-            this.colGlasses.DataPropertyName = "Glasses";
-            this.colGlasses.HeaderText = "Glasses";
-            this.colGlasses.MinimumWidth = 30;
-            this.colGlasses.Name = "colGlasses";
-            this.colGlasses.ReadOnly = true;
-            // 
-            // colLight
-            // 
-            this.colLight.DataPropertyName = "Light";
-            this.colLight.HeaderText = "Room Light";
-            this.colLight.MinimumWidth = 40;
-            this.colLight.Name = "colLight";
-            this.colLight.ReadOnly = true;
-            // 
-            // colAmbiance
-            // 
-            this.colAmbiance.DataPropertyName = "Ambiance";
-            this.colAmbiance.HeaderText = "Room Ambiance";
-            this.colAmbiance.MinimumWidth = 40;
-            this.colAmbiance.Name = "colAmbiance";
-            this.colAmbiance.ReadOnly = true;
-            // 
-            // colLanguage
-            // 
-            this.colLanguage.DataPropertyName = "Language";
-            this.colLanguage.HeaderText = "Language";
-            this.colLanguage.MinimumWidth = 50;
-            this.colLanguage.Name = "colLanguage";
-            this.colLanguage.ReadOnly = true;
-            // 
-            // colType
-            // 
-            this.colType.DataPropertyName = "Type";
-            this.colType.HeaderText = "SubjectType";
-            this.colType.MinimumWidth = 50;
-            this.colType.Name = "colType";
-            this.colType.ReadOnly = true;
             // 
             // cmsDataGridView
             // 
@@ -543,6 +415,134 @@ namespace Ogama.Modules.Database
             this.colTrialsEliminateData.MinimumWidth = 30;
             this.colTrialsEliminateData.Name = "colTrialsEliminateData";
             this.colTrialsEliminateData.Width = 60;
+            // 
+            // dgvSubjects
+            // 
+            this.dgvSubjects.AllowUserToAddRows = false;
+            this.dgvSubjects.AutoGenerateColumns = false;
+            this.dgvSubjects.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            this.dgvSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colSubjectsID,
+            this.colSubjectsSubjectName,
+            this.colSubjectsCategory,
+            this.colSubjectsAge,
+            this.colSubjectsSex,
+            this.colSubjectsHandedness,
+            this.colSubjectsComments,
+            this.colGlasses,
+            this.colLight,
+            this.colAmbiance,
+            this.colLanguage,
+            this.colType});
+            this.dgvSubjects.ContextMenuStrip = this.cmsDataGridView;
+            this.dgvSubjects.DataSource = this.bsoSubjects;
+            this.dgvSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSubjects.Location = new System.Drawing.Point(3, 3);
+            this.dgvSubjects.Name = "dgvSubjects";
+            this.dgvSubjects.Size = new System.Drawing.Size(1151, 360);
+            this.dgvSubjects.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.dgvSubjects, "Select a row to filter the data in the preceding tables.\r\nRight click for a conte" +
+        "xt menu.");
+            this.dgvSubjects.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSubjects_DataError);
+            this.dgvSubjects.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubjects_RowEnter);
+            this.dgvSubjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvSubjects_UserDeletingRow);
+            // 
+            // colSubjectsID
+            // 
+            this.colSubjectsID.DataPropertyName = "ID";
+            this.colSubjectsID.HeaderText = "ID";
+            this.colSubjectsID.MinimumWidth = 30;
+            this.colSubjectsID.Name = "colSubjectsID";
+            this.colSubjectsID.ReadOnly = true;
+            this.colSubjectsID.Width = 60;
+            // 
+            // colSubjectsSubjectName
+            // 
+            this.colSubjectsSubjectName.DataPropertyName = "SubjectName";
+            this.colSubjectsSubjectName.HeaderText = "SubjectName";
+            this.colSubjectsSubjectName.MinimumWidth = 30;
+            this.colSubjectsSubjectName.Name = "colSubjectsSubjectName";
+            this.colSubjectsSubjectName.Width = 80;
+            // 
+            // colSubjectsCategory
+            // 
+            this.colSubjectsCategory.DataPropertyName = "Category";
+            this.colSubjectsCategory.HeaderText = "Category";
+            this.colSubjectsCategory.MinimumWidth = 30;
+            this.colSubjectsCategory.Name = "colSubjectsCategory";
+            this.colSubjectsCategory.Width = 60;
+            // 
+            // colSubjectsAge
+            // 
+            this.colSubjectsAge.DataPropertyName = "Age";
+            this.colSubjectsAge.HeaderText = "Age";
+            this.colSubjectsAge.MinimumWidth = 30;
+            this.colSubjectsAge.Name = "colSubjectsAge";
+            this.colSubjectsAge.Width = 40;
+            // 
+            // colSubjectsSex
+            // 
+            this.colSubjectsSex.DataPropertyName = "Sex";
+            this.colSubjectsSex.HeaderText = "Sex";
+            this.colSubjectsSex.MinimumWidth = 30;
+            this.colSubjectsSex.Name = "colSubjectsSex";
+            this.colSubjectsSex.Width = 40;
+            // 
+            // colSubjectsHandedness
+            // 
+            this.colSubjectsHandedness.DataPropertyName = "Handedness";
+            this.colSubjectsHandedness.HeaderText = "Handedness";
+            this.colSubjectsHandedness.MinimumWidth = 30;
+            this.colSubjectsHandedness.Name = "colSubjectsHandedness";
+            this.colSubjectsHandedness.Width = 80;
+            // 
+            // colSubjectsComments
+            // 
+            this.colSubjectsComments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colSubjectsComments.DataPropertyName = "Comments";
+            this.colSubjectsComments.HeaderText = "Comments";
+            this.colSubjectsComments.MinimumWidth = 30;
+            this.colSubjectsComments.Name = "colSubjectsComments";
+            // 
+            // colGlasses
+            // 
+            this.colGlasses.DataPropertyName = "Glasses";
+            this.colGlasses.HeaderText = "Glasses";
+            this.colGlasses.MinimumWidth = 30;
+            this.colGlasses.Name = "colGlasses";
+            this.colGlasses.ReadOnly = true;
+            // 
+            // colLight
+            // 
+            this.colLight.DataPropertyName = "Light";
+            this.colLight.HeaderText = "Room Light";
+            this.colLight.MinimumWidth = 40;
+            this.colLight.Name = "colLight";
+            this.colLight.ReadOnly = true;
+            // 
+            // colAmbiance
+            // 
+            this.colAmbiance.DataPropertyName = "Ambiance";
+            this.colAmbiance.HeaderText = "Room Ambiance";
+            this.colAmbiance.MinimumWidth = 40;
+            this.colAmbiance.Name = "colAmbiance";
+            this.colAmbiance.ReadOnly = true;
+            // 
+            // colLanguage
+            // 
+            this.colLanguage.DataPropertyName = "Language";
+            this.colLanguage.HeaderText = "Language";
+            this.colLanguage.MinimumWidth = 50;
+            this.colLanguage.Name = "colLanguage";
+            this.colLanguage.ReadOnly = true;
+            // 
+            // colType
+            // 
+            this.colType.DataPropertyName = "Type";
+            this.colType.HeaderText = "SubjectType";
+            this.colType.MinimumWidth = 50;
+            this.colType.Name = "colType";
+            this.colType.ReadOnly = true;
             // 
             // toolStripContainer1
             // 
@@ -1140,7 +1140,10 @@ namespace Ogama.Modules.Database
             // 
             // dgvCalibrations
             // 
+            this.dgvCalibrations.AllowUserToDeleteRows = false;
+            this.dgvCalibrations.AllowUserToOrderColumns = true;
             this.dgvCalibrations.AutoGenerateColumns = false;
+            this.dgvCalibrations.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dgvCalibrations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCalibrations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCalibrationsID,
@@ -1148,12 +1151,13 @@ namespace Ogama.Modules.Database
             this.colCalibrationsAccuracy,
             this.colCalibrationsAccuracyLeft,
             this.colCalibrationsAccuracyRight});
-            this.dgvCalibrations.DataSource = this.bsoSubjectsCalibrations;
+            this.dgvCalibrations.DataSource = this.bsoFKSubjectsCalibrations;
             this.dgvCalibrations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCalibrations.Location = new System.Drawing.Point(3, 3);
             this.dgvCalibrations.Name = "dgvCalibrations";
             this.dgvCalibrations.Size = new System.Drawing.Size(1151, 360);
             this.dgvCalibrations.TabIndex = 0;
+            this.dgvCalibrations.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
             // colCalibrationsID
             // 
@@ -1948,12 +1952,12 @@ namespace Ogama.Modules.Database
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsoSubjectsCalibrations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).EndInit();
             this.cmsDataGridView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRawData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrials)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -1987,9 +1991,6 @@ namespace Ogama.Modules.Database
 
     #endregion
 
-    private DataGridView dgvRawData;
-    private DataGridView dgvSubjects;
-    private DataGridView dgvTrials;
     private ToolTip toolTip1;
     private ToolStripContainer toolStripContainer1;
     private ToolStrip toolStrip1;
@@ -2004,88 +2005,12 @@ namespace Ogama.Modules.Database
     private ToolStripButton btnSpecial;
     private ToolStripButton btnImportOgamaFormat;
     private BackgroundWorker bgwExport;
-    private TabControl tacTables;
-    private TabPage tbpSubjects;
-    private TabPage tbpTrials;
-    private TabPage tbpRawdata;
-    private TabPage tbpGazeFixations;
-    private TabPage tbpAOI;
-    private DataGridView dgvTrialEvents;
-    private TabPage tbpTrialEvents;
-    private DataGridView dgvGazeFixations;
-		private DataGridView dgvMouseFixations;
-		private DataGridView dgvAOIs;
     private ImageList imlTabs;
 		private ToolStripButton btnFilterData;
-    private ToolStripSeparator toolStripSeparator2;
-    private TabPage tbpShapeGroups;
-    private DataGridView dgvShapeGroups;
+        private ToolStripSeparator toolStripSeparator2;
     private ToolStripButton btnSave;
     private ToolStripSeparator toolStripSeparator3;
-    private DataGridViewTextBoxColumn colTrialsID;
-    private DataGridViewTextBoxColumn colTrialsSubjectName;
-    private DataGridViewTextBoxColumn colTrialsTrialSequence;
-    private DataGridViewTextBoxColumn colTrialsTrialID;
-    private DataGridViewTextBoxColumn colTrialsTrialName;
-    private DataGridViewTextBoxColumn colTrialsCategory;
-    private DataGridViewTextBoxColumn colTrialsTrialStartTime;
-    private DataGridViewTextBoxColumn colTrialsDuration;
-    private DataGridViewTextBoxColumn colTrialsEliminateData;
-    private DataGridViewTextBoxColumn colTrialEventsID;
-    private DataGridViewTextBoxColumn colTrialEventsSubjectName;
-    private DataGridViewTextBoxColumn colTrialEventsTrialSequence;
-    private DataGridViewTextBoxColumn colTrialEventsEventID;
-    private DataGridViewTextBoxColumn colTrialEventsEventTime;
-    private DataGridViewTextBoxColumn colTrialEventsEventType;
-    private DataGridViewTextBoxColumn colTrialEventsEventTask;
-    private DataGridViewTextBoxColumn colTrialEventsEventParam;
-    private DataGridViewTextBoxColumn colGazeFixationsID;
-    private DataGridViewTextBoxColumn colGazeFixationsSubjectName;
-    private DataGridViewTextBoxColumn colGazeFixationsTrialID;
-    private DataGridViewTextBoxColumn colGazeFixationsTrialSequence;
-    private DataGridViewTextBoxColumn colGazeFixationsCountInTrial;
-    private DataGridViewTextBoxColumn colGazeFixationsStartTime;
-    private DataGridViewTextBoxColumn colGazeFixationsLength;
-    private DataGridViewTextBoxColumn colGazeFixationsPosX;
-    private DataGridViewTextBoxColumn colGazeFixationsPosY;
-    private DataGridViewTextBoxColumn colMouseFixationsID;
-    private DataGridViewTextBoxColumn colMouseFixationsSubjectName;
-    private DataGridViewTextBoxColumn colMouseFixationsTrialID;
-    private DataGridViewTextBoxColumn colMouseFixationsTrialSequence;
-    private DataGridViewTextBoxColumn colMouseFixationsCountInTrial;
-    private DataGridViewTextBoxColumn colMouseFixationsStartTime;
-    private DataGridViewTextBoxColumn colMouseFixationsLength;
-    private DataGridViewTextBoxColumn colMouseFixationsPosX;
-    private DataGridViewTextBoxColumn colMouseFixationsPosY;
-    private DataGridViewTextBoxColumn colShapeGroupsID;
-    private DataGridViewTextBoxColumn colShapeGroupsShapeGroup;
-    private TabPage tbpMouseFixations;
-    private TabPage tbpSubjectParameters;
-    private DataGridView dgvSubjectParameters;
-    private TabPage tbpParams;
-    private DataGridView dgvParams;
-    private DataGridViewTextBoxColumn colSubjectParametersID;
-    private DataGridViewTextBoxColumn colSubjectParametersSubjectName;
-    private DataGridViewComboBoxColumn colSubjectParametersParam;
-    private DataGridViewTextBoxColumn colSubjectParametersSubjectNameParamValue;
-    private DataGridViewTextBoxColumn colParamsID;
-    private DataGridViewTextBoxColumn paramDataGridViewTextBoxColumn;
-    private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     private ToolStripButton btnImport;
-    private DataGridViewTextBoxColumn colSubjectsID;
-    private DataGridViewTextBoxColumn colSubjectsSubjectName;
-    private DataGridViewTextBoxColumn colSubjectsCategory;
-    private DataGridViewTextBoxColumn colSubjectsAge;
-    private DataGridViewTextBoxColumn colSubjectsSex;
-    private DataGridViewTextBoxColumn colSubjectsHandedness;
-    private DataGridViewTextBoxColumn colSubjectsComments;
-    private DataGridViewTextBoxColumn colGlasses;
-    private DataGridViewTextBoxColumn colLight;
-    private DataGridViewTextBoxColumn colAmbiance;
-    private DataGridViewTextBoxColumn colLanguage;
-    private DataGridViewTextBoxColumn colType;
-    private TabPage tbpCalibrations;
-    private DataGridView dgvCalibrations;
     private DataGridViewTextBoxColumn subjectNameDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn accuracyDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn accuracyLeftDataGridViewTextBoxColumn;
@@ -2156,6 +2081,85 @@ namespace Ogama.Modules.Database
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn63;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn64;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn65;
+    private TabControl tacTables;
+    private TabPage tbpSubjects;
+    private DataGridView dgvSubjects;
+    private DataGridViewTextBoxColumn colSubjectsID;
+    private DataGridViewTextBoxColumn colSubjectsSubjectName;
+    private DataGridViewTextBoxColumn colSubjectsCategory;
+    private DataGridViewTextBoxColumn colSubjectsAge;
+    private DataGridViewTextBoxColumn colSubjectsSex;
+    private DataGridViewTextBoxColumn colSubjectsHandedness;
+    private DataGridViewTextBoxColumn colSubjectsComments;
+    private DataGridViewTextBoxColumn colGlasses;
+    private DataGridViewTextBoxColumn colLight;
+    private DataGridViewTextBoxColumn colAmbiance;
+    private DataGridViewTextBoxColumn colLanguage;
+    private DataGridViewTextBoxColumn colType;
+    private TabPage tbpSubjectParameters;
+    private DataGridView dgvSubjectParameters;
+    private DataGridViewTextBoxColumn colSubjectParametersID;
+    private DataGridViewTextBoxColumn colSubjectParametersSubjectName;
+    private DataGridViewComboBoxColumn colSubjectParametersParam;
+    private DataGridViewTextBoxColumn colSubjectParametersSubjectNameParamValue;
+    private TabPage tbpParams;
+    private DataGridView dgvParams;
+    private DataGridViewTextBoxColumn colParamsID;
+    private DataGridViewTextBoxColumn paramDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+    private TabPage tbpTrials;
+    private DataGridView dgvTrials;
+    private DataGridViewTextBoxColumn colTrialsID;
+    private DataGridViewTextBoxColumn colTrialsSubjectName;
+    private DataGridViewTextBoxColumn colTrialsTrialSequence;
+    private DataGridViewTextBoxColumn colTrialsTrialID;
+    private DataGridViewTextBoxColumn colTrialsTrialName;
+    private DataGridViewTextBoxColumn colTrialsCategory;
+    private DataGridViewTextBoxColumn colTrialsTrialStartTime;
+    private DataGridViewTextBoxColumn colTrialsDuration;
+    private DataGridViewTextBoxColumn colTrialsEliminateData;
+    private TabPage tbpTrialEvents;
+    private DataGridView dgvTrialEvents;
+    private DataGridViewTextBoxColumn colTrialEventsID;
+    private DataGridViewTextBoxColumn colTrialEventsSubjectName;
+    private DataGridViewTextBoxColumn colTrialEventsTrialSequence;
+    private DataGridViewTextBoxColumn colTrialEventsEventID;
+    private DataGridViewTextBoxColumn colTrialEventsEventTime;
+    private DataGridViewTextBoxColumn colTrialEventsEventType;
+    private DataGridViewTextBoxColumn colTrialEventsEventTask;
+    private DataGridViewTextBoxColumn colTrialEventsEventParam;
+    private TabPage tbpRawdata;
+    private DataGridView dgvRawData;
+    private TabPage tbpGazeFixations;
+    private DataGridView dgvGazeFixations;
+    private DataGridViewTextBoxColumn colGazeFixationsID;
+    private DataGridViewTextBoxColumn colGazeFixationsSubjectName;
+    private DataGridViewTextBoxColumn colGazeFixationsTrialID;
+    private DataGridViewTextBoxColumn colGazeFixationsTrialSequence;
+    private DataGridViewTextBoxColumn colGazeFixationsCountInTrial;
+    private DataGridViewTextBoxColumn colGazeFixationsStartTime;
+    private DataGridViewTextBoxColumn colGazeFixationsLength;
+    private DataGridViewTextBoxColumn colGazeFixationsPosX;
+    private DataGridViewTextBoxColumn colGazeFixationsPosY;
+    private TabPage tbpMouseFixations;
+    private DataGridView dgvMouseFixations;
+    private DataGridViewTextBoxColumn colMouseFixationsID;
+    private DataGridViewTextBoxColumn colMouseFixationsSubjectName;
+    private DataGridViewTextBoxColumn colMouseFixationsTrialID;
+    private DataGridViewTextBoxColumn colMouseFixationsTrialSequence;
+    private DataGridViewTextBoxColumn colMouseFixationsCountInTrial;
+    private DataGridViewTextBoxColumn colMouseFixationsStartTime;
+    private DataGridViewTextBoxColumn colMouseFixationsLength;
+    private DataGridViewTextBoxColumn colMouseFixationsPosX;
+    private DataGridViewTextBoxColumn colMouseFixationsPosY;
+    private TabPage tbpAOI;
+    private DataGridView dgvAOIs;
+    private TabPage tbpShapeGroups;
+    private DataGridView dgvShapeGroups;
+    private DataGridViewTextBoxColumn colShapeGroupsID;
+    private DataGridViewTextBoxColumn colShapeGroupsShapeGroup;
+    private TabPage tbpCalibrations;
+    private DataGridView dgvCalibrations;
     private DataGridViewTextBoxColumn colCalibrationsID;
     private DataGridViewTextBoxColumn colCalibrationsSubjectName;
     private DataGridViewTextBoxColumn colCalibrationsAccuracy;

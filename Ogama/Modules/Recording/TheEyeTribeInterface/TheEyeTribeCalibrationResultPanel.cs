@@ -172,22 +172,24 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
     /// <returns>A brush with a color that represents the given accuracy.</returns>
     private SolidBrush RatingColor(double accuracy)
     {
-      if (accuracy < 0.5)
+
+    
+      if (accuracy != 0 && accuracy < 0.5)
       {
         return new SolidBrush(Color.FromArgb(180, Color.Green));
       }
 
-      if (accuracy < 0.7)
+      if (accuracy != 0 && accuracy < 0.7)
       {
         return new SolidBrush(Color.FromArgb(180, Color.Yellow));
       }
 
-      if (accuracy < 1)
+      if (accuracy != 0 && accuracy < 1)
       {
         return new SolidBrush(Color.FromArgb(180, Color.Orange));
       }
 
-      if (accuracy < 1.5)
+      if (accuracy == 0 || accuracy < 1.5)
       {
         return new SolidBrush(Color.FromArgb(180, Color.Red));
       }
@@ -203,23 +205,23 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
     private string RatingFunction(CalibrationResult result)
     {
       var accuracy = result.AverageErrorDegree;
-      
-      if (accuracy < 0.5)
+
+      if (accuracy != 0 && accuracy < 0.5)
       {
         return "Quality: Perfect";
       }
 
-      if (accuracy < 0.7)
+      if (accuracy != 0 && accuracy < 0.7)
       {
         return "Quality: Good";
       }
 
-      if (accuracy < 1)
+      if (accuracy != 0 && accuracy < 1)
       {
         return "Quality: Moderate";
       }
 
-      if (accuracy < 1.5)
+      if (accuracy == 0 || accuracy < 1.5)
       {
         return "Quality: Poor";
       }

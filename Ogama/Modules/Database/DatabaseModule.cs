@@ -176,9 +176,9 @@ namespace Ogama.Modules.Database
         new string[] { "colSubjectsID", "colSubjectsSubjectName" });
 
       // Set read only data grid view styles.
-      this.SetDataGridViewColumnsToReadOnlyStyle(
-        this.dgvCalibrations,
-        new string[] { "colCalibrationsID", "colCalibrationsSubjectName" });
+      //this.SetDataGridViewColumnsToReadOnlyStyle(
+      //  this.dgvCalibrations,
+      //  new string[] { "colCalibrationsID", "colCalibrationsSubjectName" });
 
       string[] columnArray = new string[] 
       { 
@@ -1170,60 +1170,75 @@ namespace Ogama.Modules.Database
     /// which trial to load the raw data into the <see cref="dgvRawData"/></param>
     private void LoadRawDataIntoDataGridView(int trialTableRowIndex)
     {
-      // This avoids update during record update.
-      if (this.InvokeRequired || this.isUpdatingData)
-      {
-        return;
-      }
-
-      if (this.dgvTrials.DataSource != null)
-      {
-        try
-        {
-          this.Cursor = Cursors.WaitCursor;
-
-          if (this.dgvTrials.Rows.Count > trialTableRowIndex)
+          // This avoids update during record update.
+          if (this.InvokeRequired || this.isUpdatingData)
           {
-            DataGridViewRow currentRow = this.dgvTrials.Rows[trialTableRowIndex];
-            string subjectName = currentRow.Cells["colTrialsSubjectName"].Value.ToString();
-            int trialID = (int)currentRow.Cells["colTrialsTrialID"].Value;
-            int trialSequence = (int)currentRow.Cells["colTrialsTrialSequence"].Value;
-            DataTable table = Queries.GetRawDataBySubjectAndTrialSequence(subjectName, trialSequence);
+            return;
+          }
 
-            // Set up the data source.
-            this.bsoRawdata.DataSource = table;
-
-            // Setting a new binding source for the data grid view
-            // leads to deletion of formattings,
-            // so set data grid view column styles again.
-            if (this.dgvRawData.Columns.Count > 0)
+          if (this.dgvTrials.DataSource != null)
+          {
+            try
             {
-              this.dgvRawData.Columns["ID"].ReadOnly = true;
-              this.dgvRawData.Columns["SubjectName"].ReadOnly = true;
-              this.dgvRawData.Columns["TrialSequence"].ReadOnly = true;
-              this.dgvRawData.Columns["ID"].DefaultCellStyle = ReadOnlyCellStyle;
-              this.dgvRawData.Columns["SubjectName"].DefaultCellStyle = ReadOnlyCellStyle;
-              this.dgvRawData.Columns["TrialSequence"].DefaultCellStyle = ReadOnlyCellStyle;
+              this.Cursor = Cursors.WaitCursor;
 
-              DataGridViewCellStyle singleCellStyle = new DataGridViewCellStyle();
-              singleCellStyle = this.dgvRawData.DefaultCellStyle.Clone();
-              singleCellStyle.Format = "N6";
-              this.dgvRawData.Columns["PupilDiaX"].DefaultCellStyle = singleCellStyle;
-              this.dgvRawData.Columns["PupilDiaY"].DefaultCellStyle = singleCellStyle;
-              this.dgvRawData.Columns["GazePosX"].DefaultCellStyle = singleCellStyle;
-              this.dgvRawData.Columns["GazePosY"].DefaultCellStyle = singleCellStyle;
+              if (this.dgvTrials.Rows.Count > trialTableRowIndex)
+              {
+                DataGridViewRow currentRow = this.dgvTrials.Rows[trialTableRowIndex];
+                string subjectName = currentRow.Cells["colTrialsSubjectName"].Value.ToString();
+                int trialID = (int)currentRow.Cells["colTrialsTrialID"].Value;
+                int trialSequence = (int)currentRow.Cells["colTrialsTrialSequence"].Value;
+                DataTable table = Queries.GetRawDataBySubjectAndTrialSequence(subjectName, trialSequence);
+
+                // Set up the data source.
+                this.bsoRawdata.DataSource = table;
+
+                // Setting a new binding source for the data grid view
+                // leads to deletion of formattings,
+                // so set data grid view column styles again.
+                if (this.dgvRawData.Columns.Count > 0)
+                {
+                  this.dgvRawData.Columns["ID"].ReadOnly = true;
+                  this.dgvRawData.Columns["SubjectName"].ReadOnly = true;
+                  this.dgvRawData.Columns["TrialSequence"].ReadOnly = true;
+                  this.dgvRawData.Columns["ID"].DefaultCellStyle = ReadOnlyCellStyle;
+                  this.dgvRawData.Columns["SubjectName"].DefaultCellStyle = ReadOnlyCellStyle;
+                  this.dgvRawData.Columns["TrialSequence"].DefaultCellStyle = ReadOnlyCellStyle;
+
+                  DataGridViewCellStyle singleCellStyle = new DataGridViewCellStyle();
+                  singleCellStyle = this.dgvRawData.DefaultCellStyle.Clone();
+                  singleCellStyle.Format = "N6";
+                  this.dgvRawData.Columns["PupilDiaX"].DefaultCellStyle = singleCellStyle;
+                  this.dgvRawData.Columns["PupilDiaY"].DefaultCellStyle = singleCellStyle;
+                  this.dgvRawData.Columns["GazePosX"].DefaultCellStyle = singleCellStyle;
+                  this.dgvRawData.Columns["GazePosY"].DefaultCellStyle = singleCellStyle;
+                }
+              }
+            }
+            catch (Exception ex)
+            {
+              ExceptionMethods.HandleException(ex);
+            }
+            finally
+            {
+              this.Cursor = Cursors.Default;
             }
           }
-        }
-        catch (Exception ex)
-        {
-          ExceptionMethods.HandleException(ex);
-        }
-        finally
-        {
-          this.Cursor = Cursors.Default;
-        }
-      }
+
+          //if (this.dgvCalibrations.DataSource != null)
+          //{
+
+          //    try
+          //    {
+          //        this.Cursor = Cursors.WaitCursor;
+          //        if (this.dgvCalibrations.Rows.Count > trialTableRowIndex)
+          //        {
+          //            System.Console.WriteLine("load");
+          //        }
+          //    }
+          //    catch { }
+          //}
+
     }
 
 
