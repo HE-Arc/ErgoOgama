@@ -625,6 +625,9 @@ namespace Ogama.Modules.SlideshowDesign
     }
 
     #endregion //HELPER
+    
+
+    
 
    
   }

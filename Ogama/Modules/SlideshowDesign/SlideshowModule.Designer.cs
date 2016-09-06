@@ -74,6 +74,7 @@
             this.btnDesktop = new System.Windows.Forms.ToolStripButton();
             this.btnBlank = new System.Windows.Forms.ToolStripButton();
             this.btnSurvey = new System.Windows.Forms.ToolStripButton();
+            this.btnUserInstractions = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSaveSlideshow = new System.Windows.Forms.ToolStripButton();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
@@ -108,6 +109,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).BeginInit();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -547,6 +550,7 @@
             this.btnDesktop,
             this.btnBlank,
             this.btnSurvey,
+            this.btnUserInstractions,
             this.toolStripSeparator1,
             this.btnSaveSlideshow,
             this.btnImport,
@@ -561,7 +565,7 @@
             this.btnHelp});
             this.tosStimuli.Location = global::Ogama.Properties.Settings.Default.SCRToolbarLocation;
             this.tosStimuli.Name = "tosStimuli";
-            this.tosStimuli.Size = new System.Drawing.Size(481, 25);
+            this.tosStimuli.Size = new System.Drawing.Size(504, 25);
             this.tosStimuli.TabIndex = 0;
             // 
             // btnInstruction
@@ -662,7 +666,17 @@
             this.btnSurvey.Name = "btnSurvey";
             this.btnSurvey.Size = new System.Drawing.Size(23, 22);
             this.btnSurvey.Text = "Add a post-test survey";
-            this.btnSurvey.Click += new System.EventHandler(this.btnAddFolder_Click);
+            this.btnSurvey.Click += new System.EventHandler(this.btnSurvey_Click);
+            // 
+            // btnUserInstractions
+            // 
+            this.btnUserInstractions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnUserInstractions.Image = ((System.Drawing.Image)(resources.GetObject("btnUserInstractions.Image")));
+            this.btnUserInstractions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUserInstractions.Name = "btnUserInstractions";
+            this.btnUserInstractions.Size = new System.Drawing.Size(23, 22);
+            this.btnUserInstractions.Text = "Add experiment instraction for the user";
+            this.btnUserInstractions.Click += new System.EventHandler(this.btnUserInstractions_Click);
             // 
             // toolStripSeparator1
             // 
@@ -840,6 +854,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).EndInit();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -939,5 +955,6 @@
     private System.Windows.Forms.ToolStripButton btnSecondary;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     private System.Windows.Forms.ToolStripButton btnSurvey;
+    private System.Windows.Forms.ToolStripButton btnUserInstractions;
   }
 }

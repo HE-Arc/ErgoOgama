@@ -165,9 +165,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 244);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 13);
+            this.label2.Size = new System.Drawing.Size(205, 13);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Portez-vous des lunettes ?";
+            this.label2.Text = "Portez-vous des lunettes pendant le test ?";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label11
@@ -230,7 +230,7 @@
             this.comboLangue.Items.AddRange(new object[] {
             "français",
             "allemand",
-            "italien",
+            "italienne",
             "anglais",
             "espagnol",
             "portugais",
@@ -323,7 +323,7 @@
             // 
             this.groupBox3.Controls.Add(this.rdbOui);
             this.groupBox3.Controls.Add(this.rdbNo);
-            this.groupBox3.Location = new System.Drawing.Point(156, 254);
+            this.groupBox3.Location = new System.Drawing.Point(156, 259);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(173, 31);
             this.groupBox3.TabIndex = 24;

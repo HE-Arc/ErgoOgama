@@ -516,6 +516,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).BeginInit();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -3250,12 +3252,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label113.AutoSize = true;
             this.label113.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label113.Location = new System.Drawing.Point(171, 230);
+            this.label113.Location = new System.Drawing.Point(204, 228);
             this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(398, 40);
+            this.label113.Size = new System.Drawing.Size(374, 40);
             this.label113.TabIndex = 2;
-            this.label113.Text = "Si ce n’est pas le cas, veuillez repositionner l’Eyetracker\r\n ou ajuster votre po" +
-    "sition.\r\n";
+            this.label113.Text = "Si ce n’est pas le cas, veuillez ajuster votre position, \r\nsans bouger l\'ordinate" +
+    "ur ou l\'eyetracker.\r\n";
             this.label113.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
@@ -3301,11 +3303,9 @@
             this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label105.Location = new System.Drawing.Point(194, 64);
             this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(414, 80);
+            this.label105.Size = new System.Drawing.Size(471, 120);
             this.label105.TabIndex = 1;
-            this.label105.Text = "Le système doit être calibré par rapport à vos yeux.\r\n\r\nUn point rouge apparaitra" +
-    " sur l\'écran : sans bouger la tête\r\nni le buste, suivez des yeux le déplacement " +
-    "de ce point.";
+            this.label105.Text = resources.GetString("label105.Text");
             this.label105.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label114
@@ -3340,7 +3340,7 @@
             this.label115.AutoSize = true;
             this.label115.Location = new System.Drawing.Point(68, 30);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(693, 220);
+            this.label115.Size = new System.Drawing.Size(696, 240);
             this.label115.TabIndex = 0;
             this.label115.Text = resources.GetString("label115.Text");
             this.label115.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -6719,6 +6719,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).EndInit();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();

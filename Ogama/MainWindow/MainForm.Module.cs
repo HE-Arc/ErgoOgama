@@ -302,7 +302,7 @@ namespace Ogama.MainWindow
     /// <param name="e">An empty <see cref="EventArgs"/></param>
     private void btnSCR_Click(object sender, EventArgs e)
     {
-      this.CreateOrActivateStimuliDesignModule();
+      this.CreateOrActivateStimuliDesignModule();  
     }
 
     /// <summary>

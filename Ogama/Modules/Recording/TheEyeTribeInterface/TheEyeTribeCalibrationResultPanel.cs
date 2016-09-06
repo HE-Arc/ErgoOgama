@@ -221,10 +221,11 @@ namespace Ogama.Modules.Recording.TheEyeTribeInterface
         return "Quality: Moderate";
       }
 
-      if (accuracy == 0 || accuracy < 1.5)
+      if (accuracy != 0 || accuracy < 1.5)
       {
         return "Quality: Poor";
       }
+      
 
       return "Quality: Redo";
     }

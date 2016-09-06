@@ -565,5 +565,10 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
     }
 
     #endregion //HELPER
+
+    private void btnImportInstruction_Click(object sender, EventArgs e)
+    {
+        txbInstruction.Text = Document.ActiveDocument.ExperimentSettings.ExperimentInstruction;
+    }
   }
 }

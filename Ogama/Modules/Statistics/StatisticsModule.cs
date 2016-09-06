@@ -3225,17 +3225,40 @@ namespace Ogama.Modules.Statistics
 
     private void btnExportToDashboard_Click(object sender, EventArgs e)
     {
-        var saveDlg = new AskSaveDashboardDialog();
-        
-        if ( saveDlg.ShowDialog(this) == DialogResult.OK)
+        //Console.WriteLine(Document.ActiveDocument.ExperimentSettings.SlideShow.Slide.VGStimuli.GetAttributes);
+
+        foreach (Ogama.Modules.Common.SlideCollections.Trial trail in Document.ActiveDocument.ExperimentSettings.SlideShow.Trials)
         {
-            DashboardDataSet db = new DashboardDataSet();
-            db.createTables();
-            db.populateTables();
-            var successDlg = new SavingSuccessDialog();
-            successDlg.ShowDialog();
+            for (int i = 0; i < trail.Count; i++)
+            {
+                Slide slide = trail[i];
+                foreach (VGElement element in slide.VGStimuli)
+                {
+                    var test = element as VGText; 
+                      Console.WriteLine(test.StringToDraw);
+  
+                        
+                }
+                
+                
+            }
+
+
+            
         }
-        else { System.Console.WriteLine("error"); }
+
+
+        //var saveDlg = new AskSaveDashboardDialog();
+        
+        //if ( saveDlg.ShowDialog(this) == DialogResult.OK)
+        //{
+        //    DashboardDataSet db = new DashboardDataSet();
+        //    db.createTables();
+        //    db.populateTables();
+        //    var successDlg = new SavingSuccessDialog();
+        //    successDlg.ShowDialog();
+        //}
+        //else { System.Console.WriteLine("error"); }
         
        
     } 

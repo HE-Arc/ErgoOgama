@@ -125,7 +125,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
         if (this.designPicture.SelectedElement is VGText)
         {
           VGText text = (VGText)this.designPicture.SelectedElement;
-          text.StringToDraw = this.txbInstructions.Text;
+          text.StringToDraw = this.txbInstructions.Text;         
           this.designPicture.DrawForeground(true);
         }
       }

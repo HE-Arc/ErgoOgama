@@ -1230,6 +1230,7 @@ namespace Ogama.Modules.AOI
             Slide slide = trial[i];
             foreach (VGElement element in slide.TargetShapes)
             {
+                
               string shapeName = element.Name;
               int shapePointCount = element.GetPointCount();
               string shapeType = element.GetType().ToString().Replace("VectorGraphics.Elements.VG", string.Empty);

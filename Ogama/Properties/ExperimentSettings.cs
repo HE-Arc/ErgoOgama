@@ -157,6 +157,11 @@ namespace Ogama.Properties
     private string experimentName;
 
     /// <summary>
+    /// Saves user instructions for this experiment
+    /// </summary>
+    private string experimentInstraction;
+
+    /// <summary>
     /// Name of the SQLServer instance
     /// </summary>
     private string sqlInstanceName;
@@ -181,6 +186,8 @@ namespace Ogama.Properties
     /// Saves the OGAMA version that this experiment is currently working with.
     /// </summary>
     private Version ogamaVersion;
+
+   
 
     #endregion //FIELDS
 
@@ -218,6 +225,7 @@ namespace Ogama.Properties
       this.mouseColorParams = new ColorizationParameters();
       this.ogamaVersion = new Version(); // Assembly.GetExecutingAssembly().GetName().Version;
       this.ScreenCaptureFramerate = 10;
+      this.experimentInstraction = "test";
     }
 
     #endregion //CONSTRUCTION
@@ -519,6 +527,16 @@ namespace Ogama.Properties
     }
 
     /// <summary>
+    /// Gets or sets the experiment instructions
+    /// </summary>
+    /// <value>A <see cref="string"/> with the experiment instractions.</value>
+    public string ExperimentInstruction
+    {
+        get { return experimentInstraction; }
+        set { experimentInstraction = value; }
+    }
+
+    /// <summary>
     /// Gets the database connection string
     /// </summary>
     /// <value>A <see cref="string"/> with the connection string for the database.</value>
@@ -604,6 +622,10 @@ namespace Ogama.Properties
     /// </summary>
     /// <value>A <see cref="Int32"/> with the framerate in frames per second .</value>
     public int ScreenCaptureFramerate { get; set; }
+
+   
+
+   
 
     #endregion //PROPERTIES
 

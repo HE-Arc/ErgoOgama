@@ -275,6 +275,18 @@ namespace Ogama.Modules.SlideshowDesign
       this.OpenBrowserDesignerForm(null);
     }
 
+    private void btnUserInstractions_Click(object sender, EventArgs e)
+    {
+        InstractionDialog instraction = new InstractionDialog(this);        
+        if (instraction.ShowDialog() == DialogResult.OK)
+        {
+            Document.ActiveDocument.ExperimentSettings.ExperimentInstruction = instraction.Text;
+            Console.WriteLine(instraction.Text);
+            Console.WriteLine(Document.ActiveDocument.ExperimentSettings.ExperimentInstruction);
+        }
+        this.SlideShowModified();
+    }
+
     private void btnSurvey_Click(object sender, EventArgs e)
     {
         this.OpenSurveyForm(null);
@@ -337,6 +349,8 @@ namespace Ogama.Modules.SlideshowDesign
 
       this.UpdateListView(this.trvSlideshow.SelectedNodes);
     }
+
+    
 
     /// <summary>
     /// The <see cref="Control.Click"/> event handler for the
@@ -557,7 +571,7 @@ namespace Ogama.Modules.SlideshowDesign
     /// </summary>
     /// <param name="silent"><strong>True</strong>, if it should be saved
     /// without a question.</param>
-    private void SaveToExperimentSettings(bool silent)
+    public void SaveToExperimentSettings(bool silent)
     {
       if (Document.ActiveDocument != null && Document.ActiveDocument.ExperimentSettings != null)
       {

@@ -25,11 +25,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         protected TestsTable testTable;
         protected TrialsTable trial;
         protected SubjectsTable subject;
-        protected TriallSequencesTable sequence;
+        protected TrialSequencesTable sequence;
         protected AOIGroupsTable aoiGroup;
         protected AOIsTable aoi;
         protected FixationsTable fixation;
         protected CalibrationsTable calibration;
+        protected TrialEventsTable trialEvents;
 
 
         public DashboardDataSet()
@@ -37,27 +38,26 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             
             if (!File.Exists(Document.ActiveDocument.ExperimentSettings.DashboardDatabasePath))
             {
-               //if(!File.Exists(Ogama.Properties.ExperimentSettings.DASHBOARD_DB_NAME + ".db"))
-               // {
-               //    System.Console.WriteLine(true);                   
-               // } 
+                //if (!File.Exists(Ogama.Properties.ExperimentSettings.DASHBOARD_DB_NAME + ".db"))
+                //{
+                //    System.Console.WriteLine(true);
+                //} 
                 DashboardQuery.CreateDBFile(Document.ActiveDocument.ExperimentSettings.DashboardDatabasePath);       
-            }
-  
-            //createTables();
-            //populateTables();
+            }       
         } 
+
         public void createTables()
         {
              
             testTable = new TestsTable();
             trial = new TrialsTable();
             subject = new SubjectsTable();
-            sequence = new TriallSequencesTable();
+            sequence = new TrialSequencesTable();
             aoiGroup = new AOIGroupsTable();
             aoi = new AOIsTable();
             fixation = new FixationsTable();
             calibration = new CalibrationsTable();
+            trialEvents = new TrialEventsTable();
            
         }
         public void populateTables()
@@ -77,6 +77,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             aoi.insertData(idsTrialsLink, groupIdslink);
             fixation.insertData(idsTrialsLink);
             calibration.insertData();
+            trialEvents.insertData(idsTrialsLink);
             
         }
 
@@ -107,6 +108,8 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                     command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + fixation.TableName + ") WHERE name='" + fixation.TableName + "'";
                     command.ExecuteNonQuery();
                     command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + calibration.TableName + ") WHERE name='" + calibration.TableName + "'";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + trialEvents.TableName + ") WHERE name='" + trialEvents.TableName + "'";
                     command.ExecuteNonQuery();
 
                 }
@@ -574,7 +577,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
     /// <summary>
     /// 
     /// </summary>
-    public class TriallSequencesTable
+    public class TrialSequencesTable
     {
         private string tableName = "trial_sequences";
         private string colSubjectId = "subject_id";
@@ -586,7 +589,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         /// <summary>
         /// 
         /// </summary>
-        public TriallSequencesTable()
+        public TrialSequencesTable()
         {
             connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
             connection.Open();
@@ -646,7 +649,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         }
 
         /// <summary>
-        /// 
+        /// We take only the trials from Ogama trial table, re-numbering from 1 to n  
         /// </summary>
         /// <param name="arrayLink"></param>
         /// <param name="ogamaTrialTable"></param>
@@ -884,6 +887,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
     {
         private string tableName = "fixations";
         private string colSequenceId = "trial_sequence_id";
+        private string colTrialId = "trial_id";
         private string colCountIntrial = "cout_in_trial";
         private string colStartTime = "start_time";
         private string colLength = "length";
@@ -891,7 +895,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         private string colPosy = "posy";
         SQLiteConnection connection;
         /// <summary>
-        /// 
+        /// From Ogama GazeFixation to Dashboard Fixation table where new trial_sequence_id = subject_id, sequence_id, trial_id( the new id from trial table dashboard db) 
         /// </summary>
         public FixationsTable()
         {
@@ -912,6 +916,13 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                         command.CommandText = DashboardQuery.AddColumn(tableName, colSequenceId, "integer") + " REFERENCES trial_sequences(id) ON DELETE CASCADE";
                         command.ExecuteNonQuery();
                         Console.WriteLine("Add column " + colSequenceId + " and foreign key");
+                    }
+
+                    if(!DashboardQuery.CheckColumnNameExits(columnsNames, colTrialId))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colTrialId, "integer") + " REFERENCES trials(id) ON DELETE CASCADE";
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colTrialId + " and foreign key");
                     }
 
                     if (!DashboardQuery.CheckColumnNameExits(columnsNames, colCountIntrial))
@@ -964,7 +975,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             DataTable ogamaFixations = Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetData();
             connection.Open();
             Dictionary<int, int> linkOldIdsToNewIds = new Dictionary<int, int>();
-            string columnsString = colSequenceId + ", " + colCountIntrial + ", " + colStartTime + ", " + colLength + ", " + colPosx + ", " + colPosy;
+            string columnsString = colSequenceId + ", " + colTrialId + ", " + colCountIntrial + ", " + colStartTime + ", " + colLength + ", " + colPosx + ", " + colPosy;
             using (SQLiteTransaction transaction = connection.BeginTransaction())
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
@@ -990,7 +1001,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                         command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNames, columnValues);
                         int sequenceId = Convert.ToInt32(command.ExecuteScalar());
 
-                        string values = "'" + sequenceId + "', '" + fixation["CountInTrial"].ToString() + "', '" + fixation["StartTime"].ToString() + "', '" + fixation["Length"].ToString() +
+                        string values = "'" + sequenceId + "', '"+ trialIdNew + "', '"+ fixation["CountInTrial"].ToString() + "', '" + fixation["StartTime"].ToString() + "', '" + fixation["Length"].ToString() +
                                                 "', '" + fixation["PosX"].ToString() + "', '" + fixation["PosY"].ToString() + "'";
                         command.CommandText = DashboardQuery.InsertData(tableName, columnsString, values);                        
                         command.ExecuteNonQuery();
@@ -1073,6 +1084,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         public void insertData()
         {
             DataTable originalCalibrations = Document.ActiveDocument.DocDataSet.CalibrationsAdapter.GetData();
+            
             connection.Open();
             string columnsString = colSubjectId + ", " + colAccuracy + ", " + colAccuracyLeft + ", " + colAccuracyRight;
             using (SQLiteTransaction transaction = connection.BeginTransaction())
@@ -1100,6 +1112,120 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             connection.Close();
             
         }
+    }
+
+    public class TrialEventsTable
+    {
+        private string tableName = "trial_events";
+        private string colSequenceId = "trial_sequence_id";
+        private string colTime = "time";
+        private string colType = "type";
+        private string colTask = "task";
+        private string colParam = "param";
+        SQLiteConnection connection;
+
+        public string TableName
+        {
+            get
+            {
+                return this.tableName;
+            }
+        }
+
+        public TrialEventsTable()
+        {
+            connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
+            connection.Open();
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    command.CommandText = DashboardQuery.CreateTableIfNotExists(tableName);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Create table " + tableName + " if not exists");
+                    var columnsNames = DashboardQuery.GetExistingColumns(tableName);
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colSequenceId))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colSequenceId, "integer") + " REFERENCES trial_sequences(id) ON DELETE CASCADE";
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colSequenceId + " and foreign key");
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colTime))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colTime, "integer");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colTime);
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colType))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colType, "varchar(50) NOT NULL DEFAULT 'Unknown'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colType);
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colTask))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colTask, "varchar(50) NOT NULL DEFAULT 'Unknown'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colTask);
+                    }
+
+                    if (!DashboardQuery.CheckColumnNameExits(columnsNames, colParam))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colParam, "varchar(4000) NOT NULL DEFAULT 'Unknown'");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colParam);
+                    }                    
+                }
+                transaction.Commit();
+            }
+            connection.Close();
+
+        }
+
+        public void insertData(Dictionary<int, int> linkToTrials)
+        {
+            DataTable ogamaTrialEvents = Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetData();            
+            connection.Open();            
+            string columnsString = colSequenceId + ", " + colTime + ", " + colType + ", " + colTask + ", " + colParam ;
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    foreach (DataRow events in ogamaTrialEvents.Rows)
+                    {
+                        // get data from ogama trial_events table                       
+                        string subjectName = events["SubjectName"].ToString();                        
+                        string sequence = events["TrialSequence"].ToString();
+
+                        //get from the dashboard/subjects table the id for the subject name
+                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", subjectName);
+                        string subjectId = command.ExecuteScalar().ToString();
+                       
+                        //get the sequence id from dashbord/trial_sequences knowing the subject_id, sequence
+                        string[] columnNames = new string[] { "subject_id", "sequence" };
+                        string[] columnValues = new string[] { subjectId, sequence };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNames, columnValues);
+                        int sequenceId = Convert.ToInt32(command.ExecuteScalar());
+
+                        string values = "'" + sequenceId + "', '" + events["EventTime"].ToString() + "', '" + events["EventType"].ToString() + "', '" + events["EventTask"].ToString() +
+                                                "', '" + events["EventParam"].ToString() + "'";
+                        command.CommandText = DashboardQuery.InsertData(tableName, columnsString, values);
+                        command.ExecuteNonQuery();
+                        
+                    }
+                }
+                transaction.Commit();
+            }
+            Console.WriteLine("Insert data into " + tableName);
+            connection.Close();
+        }
+
     }
 
 }
