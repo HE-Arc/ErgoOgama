@@ -280,9 +280,7 @@ namespace Ogama.Modules.SlideshowDesign
         InstractionDialog instraction = new InstractionDialog(this);        
         if (instraction.ShowDialog() == DialogResult.OK)
         {
-            Document.ActiveDocument.ExperimentSettings.ExperimentInstruction = instraction.Text;
-            Console.WriteLine(instraction.Text);
-            Console.WriteLine(Document.ActiveDocument.ExperimentSettings.ExperimentInstruction);
+            Document.ActiveDocument.ExperimentSettings.ExperimentInstruction = instraction.Text;            
         }
         this.SlideShowModified();
     }

@@ -195,7 +195,7 @@
             this.btnImportInstruction});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(850, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(850, 26);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -257,7 +257,7 @@
             this.btnAlignCenter.Image = ((System.Drawing.Image)(resources.GetObject("btnAlignCenter.Image")));
             this.btnAlignCenter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAlignCenter.Name = "btnAlignCenter";
-            this.btnAlignCenter.Size = new System.Drawing.Size(23, 22);
+            this.btnAlignCenter.Size = new System.Drawing.Size(23, 23);
             this.btnAlignCenter.Text = "Align center";
             this.btnAlignCenter.Click += new System.EventHandler(this.btnAlignCenter_Click);
             // 
@@ -401,7 +401,7 @@
             // 
             this.btnImportInstruction.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnImportInstruction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnImportInstruction.Image = ((System.Drawing.Image)(resources.GetObject("btnImportInstruction.Image")));
+            this.btnImportInstruction.Image = global::Ogama.Properties.Resources.instractions;
             this.btnImportInstruction.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnImportInstruction.Name = "btnImportInstruction";
             this.btnImportInstruction.Size = new System.Drawing.Size(23, 23);

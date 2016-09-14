@@ -120,13 +120,15 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
     /// <param name="e">A empty <see cref="EventArgs"/></param>
     private void txbInstructions_TextChanged(object sender, EventArgs e)
     {
+      
       if (this.designPicture.SelectedElement != null && !this.isInitializingSelectedShape)
       {
         if (this.designPicture.SelectedElement is VGText)
         {
           VGText text = (VGText)this.designPicture.SelectedElement;
           text.StringToDraw = this.txbInstructions.Text;         
-          this.designPicture.DrawForeground(true);
+          this.designPicture.DrawForeground(true); 
+
         }
       }
     }

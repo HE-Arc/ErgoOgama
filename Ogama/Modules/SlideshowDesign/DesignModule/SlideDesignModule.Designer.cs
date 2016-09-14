@@ -34,7 +34,7 @@
     {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SlideDesignModule));
-            System.ComponentModel.StringConverter stringConverter1 = new System.ComponentModel.StringConverter();
+            System.ComponentModel.StringConverter stringConverter2 = new System.ComponentModel.StringConverter();
             this.ofdBackgroundImage = new System.Windows.Forms.OpenFileDialog();
             this.imlCommands = new System.Windows.Forms.ImageList(this.components);
             this.ofdFlashMovie = new System.Windows.Forms.OpenFileDialog();
@@ -200,6 +200,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpNaming)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpTiming)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpTesting)).BeginInit();
@@ -888,7 +890,7 @@
             // 
             // gveLayoutDockStyle
             // 
-            this.gveLayoutDockStyle.Converter = stringConverter1;
+            this.gveLayoutDockStyle.Converter = stringConverter2;
             this.gveLayoutDockStyle.Location = new System.Drawing.Point(4, 18);
             this.gveLayoutDockStyle.Name = "gveLayoutDockStyle";
             this.gveLayoutDockStyle.Size = new System.Drawing.Size(82, 20);
@@ -2130,6 +2132,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpNaming)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpTiming)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbHelpTesting)).EndInit();
@@ -2335,7 +2339,6 @@
     private Button btnAddRtfInstruction;
     private TabPage tbpRtfInstructions;
     private OgamaControls.RTBTextControl rtbInstructions;
-    private TextBox txbInstructions;
     private TabPage tbpTrigger;
     private Label label21;
     private PictureBox pcbHelpTrigger;
@@ -2366,5 +2369,6 @@
     private Label label28;
     private ComboBox cbbPreSlideFixationTrial;
     private Label label27;
+    public TextBox txbInstructions;
   }
 }

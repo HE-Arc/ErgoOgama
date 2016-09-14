@@ -1066,6 +1066,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
                          + "Please try again.";
         ExceptionMethods.ProcessMessage("Add response condition", message);
       }
+        
     }
 
     /// <summary>

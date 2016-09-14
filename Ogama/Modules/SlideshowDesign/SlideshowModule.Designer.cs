@@ -671,7 +671,7 @@
             // btnUserInstractions
             // 
             this.btnUserInstractions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnUserInstractions.Image = ((System.Drawing.Image)(resources.GetObject("btnUserInstractions.Image")));
+            this.btnUserInstractions.Image = global::Ogama.Properties.Resources.instractions;
             this.btnUserInstractions.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnUserInstractions.Name = "btnUserInstractions";
             this.btnUserInstractions.Size = new System.Drawing.Size(23, 22);

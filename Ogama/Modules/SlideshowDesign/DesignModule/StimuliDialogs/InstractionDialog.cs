@@ -32,7 +32,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
         private void InstractionDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             //((SlideshowModule)this.MdiParent).SaveToExperimentSettings(false);
-            mainForm.SaveToExperimentSettings(false);
+            mainForm.SaveToExperimentSettings(true);
         }
 
         private void InstractionDialog_Load(object sender, EventArgs e)

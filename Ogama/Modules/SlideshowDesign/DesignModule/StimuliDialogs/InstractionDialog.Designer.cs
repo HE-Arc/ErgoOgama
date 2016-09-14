@@ -37,16 +37,20 @@
             // 
             // textBoxInstraction
             // 
-            this.textBoxInstraction.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxInstraction.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxInstraction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxInstraction.Location = new System.Drawing.Point(0, 60);
             this.textBoxInstraction.Multiline = true;
             this.textBoxInstraction.Name = "textBoxInstraction";
-            this.textBoxInstraction.Size = new System.Drawing.Size(558, 176);
+            this.textBoxInstraction.Size = new System.Drawing.Size(531, 196);
             this.textBoxInstraction.TabIndex = 1;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(471, 247);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(444, 267);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -55,7 +59,8 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(390, 247);
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.Location = new System.Drawing.Point(363, 267);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 3;
@@ -73,7 +78,7 @@
             this.dialogTop1.Location = new System.Drawing.Point(0, 0);
             this.dialogTop1.Logo = ((System.Drawing.Image)(resources.GetObject("dialogTop1.Logo")));
             this.dialogTop1.Name = "dialogTop1";
-            this.dialogTop1.Size = new System.Drawing.Size(558, 60);
+            this.dialogTop1.Size = new System.Drawing.Size(531, 60);
             this.dialogTop1.TabIndex = 0;
             // 
             // InstractionDialog
@@ -81,7 +86,7 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 282);
+            this.ClientSize = new System.Drawing.Size(531, 302);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBoxInstraction);

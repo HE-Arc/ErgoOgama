@@ -274,7 +274,7 @@ namespace Ogama.Modules.SlideshowDesign
       // Remove the slideshow from the TreeView.
       this.slideshow.Remove();
 
-      this.SaveToExperimentSettings(false);
+      this.SaveToExperimentSettings(true);
     }
 
     /// <summary>
@@ -490,6 +490,7 @@ namespace Ogama.Modules.SlideshowDesign
     private void OpenStimulusDesignerForm(SlideDesignModule newDesignForm, string nodeID)
     {
       string oldSlidename = newDesignForm.SlideName;
+      bool doIt = true;
 
       if (newDesignForm.ShowDialog() == DialogResult.OK)
       {
@@ -505,6 +506,18 @@ namespace Ogama.Modules.SlideshowDesign
         }
 
         this.SlideShowModified();
+
+        doIt = MessageBox.Show("The instraction text has changed, would you like to store it into user instraction settings?",
+            Application.ProductName,
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question) == DialogResult.Yes;
+
+        if(doIt)
+        {
+            Document.ActiveDocument.ExperimentSettings.ExperimentInstruction = newDesignForm.txbInstructions.Text;
+            this.SaveToExperimentSettings(true);
+        }
+          
       }
     }
 

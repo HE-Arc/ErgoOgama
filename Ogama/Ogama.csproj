@@ -1944,6 +1944,8 @@
     <Content Include="Resources\EyeTribeClibOk.jpg" />
     <None Include="Resources\EyeTribeClibOk1.jpg" />
     <None Include="Resources\google_drive_mini.png" />
+    <Content Include="Resources\instractions.jpg" />
+    <None Include="Resources\instractions1.jpg" />
     <Content Include="Resources\MirametrixLogo.png" />
     <Content Include="Resources\GazepointLogo.png" />
     <None Include="Resources\Warning21.png" />
