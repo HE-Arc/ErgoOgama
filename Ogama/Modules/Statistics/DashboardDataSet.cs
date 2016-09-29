@@ -72,12 +72,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             DataTable ogamaTrialTable = Document.ActiveDocument.DocDataSet.TrialsAdapter.GetData();
             var idsTrialsLink = trial.insertData(ogamaTrialTable, newTestId);
             subject.insertData(newTestId);
-            var sequnceIds = sequence.insertData(ogamaTrialTable, idsTrialsLink);
+            var sequnceIds = sequence.insertData(ogamaTrialTable, idsTrialsLink, newTestId);
             var groupIdslink = aoiGroup.insertData(newTestId);
             aoi.insertData(idsTrialsLink, groupIdslink);
-            fixation.insertData(idsTrialsLink);
-            calibration.insertData();
-            trialEvents.insertData(idsTrialsLink);
+            fixation.insertData(idsTrialsLink, newTestId);
+            calibration.insertData(newTestId);
+            trialEvents.insertData(idsTrialsLink, newTestId);
             
         }
 
@@ -89,10 +89,6 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    //command.CommandText = "SELECT MAX(id) FROM [" + testTable.GetTableName() + "]";
-                    //int lastid = Convert.ToInt16(command.ExecuteScalar());
-                    //System.Console.WriteLine(lastid);
-                    //command.CommandText = "UPDATE sqlite_sequence SET seq = " + lastid.ToString() + "  WHERE name='" + tableName + "'"; command.ExecuteNonQuery();
                     command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + testTable.TableName + ") WHERE name='" + testTable.TableName + "'"; 
                     command.ExecuteNonQuery();
                     command.CommandText = "UPDATE sqlite_sequence SET seq = (SELECT MAX(id) FROM " + trial.TableName + ") WHERE name='" + trial.TableName + "'";
@@ -130,6 +126,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         private string colName = "name";
         private string colWidth = "width_screen";
         private string colHeight = "height_screen";
+        private string colInstructions = "instruction";
         SQLiteConnection connection;
         /// <summary>
         /// 
@@ -165,6 +162,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                         command.CommandText = DashboardQuery.AddColumn(tableName, colHeight, "integer");
                         command.ExecuteNonQuery();
                         Console.WriteLine("Add column "+colHeight);
+                    }
+                    if(!DashboardQuery.CheckColumnNameExits(columnsNames, colInstructions))
+                    {
+                        command.CommandText = DashboardQuery.AddColumn(tableName, colInstructions, "varchar(50) NULL");
+                        command.ExecuteNonQuery();
+                        Console.WriteLine("Add column " + colInstructions);
                     }
                     
                 }
@@ -218,8 +221,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                 {
                     string testName = Document.ActiveDocument.ExperimentSettings.Name;
                     int width = Document.ActiveDocument.ExperimentSettings.WidthStimulusScreen;
-                    int height = Document.ActiveDocument.ExperimentSettings.HeightStimulusScreen;                    
-                    command.CommandText = DashboardQuery.InsertDataIntoTableTest(tableName, testName, width, height);
+                    int height = Document.ActiveDocument.ExperimentSettings.HeightStimulusScreen; 
+                    string instruction = Document.ActiveDocument.ExperimentSettings.ExperimentInstruction;
+                    instruction = instruction.Replace("'", "''");
+                    command.CommandText = DashboardQuery.InsertDataIntoTableTest(tableName, testName, width, height, instruction);
                     command.ExecuteNonQuery();
                     Console.WriteLine("Insert data into " +tableName);
                     newTestId = DashboardQuery.GetLastID(command);                   
@@ -299,7 +304,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         /// <summary>
         /// trials table 
         /// </summary>
-        /// <param name="originalTable"></param>
+        /// <param name="originalTable"> get the trails from Trials table  </param>
         /// <param name="testId"></param>
         public Dictionary<int, int> insertData(DataTable originalTable, int testId)
         {
@@ -653,7 +658,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         /// </summary>
         /// <param name="arrayLink"></param>
         /// <param name="ogamaTrialTable"></param>
-        public Dictionary<int, int> insertData(DataTable ogamaTrialTable, Dictionary<int, int> idsTrialsLink)
+        public Dictionary<int, int> insertData(DataTable ogamaTrialTable, Dictionary<int, int> idsTrialsLink, int testId)
         {           
             connection.Open();      
             Dictionary<int, int> linkOldIdsToNewIds = new Dictionary<int, int>();
@@ -667,8 +672,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                     {
                         int currentid = Convert.ToInt32(sequenceRow["ID"]);
 
-                        //get the id for the dashboard subject table                         
-                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", sequenceRow["SubjectName"].ToString());
+                        //get the id for the dashboard subject table    
+                        string[] columnNames = new string[] { "name", "test_id" };
+                        string[] columnValues = new string[] { sequenceRow["SubjectName"].ToString(), testId.ToString()  };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("subjects", columnNames, columnValues);
                         int subjectId = Convert.ToInt16(command.ExecuteScalar());                        
 
                         //get the corespondent id of trial from the dashboard trial table
@@ -970,7 +977,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             get { return this.tableName; }
         }
 
-        public Dictionary<int, int> insertData(Dictionary<int, int> linkToTrials)
+        public Dictionary<int, int> insertData(Dictionary<int, int> linkToTrials, int testId)
         {
             DataTable ogamaFixations = Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetData();
             connection.Open();
@@ -990,20 +997,24 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                         string sequence = fixation["TrialSequence"].ToString();
 
                         //get from the dashboard/subjects table the id for the subject name
-                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", subjectName);
+                        string[] columnNames = new string[] { "name", "test_id" };
+                        string[] columnValues = new string[] { subjectName, testId.ToString() };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("subjects", columnNames, columnValues);                       
                         string subjectId = command.ExecuteScalar().ToString();
+
                         //get from the dashboard/trials table the id for the ogama trial id
                         int trialIdNew = linkToTrials[trialIdOld]; 
 
                         //get the sequence id from dashbord/trial_sequences knowing the subject_id, trial_id, sequence
-                        string[] columnNames = new string[]{"subject_id", "trial_id", "sequence" };
-                        string[] columnValues = new string[] { subjectId, trialIdNew.ToString(), sequence };
-                        command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNames, columnValues);
+                        string[] columnNamesS = new string[]{"subject_id", "trial_id", "sequence" };
+                        string[] columnValuesS = new string[] { subjectId, trialIdNew.ToString(), sequence };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNamesS, columnValuesS);
                         int sequenceId = Convert.ToInt32(command.ExecuteScalar());
 
                         string values = "'" + sequenceId + "', '"+ trialIdNew + "', '"+ fixation["CountInTrial"].ToString() + "', '" + fixation["StartTime"].ToString() + "', '" + fixation["Length"].ToString() +
                                                 "', '" + fixation["PosX"].ToString() + "', '" + fixation["PosY"].ToString() + "'";
-                        command.CommandText = DashboardQuery.InsertData(tableName, columnsString, values);                        
+                        command.CommandText = DashboardQuery.InsertData(tableName, columnsString, values);
+                       
                         command.ExecuteNonQuery();
                         linkOldIdsToNewIds.Add(currentid,DashboardQuery.GetLastID(command));
                     }
@@ -1081,7 +1092,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             get { return this.tableName; }
         }
 
-        public void insertData()
+        public void insertData(int testId)
         {
             DataTable originalCalibrations = Document.ActiveDocument.DocDataSet.CalibrationsAdapter.GetData();
             
@@ -1094,8 +1105,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                     command.Transaction = transaction;
                     foreach (DataRow calibration in originalCalibrations.Rows)
                     {
-                        //get the subjectId from the dashboard subject table                         
-                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", calibration["SubjectName"].ToString());
+                        //get the subjectId from the dashboard subject table  
+                        string[] columnNames = new string[] { "name", "test_id" };
+                        string[] columnValues = new string[] { calibration["SubjectName"].ToString(), testId.ToString() };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("subjects", columnNames, columnValues);    
+                        
+                        //command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", calibration["SubjectName"].ToString());
                         int subjectId = Convert.ToInt16(command.ExecuteScalar());
 
                         string columnsValues = "'" + subjectId.ToString() + "', '" + Convert.ToDouble(calibration["Accuracy"]) + "', '" + calibration["AccuracyLeft"] +
@@ -1187,7 +1202,7 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
 
         }
 
-        public void insertData(Dictionary<int, int> linkToTrials)
+        public void insertData(Dictionary<int, int> linkToTrials, int testId)
         {
             DataTable ogamaTrialEvents = Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetData();            
             connection.Open();            
@@ -1204,13 +1219,16 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                         string sequence = events["TrialSequence"].ToString();
 
                         //get from the dashboard/subjects table the id for the subject name
-                        command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", subjectName);
+                        string[] columnNames = new string[] { "name", "test_id" };
+                        string[] columnValues = new string[] { subjectName, testId.ToString() };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("subjects", columnNames, columnValues);      
+                        //command.CommandText = DashboardQuery.GetIdUsingCondition("name", "subjects", subjectName);
                         string subjectId = command.ExecuteScalar().ToString();
                        
                         //get the sequence id from dashbord/trial_sequences knowing the subject_id, sequence
-                        string[] columnNames = new string[] { "subject_id", "sequence" };
-                        string[] columnValues = new string[] { subjectId, sequence };
-                        command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNames, columnValues);
+                        string[] columnNamesS = new string[] { "subject_id", "sequence" };
+                        string[] columnValuesS = new string[] { subjectId, sequence };
+                        command.CommandText = DashboardQuery.GetIdUsingConditions("trial_sequences", columnNamesS, columnValuesS);
                         int sequenceId = Convert.ToInt32(command.ExecuteScalar());
 
                         string values = "'" + sequenceId + "', '" + events["EventTime"].ToString() + "', '" + events["EventType"].ToString() + "', '" + events["EventTask"].ToString() +

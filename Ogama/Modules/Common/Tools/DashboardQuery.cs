@@ -209,9 +209,9 @@ namespace Ogama.Modules.Common.Tools
         /// <param name="width"></param>
         /// <param name="heigth"></param>
         /// <returns></returns>
-        public static string InsertDataIntoTableTest(string tableName, string testName, int width, int heigth )
+        public static string InsertDataIntoTableTest(string tableName, string testName, int width, int heigth, string instraction )
         {
-            string query = "INSERT INTO [" + tableName + "] (name, width_screen, height_screen) VALUES ('" + testName + "', '" + width + "', '" + heigth + "')" ;
+            string query = "INSERT INTO [" + tableName + "] (name, width_screen, height_screen, instruction ) VALUES ('" + testName + "', '" + width + "', '" + heigth + "', '"+ instraction + "')";
             return query; 
         }
 
