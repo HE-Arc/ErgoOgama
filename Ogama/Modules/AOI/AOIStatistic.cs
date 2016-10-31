@@ -14,6 +14,7 @@
 namespace Ogama.Modules.AOI
 {
   using System.Collections.Generic;
+    using VectorGraphics.Elements;
 
   /// <summary>
   /// This structure saves some basic information of fixation
@@ -41,6 +42,9 @@ namespace Ogama.Modules.AOI
     /// The number of fixations at this aoi.
     /// </summary>
     private int fixationCount;
+
+
+    private Dictionary<int, VGElement> fixationsInAOI;
 
     /// <summary>
     /// The sum of all fixation durations at the aoi in ms.
@@ -104,7 +108,11 @@ namespace Ogama.Modules.AOI
     public AOIStatistic()
     {
       this.hitTimes = new Dictionary<int, long>();
+      this.FixationsInAOI = new Dictionary<int, VGElement>();
     }
+
+    
+
 
     #endregion //CONSTRUCTION
 
@@ -136,6 +144,14 @@ namespace Ogama.Modules.AOI
       get { return this.fixationCount; }
       set { this.fixationCount = value; }
     }
+
+
+    public Dictionary<int, VGElement> FixationsInAOI
+    {
+        get { return this.fixationsInAOI; }
+        set { this.fixationsInAOI = value; }
+    }
+
 
     /// <summary>
     /// Gets or sets the sum of all fixation times at the aoi in ms.

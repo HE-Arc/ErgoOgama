@@ -238,15 +238,32 @@ namespace Ogama.Modules.Statistics
           {
             aoiGroup = "nowhere";
           }
-          //Console.WriteLine("name " + aoiName);
-          //Console.WriteLine("category " + aoiGroup);
-       
+                 
           string[] hittedAOI = { aoiName, aoiGroup };
           hittedAOIs.Add(hittedAOI);
         }
       }
 
       return hittedAOIs;
+    }
+
+
+    public static Dictionary<int, VGElement> FixationOnAOIs(VGElementCollection aoiCollection, DataRowView fixationRow)
+    {
+        Dictionary<int, VGElement> fixationAois = new Dictionary<int, VGElement>();
+        foreach (VGElement aoiElement in aoiCollection)
+        {
+            // Check for intersection between newPath and Clicklist or Fixationlist
+            PointF searchPoint = new PointF(
+            Convert.ToSingle(fixationRow["PosX"]),
+            Convert.ToSingle(fixationRow["PosY"]));
+
+            if (aoiElement.Contains(searchPoint, tolerance))
+            {               
+                fixationAois.Add(Convert.ToInt16(fixationRow["ID"]), aoiElement);
+            }
+        }
+        return fixationAois;
     }
 
     /// <summary>
@@ -342,6 +359,7 @@ namespace Ogama.Modules.Statistics
         return aoiStatistic;
       }
 
+      // a table with only the fixation that hit the aoi
       DataTable fixationsInAOIs = (DataTable)fixationTable.Table.Clone();
       fixationsInAOIs.Clear();
 
@@ -351,11 +369,18 @@ namespace Ogama.Modules.Statistics
       aoiStatistic.FirstHitTimeAfterBeeingOutside = -1;
       foreach (DataRowView fixRow in fixationTable)
       {
-        if (IsFixAtTarget(aois, fixRow) != null)
+        VGElement aoi = IsFixAtTarget(aois, fixRow);
+        if (aoi != null)
         {
+          
           hitCount++;
           aoiStatistic.HitTimes.Add(hitCount, (long)fixRow["StartTime"]);
-          fixationsInAOIs.Rows.Add(fixRow.Row.ItemArray);
+          fixationsInAOIs.Rows.Add(fixRow.Row.ItemArray);      
+    
+          // get a list of fixtions in aois
+          aoiStatistic.FixationsInAOI.Add(Convert.ToInt32(fixRow["ID"]), aoi);
+
+           
 
           if (wasOutside && aoiStatistic.FirstHitTimeAfterBeeingOutside == -1)
           {
@@ -367,7 +392,7 @@ namespace Ogama.Modules.Statistics
           wasOutside = true;
         }
       }
-
+   
       // Fixation Durations
       double[] fixationsDurations = GetFixationDurationsArray(fixationsInAOIs);
       Descriptive descriptives = new Descriptive(fixationsDurations);
@@ -392,7 +417,8 @@ namespace Ogama.Modules.Statistics
 
       aoiStatistic.SaccadeDuration = saccadeDuration;
       aoiStatistic.SaccadeLength = saccadeLength;
-      aoiStatistic.SaccadeVelocity = saccadeVelocity;
+      aoiStatistic.SaccadeVelocity = saccadeVelocity;      
+            
 
       return aoiStatistic;
     }

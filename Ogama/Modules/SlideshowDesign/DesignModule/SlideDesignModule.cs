@@ -388,7 +388,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
     ///   Creates a new <see cref="Slide" /> with the
     ///   properties defined on this dialog and creates a thumb for it.
     /// </summary>
-    /// <returns>The new <see cref="Slide" /> to be added to the slideshow.</returns>
+    /// <returns>The new <see cref="Slide" /> to be added to the slideshow.</returns>St
     private Slide GetSlide()
     {
       var slide = new Slide();
@@ -410,11 +410,16 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
         this.lsbStopConditions.Items.Add(new TimeStopCondition(5000));
       }
 
-      // Store Stop conditions
+      KeyStopCondition failTest = new KeyStopCondition(Keys.F2, false, null);
+      this.Slide.StopConditions.Add(failTest);
+      foreach (StopCondition cond in this.Slide.StopConditions) { Console.WriteLine(cond.ToString()); }
+
+      // Store the user Stop conditions
       foreach (StopCondition cond in this.lsbStopConditions.Items)
       {
-        slide.StopConditions.Add(cond);
-      }
+        slide.StopConditions.Add(cond);        
+      }   
+
 
       // Store correct responses
       foreach (StopCondition cond in this.lsbCorrectResponses.Items)
@@ -822,6 +827,7 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
         }
       }
 
+
       // Tab Timing
       foreach (StopCondition condition in slide.StopConditions)
       {
@@ -1066,6 +1072,10 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule
                          + "Please try again.";
         ExceptionMethods.ProcessMessage("Add response condition", message);
       }
+
+      KeyStopCondition failTest = new KeyStopCondition(Keys.F2, false, null);
+      this.Slide.StopConditions.Add(failTest);
+      foreach (StopCondition cond in this.Slide.StopConditions) { Console.WriteLine(cond.ToString()); }
         
     }
 

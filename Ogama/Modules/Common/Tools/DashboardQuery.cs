@@ -47,6 +47,12 @@ namespace Ogama.Modules.Common.Tools
             return queryString;            
         }
 
+        public static string CreateTableIfNotExistsWithoutID(string tableName)
+        {
+            string queryString = "CREATE TABLE IF NOT EXISTS " + tableName;
+            return queryString;
+        }
+
         public static string CreateTable(string tableName, string columnDefinition, string columns)
         {
             string queryString = "CREATE TABLE " + tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)";

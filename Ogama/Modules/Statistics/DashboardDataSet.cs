@@ -15,6 +15,10 @@ using Ogama.DataSet;
 using System.Collections;
 using System.Windows.Forms;
 using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
+using VectorGraphics.Elements.ElementCollections;
+using Ogama.Modules.AOI;
+    using VectorGraphics.Elements;
+
 
 
     /// <summary>
@@ -31,6 +35,9 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
         protected FixationsTable fixation;
         protected CalibrationsTable calibration;
         protected TrialEventsTable trialEvents;
+
+        protected AOIS_FixationsTable aoi_fixation;
+        protected AOIS_MouseDownTable aoi_mouseDown;
 
 
         public DashboardDataSet()
@@ -58,6 +65,10 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             fixation = new FixationsTable();
             calibration = new CalibrationsTable();
             trialEvents = new TrialEventsTable();
+            aoi_fixation = new AOIS_FixationsTable();
+            aoi_mouseDown = new AOIS_MouseDownTable();
+            
+
            
         }
         public void populateTables()
@@ -68,16 +79,19 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             // reset the autoincrement for all the tables
             this.resetAutoIncrementForAllTables();
             //insert data
-            int newTestId = testTable.insertData();  
+            int newTestId = testTable.insertData();
             DataTable ogamaTrialTable = Document.ActiveDocument.DocDataSet.TrialsAdapter.GetData();
             var idsTrialsLink = trial.insertData(ogamaTrialTable, newTestId);
             subject.insertData(newTestId);
             var sequnceIds = sequence.insertData(ogamaTrialTable, idsTrialsLink, newTestId);
             var groupIdslink = aoiGroup.insertData(newTestId);
-            aoi.insertData(idsTrialsLink, groupIdslink);
-            fixation.insertData(idsTrialsLink, newTestId);
+            var idsAoisLink = aoi.insertData(idsTrialsLink, groupIdslink);
+            var idsFixationsLink = fixation.insertData(idsTrialsLink, newTestId);
             calibration.insertData(newTestId);
             trialEvents.insertData(idsTrialsLink, newTestId);
+
+            aoi_fixation.insertData(idsAoisLink, idsFixationsLink);
+            aoi_mouseDown.insertData();
             
         }
 
@@ -848,11 +862,12 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             get { return this.tableName; }
         }
 
-        public int[] insertData(Dictionary<int, int> linkToTrials, Dictionary<int, string> linkToGroups)
+        public Dictionary<int, int> insertData(Dictionary<int, int> linkToTrials, Dictionary<int, string> linkToGroups)
         {
             DataTable ogamaAois = Document.ActiveDocument.DocDataSet.AOIsAdapter.GetData();
             connection.Open();
-            int[] linkOldToNewId = new int[ogamaAois.DefaultView.Count + 10];
+            //int[] linkOldToNewId = new int[ogamaAois.DefaultView.Count + 10];
+            Dictionary<int, int> linkOldToNewId = new Dictionary<int, int>();
             string columnsString = colTrialId + ", " + colName + ", " + colType + ", " + colNumPoints + ", " + colPoints + ", " +colGroup;
             using (SQLiteTransaction transaction = connection.BeginTransaction())
             {
@@ -878,7 +893,8 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
                                                 "', '" + aoiRow["ShapePts"].ToString() + "', '" + groupId + "'";
                         command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);                       
                         command.ExecuteNonQuery();
-                        linkOldToNewId[currentid] = DashboardQuery.GetLastID(command);
+                        linkOldToNewId.Add(currentid, DashboardQuery.GetLastID(command));
+                        //linkOldToNewId[currentid] = DashboardQuery.GetLastID(command);
                     }
                 }
                 transaction.Commit();
@@ -1026,6 +1042,157 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             return linkOldIdsToNewIds;
         }
 
+
+    }
+
+    public class AOIS_FixationsTable
+    {
+        private string tableName = "fixation_aoi";
+        private string colAoiId = "aoi_id";
+        private string colFixationId = "fixation_id";
+        SQLiteConnection connection;
+
+        public AOIS_FixationsTable()
+        {
+            connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
+            connection.Open();
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;                
+                   // var columnsNames = DashboardQuery.GetExistingColumns(tableName);
+                    command.CommandText = DashboardQuery.CreateTableIfNotExistsWithoutID(tableName) + "(" + colFixationId + " integer REFERENCES fixations(id) ON DELETE CASCADE,  " + colAoiId + " integer REFERENCES aois(id) ON DELETE CASCADE)";
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Create table " + tableName + " if not exists");
+                }           
+                transaction.Commit();
+            }
+            connection.Close();
+        }
+        
+        public string TableName
+        {
+            get { return this.tableName;}
+        }
+
+        public void insertData(Dictionary<int, int> linkToAois, Dictionary<int, int> linkToFixations )
+        {
+            DataTable ogamaFixations = Document.ActiveDocument.DocDataSet.GazeFixationsAdapter.GetData();
+            DataView fixationsView = new DataView(ogamaFixations);
+            var ogamaAois = new DataView(Document.ActiveDocument.DocDataSet.AOIs);
+            int foregoingTrialId = -1;
+            var AOIs = new VGElementCollection();
+            Dictionary<int, VGElement> aoisColection = new Dictionary<int, VGElement>();
+            connection.Open();
+            string columnsString = colFixationId + ", " + colAoiId;
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    foreach (DataRowView fixationRow in fixationsView)
+                    {
+                        
+                        var trialID = (int)fixationRow["TrialID"];                         
+                        if (trialID != foregoingTrialId)
+                        {
+                            ogamaAois.RowFilter = "TrialID=" + trialID.ToString();
+                            foregoingTrialId = trialID;
+                            AOIs.Clear();
+                            aoisColection.Clear();
+                            foreach (DataRowView row in ogamaAois)
+                            {
+                                string strPtList = row["ShapePts"].ToString();
+                                string aoiType = row["ShapeType"].ToString();
+                                string aoiName = row["ShapeName"].ToString();
+                                string shapeGroup = row["ShapeGroup"].ToString();
+
+                                VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);
+                                AOIs.Add(aoi);
+                                aoisColection.Add(Convert.ToInt32(row["ID"]), aoi);
+                            }
+                        }                                   
+
+                        Dictionary<int, VGElement> fixation_aois = Statistic.FixationOnAOIs(AOIs, fixationRow);
+                        foreach (var fixAoi in fixation_aois)
+                        {         
+                           
+                            //get id from ogama AOIS table 
+                            int oldId, newId;
+                            if (aoisColection.ContainsValue(fixAoi.Value))
+                            {
+                                
+                                //Console.WriteLine(aoisColection.FirstOrDefault(x => x.Value == fixAoi.Value).Key);
+                                oldId = aoisColection.FirstOrDefault(x => x.Value == fixAoi.Value).Key;
+                                newId = linkToAois[oldId];
+                                
+                                string columnsValues = "'" + linkToFixations[fixAoi.Key] + "', '" + newId + "'";
+                                command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        
+                    }  
+                }
+                transaction.Commit();
+            }
+            connection.Close();
+
+           
+            
+           
+
+           // AOIStatistic aoiStat = Statistic.CalcAOIStatistic(fixationsView , AOIs );
+            //foreach(var fixinAoi in aoiStat.FixationsInAOI )
+            //{
+            //    Console.WriteLine(fixinAoi.Key + fixinAoi.Value.Name);
+            //    if(aoisColection.ContainsValue(fixinAoi.Value))
+            //    {
+            //        Console.WriteLine(aoisColection.FirstOrDefault(x=>x.Value == fixinAoi.Value).Key );
+            //    }
+            //}
+            
+           //foreach( var temp in linkToAois)
+           //{
+           //    Console.WriteLine(temp.Key+ " "+temp.Value);
+           //}
+           //connection.Open();
+           //string columnsString = colFixationId + ", " + colAoiId;
+           //using (SQLiteTransaction transaction = connection.BeginTransaction())
+           //{
+           //    using (SQLiteCommand command = new SQLiteCommand(connection))
+           //    {
+           //        command.Transaction = transaction;
+           //        foreach (var fixationAoi in aoiStat.FixationsInAOI)
+           //        {
+
+           //            //get id from ogama AOIS table 
+           //            int oldId, newId;
+           //            if (aoisColection.ContainsValue(fixationAoi.Value))
+           //            {
+           //                Console.WriteLine(fixationAoi.Key + fixationAoi.Value.Name);
+           //                Console.WriteLine(aoisColection.FirstOrDefault(x => x.Value == fixationAoi.Value).Key);
+           //                oldId = aoisColection.FirstOrDefault(x => x.Value == fixationAoi.Value).Key;
+           //                newId = linkToAois[oldId];
+           //                Console.WriteLine(oldId + ".... new "+ newId);
+                          
+
+           //            }
+                       
+
+           //            //string columnsValues = "'" + fixationAoi.Key + "', '" + aoiId + "'";
+           //            //command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
+           //            //command.ExecuteNonQuery();
+
+
+           //        }
+
+           //    }
+           //    transaction.Commit();
+           //}
+           //connection.Close();
+        }
 
     }
 
@@ -1242,6 +1409,60 @@ using Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs;
             }
             Console.WriteLine("Insert data into " + tableName);
             connection.Close();
+        }
+
+    }
+
+
+    public class AOIS_MouseDownTable
+    {
+        private string tableName = "mousedown_aoi";
+        private string colAoiId = "aoi_id";
+        private string colMouseId = "mousedown_id";
+        SQLiteConnection connection;
+
+        public string TableName
+        {
+            get { return this.tableName; }
+        }
+
+        public AOIS_MouseDownTable()
+        {
+            connection = new SQLiteConnection(Document.ActiveDocument.ExperimentSettings.DashboardDbConnectionString);
+            connection.Open();
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    command.CommandText = DashboardQuery.CreateTableIfNotExistsWithoutID(tableName) + "(" + colMouseId + " integer REFERENCES trial_events(id) ON DELETE CASCADE,  " + colAoiId + " integer REFERENCES aois(id) ON DELETE CASCADE)";
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Create table " + tableName + " if not exists");
+                }
+                transaction.Commit();
+            }
+            connection.Close();
+        }
+
+//Dictionary<int, int> linkToAois, Dictionary<int, int> linkToTrialEvents 
+        public void insertData()
+        {
+            var ogamaAois = new DataView(Document.ActiveDocument.DocDataSet.AOIs);
+
+            DataView events = new DataView(Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetData());
+            foreach (DataRowView eventsRow in events)
+            {
+                if (eventsRow["EventType"].ToString() == "Mouse" && eventsRow["EventTask"].ToString() == "Down")
+                {
+                    Console.WriteLine(eventsRow["SubjectName"]);
+                    Console.WriteLine(eventsRow["TrialSequence"]);
+                    //Document.ActiveDocument.DocDataSet.TrialsAdapter.GetDataBySubjectAndSequence
+                }
+            }
+            
+
+            
+
         }
 
     }

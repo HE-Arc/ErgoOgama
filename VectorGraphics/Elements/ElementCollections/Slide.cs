@@ -130,6 +130,14 @@ namespace VectorGraphics.Elements.ElementCollections
       this.category = string.Empty;
       this.TriggerSignal = new Trigger(TriggerSignaling.None, TriggerOutputDevices.LPT, 40, 255, 0x0378);
       this.IdOfPreSlideFixationTrial = -1;
+
+      ////Set default Stop condifion for fail test key: F2;
+      //StopCondition failCondition = new KeyStopCondition(Keys.F2, false, null);
+      //this.StopConditions.Add(failCondition);
+      ////foreach (StopCondition cond in this.StopConditions)
+      ////{
+      ////    Console.WriteLine(cond.ToString());
+      ////}
     }
 
     /// <summary>

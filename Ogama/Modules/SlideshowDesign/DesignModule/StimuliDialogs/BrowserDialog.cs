@@ -401,6 +401,8 @@ namespace Ogama.Modules.SlideshowDesign.DesignModule.StimuliDialogs
           this.lsbStopConditions.Items.Add(ksc);
         }
       }
+
+
     }
 
     /// <summary>

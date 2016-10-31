@@ -34,7 +34,7 @@
     {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SlideDesignModule));
-            System.ComponentModel.StringConverter stringConverter2 = new System.ComponentModel.StringConverter();
+            System.ComponentModel.StringConverter stringConverter1 = new System.ComponentModel.StringConverter();
             this.ofdBackgroundImage = new System.Windows.Forms.OpenFileDialog();
             this.imlCommands = new System.Windows.Forms.ImageList(this.components);
             this.ofdFlashMovie = new System.Windows.Forms.OpenFileDialog();
@@ -890,7 +890,7 @@
             // 
             // gveLayoutDockStyle
             // 
-            this.gveLayoutDockStyle.Converter = stringConverter2;
+            this.gveLayoutDockStyle.Converter = stringConverter1;
             this.gveLayoutDockStyle.Location = new System.Drawing.Point(4, 18);
             this.gveLayoutDockStyle.Name = "gveLayoutDockStyle";
             this.gveLayoutDockStyle.Size = new System.Drawing.Size(82, 20);

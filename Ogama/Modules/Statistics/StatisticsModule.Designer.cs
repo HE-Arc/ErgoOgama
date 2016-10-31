@@ -272,6 +272,8 @@ namespace Ogama.Modules.Statistics
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGVExportTable)).BeginInit();
             this.cmuDGV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTolerance)).BeginInit();
@@ -3036,6 +3038,8 @@ namespace Ogama.Modules.Statistics
             ((System.ComponentModel.ISupportInitialize)(this.bsoMouseFixations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoAOIs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsoParams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoCalibrations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsoFKSubjectsCalibrations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dGVExportTable)).EndInit();
             this.cmuDGV.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTolerance)).EndInit();

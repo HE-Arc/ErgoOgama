@@ -2066,8 +2066,7 @@ namespace Ogama.Modules.Statistics
       int selectedTrial = 0;
       if (!this.bgwCalculateTransitions.IsBusy)
       {
-        // Clear Existing Rows and Columns
-        
+        // Clear Existing Rows and Columns        
         this.dgvTransitions.Rows.Clear();
         this.dgvTransitions.Columns.Clear();
         this.dgvTransitions.Columns.Add("Subjects", "Subjects");

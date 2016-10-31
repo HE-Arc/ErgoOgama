@@ -746,6 +746,7 @@ namespace Ogama.Modules.Recording.Presenter
         }
         else if (condition is KeyStopCondition && response is KeyStopCondition)
         {
+           
           var linkKsc = (KeyStopCondition)condition;
           var responseKsc = (KeyStopCondition)response;
           if (linkKsc.StopKey == responseKsc.StopKey)
@@ -835,6 +836,7 @@ namespace Ogama.Modules.Recording.Presenter
         }
         else if (condition is KeyStopCondition)
         {
+                     
           var ksc = (KeyStopCondition)condition;
           if ((ksc.CanBeAnyInputOfThisType && this.currentKey != Keys.None) || (this.currentKey == ksc.StopKey))
           {
