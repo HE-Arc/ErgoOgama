@@ -88,10 +88,10 @@ using Ogama.Modules.AOI;
             var idsAoisLink = aoi.insertData(idsTrialsLink, groupIdslink);
             var idsFixationsLink = fixation.insertData(idsTrialsLink, newTestId);
             calibration.insertData(newTestId);
-            trialEvents.insertData(idsTrialsLink, newTestId);
+            var idsMouseLink = trialEvents.insertData(idsTrialsLink, newTestId);
 
             aoi_fixation.insertData(idsAoisLink, idsFixationsLink);
-            aoi_mouseDown.insertData();
+            aoi_mouseDown.insertData(idsAoisLink, idsMouseLink);
             
         }
 
@@ -360,11 +360,7 @@ using Ogama.Modules.AOI;
 
         public static Dictionary<int, string> getSlidesImages()
         {
-            //var tree = Document.ActiveDocument.ExperimentSettings.SlideShow.GetNodeNames;
-            //tree.UrlToID.FirstOrDefault(x => x.Value == currentid).Key
-            //get all trials names 
-            // Document.ActiveDocument.ExperimentSettings.SlideShow.GetTrialByID(currentid).Name
-            //Console.WriteLine(Document.ActiveDocument.ExperimentSettings.SlideShow.GetNodeByID(currentid).Slide.VGStimuli);
+            
             Dictionary<int, string> photosNames = new Dictionary<int, string>();
             var nodes = Document.ActiveDocument.ExperimentSettings.SlideShow.Nodes;            
             foreach (TreeNode subNode in nodes)
@@ -1137,61 +1133,7 @@ using Ogama.Modules.AOI;
                 }
                 transaction.Commit();
             }
-            connection.Close();
-
-           
-            
-           
-
-           // AOIStatistic aoiStat = Statistic.CalcAOIStatistic(fixationsView , AOIs );
-            //foreach(var fixinAoi in aoiStat.FixationsInAOI )
-            //{
-            //    Console.WriteLine(fixinAoi.Key + fixinAoi.Value.Name);
-            //    if(aoisColection.ContainsValue(fixinAoi.Value))
-            //    {
-            //        Console.WriteLine(aoisColection.FirstOrDefault(x=>x.Value == fixinAoi.Value).Key );
-            //    }
-            //}
-            
-           //foreach( var temp in linkToAois)
-           //{
-           //    Console.WriteLine(temp.Key+ " "+temp.Value);
-           //}
-           //connection.Open();
-           //string columnsString = colFixationId + ", " + colAoiId;
-           //using (SQLiteTransaction transaction = connection.BeginTransaction())
-           //{
-           //    using (SQLiteCommand command = new SQLiteCommand(connection))
-           //    {
-           //        command.Transaction = transaction;
-           //        foreach (var fixationAoi in aoiStat.FixationsInAOI)
-           //        {
-
-           //            //get id from ogama AOIS table 
-           //            int oldId, newId;
-           //            if (aoisColection.ContainsValue(fixationAoi.Value))
-           //            {
-           //                Console.WriteLine(fixationAoi.Key + fixationAoi.Value.Name);
-           //                Console.WriteLine(aoisColection.FirstOrDefault(x => x.Value == fixationAoi.Value).Key);
-           //                oldId = aoisColection.FirstOrDefault(x => x.Value == fixationAoi.Value).Key;
-           //                newId = linkToAois[oldId];
-           //                Console.WriteLine(oldId + ".... new "+ newId);
-                          
-
-           //            }
-                       
-
-           //            //string columnsValues = "'" + fixationAoi.Key + "', '" + aoiId + "'";
-           //            //command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
-           //            //command.ExecuteNonQuery();
-
-
-           //        }
-
-           //    }
-           //    transaction.Commit();
-           //}
-           //connection.Close();
+            connection.Close();      
         }
 
     }
@@ -1369,11 +1311,12 @@ using Ogama.Modules.AOI;
 
         }
 
-        public void insertData(Dictionary<int, int> linkToTrials, int testId)
+        public Dictionary<int, int> insertData(Dictionary<int, int> linkToTrials, int testId)
         {
             DataTable ogamaTrialEvents = Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetData();            
             connection.Open();            
             string columnsString = colSequenceId + ", " + colTime + ", " + colType + ", " + colTask + ", " + colParam ;
+            Dictionary<int, int> linkOldIdsToNewIds = new Dictionary<int, int>();
             using (SQLiteTransaction transaction = connection.BeginTransaction())
             {
                 using (SQLiteCommand command = new SQLiteCommand(connection))
@@ -1381,7 +1324,8 @@ using Ogama.Modules.AOI;
                     command.Transaction = transaction;
                     foreach (DataRow events in ogamaTrialEvents.Rows)
                     {
-                        // get data from ogama trial_events table                       
+                        // get data from ogama trial_events table    
+                        int currentid = Convert.ToInt16(events["ID"]);
                         string subjectName = events["SubjectName"].ToString();                        
                         string sequence = events["TrialSequence"].ToString();
 
@@ -1402,6 +1346,7 @@ using Ogama.Modules.AOI;
                                                 "', '" + events["EventParam"].ToString() + "'";
                         command.CommandText = DashboardQuery.InsertData(tableName, columnsString, values);
                         command.ExecuteNonQuery();
+                        linkOldIdsToNewIds.Add(currentid, DashboardQuery.GetLastID(command));
                         
                     }
                 }
@@ -1409,6 +1354,9 @@ using Ogama.Modules.AOI;
             }
             Console.WriteLine("Insert data into " + tableName);
             connection.Close();
+
+            return linkOldIdsToNewIds;
+
         }
 
     }
@@ -1444,23 +1392,71 @@ using Ogama.Modules.AOI;
             connection.Close();
         }
 
-//Dictionary<int, int> linkToAois, Dictionary<int, int> linkToTrialEvents 
-        public void insertData()
+
+        public void insertData(Dictionary<int, int> linkToAois, Dictionary<int, int> linkToTrialEvents )
         {
             var ogamaAois = new DataView(Document.ActiveDocument.DocDataSet.AOIs);
 
             DataView events = new DataView(Document.ActiveDocument.DocDataSet.TrialEventsAdapter.GetData());
-            foreach (DataRowView eventsRow in events)
-            {
-                if (eventsRow["EventType"].ToString() == "Mouse" && eventsRow["EventTask"].ToString() == "Down")
-                {
-                    Console.WriteLine(eventsRow["SubjectName"]);
-                    Console.WriteLine(eventsRow["TrialSequence"]);
-                    //Document.ActiveDocument.DocDataSet.TrialsAdapter.GetDataBySubjectAndSequence
-                }
-            }
-            
+            var AOIs = new VGElementCollection();
+            Dictionary<int, VGElement> aoisColection = new Dictionary<int, VGElement>();
 
+            connection.Open();
+            string columnsString = colMouseId + ", " + colAoiId;
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    foreach (DataRowView eventsRow in events)
+                    {
+                        if (eventsRow["EventType"].ToString() == "Mouse" && eventsRow["EventTask"].ToString() == "Down")
+                        {
+                            
+                            var trials = new DataView(Document.ActiveDocument.DocDataSet.TrialsAdapter.GetDataBySubjectAndSequence(eventsRow["SubjectName"].ToString(), Convert.ToInt16(eventsRow["TrialSequence"])));
+                            foreach(DataRowView trial in trials )
+                            {
+                                
+                                ogamaAois.RowFilter = "TrialID=" + trial["TrialID"].ToString();
+                                AOIs.Clear();
+                                aoisColection.Clear();
+                                foreach (DataRowView row in ogamaAois)
+                                {
+                                    string strPtList = row["ShapePts"].ToString();
+                                    string aoiType = row["ShapeType"].ToString();
+                                    string aoiName = row["ShapeName"].ToString();
+                                    string shapeGroup = row["ShapeGroup"].ToString();
+
+                                    VGElement aoi = Queries.GetVGElementFromDatabase(aoiType, aoiName, shapeGroup, strPtList);
+                                    AOIs.Add(aoi);
+                                    aoisColection.Add(Convert.ToInt32(row["ID"]), aoi);
+                                }                        
+                            }
+                            Dictionary<int, VGElement> mouse_aois = Statistic.MouseDownOnAOIs(AOIs, eventsRow);
+                            foreach (var mouseAoi in mouse_aois)
+                            {
+                               
+                                //get id from ogama AOIS table 
+                                int oldId, newId;
+                                if (aoisColection.ContainsValue(mouseAoi.Value))
+                                {
+                                    
+                                    oldId = aoisColection.FirstOrDefault(x => x.Value == mouseAoi.Value).Key;
+                                    newId = linkToAois[oldId];
+
+                                    string columnsValues = "'" + linkToTrialEvents[mouseAoi.Key] + "', '" + newId + "'";
+                                    command.CommandText = DashboardQuery.InsertData(tableName, columnsString, columnsValues);
+                                    command.ExecuteNonQuery();
+                                }
+
+                            }
+                    
+                        }
+                    }            
+                }
+                transaction.Commit();
+            }
+            connection.Close();
             
 
         }

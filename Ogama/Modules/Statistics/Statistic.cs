@@ -266,6 +266,31 @@ namespace Ogama.Modules.Statistics
         return fixationAois;
     }
 
+    public static Dictionary<int, VGElement> MouseDownOnAOIs(VGElementCollection aoiCollection, DataRowView eventsRow)
+    {
+        Dictionary<int, VGElement> mouseAois = new Dictionary<int, VGElement>();
+
+        string pointsString = eventsRow["EventParam"].ToString();
+        string[] items = pointsString.Trim().Split(' ');
+
+        // items[0] = Mouse:  ; items[1] = Left ; items[2] = (xxx,yyyy)
+        string newPoint = items[2].Substring(items[2].IndexOf('(', 0) + 1);
+        newPoint = newPoint.Replace(")", string.Empty);
+        string[] numbers = newPoint.Trim().Split(',');
+        PointF searchPoint = new PointF(Convert.ToSingle(numbers[0]), Convert.ToSingle(numbers[1]));
+
+        foreach (VGElement aoiElement in aoiCollection)
+        {
+            if (aoiElement.Contains(searchPoint, tolerance))
+            {
+                mouseAois.Add(Convert.ToInt16(eventsRow["ID"]), aoiElement);
+            }
+        }
+
+        return mouseAois;
+    }
+    
+
     /// <summary>
     /// This method calculates the transition matrix
     /// of the given trial between the AOIs of this trial.
